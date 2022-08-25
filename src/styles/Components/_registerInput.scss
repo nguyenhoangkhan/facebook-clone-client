@@ -1,0 +1,14 @@
+.reg_line {
+  width: 100%;
+}
+.reg_col {
+  padding: unset;
+}
+.input_register_wrap {
+  margin-bottom: 0;
+  width: 100% !important;
+  input {
+    margin-bottom: 0;
+    width: 100%;
+  }
+}
