@@ -10,7 +10,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 import * as actions from "../../../redux/actions";
-import RegisterInput from "../../../components/Inputs/registerInput";
+import RegisterInput from "../../../components/Inputs/RegisterInput";
 import DateOfBirthSelect from "../DateOfBirthSelect";
 import GenderSelect from "../GenderSelect";
 

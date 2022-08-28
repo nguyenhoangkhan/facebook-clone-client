@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 
 import * as actions from "../../../redux/actions";
-import LoginInput from "../../../components/Inputs/loginInput";
+import LoginInput from "../../Inputs/LoginInput";
 
 const LoginForm = ({ setShowRegister }) => {
   const dispatch = useDispatch();
