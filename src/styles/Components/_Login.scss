@@ -63,6 +63,19 @@
     text-decoration: underline;
   }
 }
+/*----dob and gender errors-----*/
+.reg_grid .input_error {
+  // width: 300px;
+  width: 100%;
+  position: absolute;
+  top: 70px;
+  z-index: 11;
+}
+.input_error_select_large {
+  left: -103%;
+  top: 15px !important;
+}
+/*----dob and gender errors-----*/
 
 /*----Footer------*/
 .login_footer {

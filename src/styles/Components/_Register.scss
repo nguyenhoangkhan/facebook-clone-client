@@ -12,6 +12,7 @@
   width: 350px;
   height: fit-content;
   color: var(--color-primary);
+  z-index: 99;
 }
 .register_header {
   position: relative;
@@ -35,6 +36,26 @@
   font-size: 15px;
   color: var(--color-secondary);
 }
+
+// Error Text
+.error-text {
+  background-color: #ffebe8;
+  border: 1px solid #e1522b;
+  padding: 10px;
+  margin-bottom: 4px;
+  font-weight: bold;
+  font-size: 15px;
+}
+.success-text {
+  background-color: #e1f9e0;
+  border: 1px solid green;
+  padding: 10px;
+  margin-bottom: 4px;
+  font-weight: bold;
+  font-size: 15px;
+}
+// Error Text
+
 .register_form {
   width: 100%;
   display: flex;
@@ -44,7 +65,13 @@
 .reg_line {
   padding: 7px 0;
   display: flex;
+  align-items: center;
   flex-direction: column;
+  gap: 10px;
+}
+.reg_line_desktop {
+  padding: 7px 0;
+  display: flex;
   align-items: center;
   gap: 10px;
 }
@@ -120,7 +147,15 @@
   align-items: center;
   justify-content: center;
   margin: 20px 0 10px 0;
+  .loading-register {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px 0 0 10px;
+  }
 }
+
 /*----Register------*/
 
 // Media Queries

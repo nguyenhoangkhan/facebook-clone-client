@@ -2,18 +2,34 @@ import { Form, Formik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import Tippy from "@tippyjs/react/headless";
+import { useMediaQuery } from "react-responsive";
+import PulseLoader from "react-spinners/PulseLoader";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
+import * as actions from "../../../redux/actions";
 import RegisterInput from "../../../components/Inputs/registerInput";
+import DateOfBirthSelect from "../DateOfBirthSelect";
+import GenderSelect from "../GenderSelect";
 
 const RegisterForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const desktopView = useMediaQuery({
+    query: "(min-width: 850px)",
+  });
+
   const userInfos = {
     first_name: "",
     last_name: "",
     email: "",
     password: "",
-    bYear: "",
-    bMonth: "",
-    bDay: "",
+    bYear: new Date().getFullYear(),
+    bMonth: new Date().getMonth(),
+    bDay: new Date().getDate(),
     gender: "",
   };
 
@@ -35,9 +51,20 @@ const RegisterForm = () => {
     setUser({ ...user, [name]: value });
   };
 
+  const [errorBirthDay, setErrorBirthDay] = useState("");
+  const [errorGender, setErrorGender] = useState("");
+
+  const [errorRegister, setErrorRegister] = useState("");
+  const [successRegister, setSuccessRegister] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const validationRegister = Yup.object({
-    first_name: Yup.string().required("Tên bạn là gì ?"),
-    last_name: Yup.string().required("Tên bạn là gì ?"),
+    first_name: Yup.string()
+      .required("Tên bạn là gì ?")
+      .matches(/^[aA-zZ]+$/, "Tên chứa kí tự không hợp lệ"),
+    last_name: Yup.string()
+      .required("Tên bạn là gì ?")
+      .matches(/^[aA-zZ]+$/, "Họ chứa kí tự không hợp lệ"),
     email: Yup.string()
       .required(
         "Bạn sẽ sử dụng thông tin này khi đăng nhập và khi cần đặt lại mật khẩu"
@@ -56,6 +83,41 @@ const RegisterForm = () => {
       ),
   });
 
+  const registerSubmit = async () => {
+    const serverURL = process.env.REACT_APP_BACKEND_URL;
+    console.log(serverURL);
+    try {
+      setLoading(true);
+
+      const { data } = await axios.post(serverURL + "/register", {
+        first_name,
+        last_name,
+        email,
+        password,
+        bYear,
+        bMonth,
+        bDay,
+        gender,
+      });
+
+      setErrorRegister("");
+      setSuccessRegister(data.message);
+      setLoading(false);
+
+      setTimeout(() => {
+        const { message, ...rest } = data;
+        console.log(rest);
+        dispatch(actions.LOGIN(rest));
+        // Cookies.set("user", JSON.stringify(rest));
+        navigate("/");
+      }, 2000);
+    } catch (err) {
+      setSuccessRegister("");
+      setErrorRegister(err.response.data.message);
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="blur">
       <div className="register">
@@ -64,6 +126,10 @@ const RegisterForm = () => {
           <span>Đăng ký</span>
           <span>Nhanh chóng và dễ dàng.</span>
         </div>
+        {errorRegister && <div className="error-text">{errorRegister}</div>}
+        {successRegister && (
+          <div className="success-text">{successRegister}</div>
+        )}
         <Formik
           enableReinitialize
           initialValues={{
@@ -77,10 +143,37 @@ const RegisterForm = () => {
             gender,
           }}
           validationSchema={validationRegister}
+          onSubmit={() => {
+            let current_date = new Date();
+            let picked_date = new Date(bYear, bMonth - 1, bDay);
+            const least14yearsold = new Date(1970 + 14, 0, 1);
+            const moreThan70yearsold = new Date(1970 + 70, 0, 1);
+
+            if (current_date - picked_date < least14yearsold) {
+              setErrorBirthDay(
+                "Hình như bạn nhập sai thông tin, hãy nhớ dùng ngày sinh thật của mình nhé"
+              );
+            } else if (current_date - picked_date > moreThan70yearsold) {
+              setErrorBirthDay(
+                "Hình như bạn nhập sai thông tin, hãy nhớ dùng ngày sinh thật của mình nhé"
+              );
+            } else {
+              setErrorBirthDay("");
+            }
+
+            if (gender === "") {
+              setErrorGender(
+                "Vui lòng chọn giới tính. Bạn có thể chọn người có thể xem nội dung này sau"
+              );
+            } else {
+              setErrorGender("");
+            }
+            registerSubmit();
+          }}
         >
           {(formik) => (
             <Form className="register_form">
-              <div className="reg_line">
+              <div className={desktopView ? "reg_line_desktop" : "reg_line"}>
                 <RegisterInput
                   type="text"
                   placeholder="Tên"
@@ -88,6 +181,7 @@ const RegisterForm = () => {
                   onChange={handleRegisterChange}
                 />
                 <RegisterInput
+                  right
                   type="text"
                   placeholder="Họ"
                   name="last_name"
@@ -130,17 +224,11 @@ const RegisterForm = () => {
                     <i className="info_icon"></i>
                   </Tippy>
                 </div>
-                <div className="reg_grid">
-                  <select name="bDay">
-                    <option>15</option>
-                  </select>
-                  <select name="bMonth">
-                    <option>15</option>
-                  </select>
-                  <select name="bYear">
-                    <option>15</option>
-                  </select>
-                </div>
+                <DateOfBirthSelect
+                  user={user}
+                  handleRegisterChange={handleRegisterChange}
+                  errorBirthDay={errorBirthDay}
+                />
               </div>
               <div className="reg_col">
                 <div className="reg_line_header">
@@ -160,38 +248,10 @@ const RegisterForm = () => {
                     <i className="info_icon"></i>
                   </Tippy>
                 </div>
-                <div className="reg_grid">
-                  <label htmlFor="male">
-                    Nam
-                    <input
-                      type="radio"
-                      name="gender"
-                      id="male"
-                      value="male"
-                      onChange={handleRegisterChange}
-                    />
-                  </label>
-                  <label htmlFor="female">
-                    Nữ
-                    <input
-                      type="radio"
-                      name="gender"
-                      id="female"
-                      value="female"
-                      onChange={handleRegisterChange}
-                    />
-                  </label>
-                  <label htmlFor="custom">
-                    Tùy chỉnh
-                    <input
-                      type="radio"
-                      name="gender"
-                      id="custom"
-                      value="custom"
-                      onChange={handleRegisterChange}
-                    />
-                  </label>
-                </div>
+                <GenderSelect
+                  handleRegisterChange={handleRegisterChange}
+                  errorGender={errorGender}
+                />
               </div>
               <div className="reg_infos">
                 Người dùng dịch vụ của chúng tôi có thể đã tải thông tin liên hệ
@@ -204,7 +264,14 @@ const RegisterForm = () => {
                 được thông báo của chúng tôi qua SMS và hủy nhận bất kỳ lúc nào.
               </div>
               <div className="reg_btn_wrapper">
-                <button className="blue_btn open_signup">Đăng ký</button>
+                <button type="submit" className="blue_btn open_signup">
+                  Đăng ký
+                </button>
+                {loading && (
+                  <div className="loading-register">
+                    <PulseLoader size={6} color="#42b72a" />
+                  </div>
+                )}
               </div>
             </Form>
           )}

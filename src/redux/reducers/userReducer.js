@@ -1,6 +1,9 @@
-const initialState = {};
+import Cookies from "js-cookie";
 
-const userReducer = (state = initialState, action) => {
+const userReducer = (
+  state = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null,
+  action
+) => {
   switch (action.type) {
     case "LOGIN":
       return action.payload;
