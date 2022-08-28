@@ -19,7 +19,6 @@ const LoginInput = ({ placeholder, ...props }) => {
           name={field.name}
         />
       )}
-
       {meta.touched && meta.error && <i className="error_icon"></i>}
     </div>
   );

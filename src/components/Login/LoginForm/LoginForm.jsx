@@ -2,10 +2,18 @@ import { Formik, Form } from "formik";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import * as Yup from "yup";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 
+import * as actions from "../../../redux/actions";
 import LoginInput from "../../../components/Inputs/loginInput";
 
-const LoginForm = () => {
+const LoginForm = ({ setShowRegister }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const loginInfos = {
     email: "",
     password: "",
@@ -14,10 +22,9 @@ const LoginForm = () => {
   const [login, setLogin] = useState(loginInfos);
   const { email, password } = login;
 
-  const handleLoginChange = (e) => {
-    const { name, value } = e.target;
-    setLogin({ ...login, [name]: value });
-  };
+  const [errorLogin, setErrorLogin] = useState("");
+  const [successLogin, setSuccessLogin] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const loginValidation = Yup.object({
     email: Yup.string()
@@ -28,6 +35,37 @@ const LoginForm = () => {
       .max(100),
     password: Yup.string().required("Bạn cần nhập mật khẩu"),
   });
+
+  const handleLoginChange = (e) => {
+    const { name, value } = e.target;
+    setLogin({ ...login, [name]: value });
+  };
+
+  const handleLoginSubmit = async () => {
+    try {
+      const serverURL = process.env.REACT_APP_BACKEND_URL;
+      setLoading(true);
+
+      const { data } = await axios.post(serverURL + "/login", {
+        email,
+        password,
+      });
+
+      setErrorLogin("");
+      setSuccessLogin(data.message);
+      setTimeout(() => {
+        const { message, ...rest } = data;
+        dispatch(actions.LOGIN(rest));
+        Cookies.set("user", JSON.stringify(rest));
+        navigate("/");
+        setLoading(false);
+      }, 1000);
+    } catch (err) {
+      setLoading(false);
+      setSuccessLogin("");
+      setErrorLogin(err.response.data.message);
+    }
+  };
 
   return (
     <div className="login_wrap">
@@ -40,6 +78,7 @@ const LoginForm = () => {
       </div>
       <div className="login_2">
         <div className="login_2_wrap">
+          {errorLogin && <div className="error-text">{errorLogin}</div>}
           <Formik
             enableReinitialize
             initialValues={{
@@ -47,6 +86,7 @@ const LoginForm = () => {
               password,
             }}
             validationSchema={loginValidation}
+            onSubmit={() => handleLoginSubmit}
           >
             {(formik) => (
               <Form>
@@ -62,7 +102,11 @@ const LoginForm = () => {
                   placeholder="Mật khẩu"
                   onChange={(e) => handleLoginChange(e)}
                 />
-                <button type="submit" className="blue_btn">
+                <button
+                  type="submit"
+                  className="blue_btn"
+                  onClick={handleLoginSubmit}
+                >
                   Đăng nhập
                 </button>
               </Form>
@@ -72,7 +116,12 @@ const LoginForm = () => {
             Quên mật khẩu ?
           </Link>
           <div className="sign_splitter"></div>
-          <button className="blue_btn open_signup">Tạo tài khoản mới</button>
+          <button
+            className="blue_btn open_signup "
+            onClick={() => setShowRegister(true)}
+          >
+            Tạo tài khoản mới
+          </button>
         </div>
         <Link to="/" className="sign_extra">
           <b>Tạo Trang </b>

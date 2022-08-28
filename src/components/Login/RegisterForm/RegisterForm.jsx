@@ -14,7 +14,7 @@ import RegisterInput from "../../../components/Inputs/registerInput";
 import DateOfBirthSelect from "../DateOfBirthSelect";
 import GenderSelect from "../GenderSelect";
 
-const RegisterForm = () => {
+const RegisterForm = ({ setShowRegister }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -84,9 +84,8 @@ const RegisterForm = () => {
   });
 
   const registerSubmit = async () => {
-    const serverURL = process.env.REACT_APP_BACKEND_URL;
-    console.log(serverURL);
     try {
+      const serverURL = process.env.REACT_APP_BACKEND_URL;
       setLoading(true);
 
       const { data } = await axios.post(serverURL + "/register", {
@@ -102,14 +101,14 @@ const RegisterForm = () => {
 
       setErrorRegister("");
       setSuccessRegister(data.message);
-      setLoading(false);
 
       setTimeout(() => {
         const { message, ...rest } = data;
-        console.log(rest);
+
         dispatch(actions.LOGIN(rest));
-        // Cookies.set("user", JSON.stringify(rest));
+        Cookies.set("user", JSON.stringify(rest));
         navigate("/");
+        setLoading(false);
       }, 2000);
     } catch (err) {
       setSuccessRegister("");
@@ -122,7 +121,7 @@ const RegisterForm = () => {
     <div className="blur">
       <div className="register">
         <div className="register_header">
-          <i className="exit_icon"></i>
+          <i className="exit_icon" onClick={() => setShowRegister(false)}></i>
           <span>Đăng ký</span>
           <span>Nhanh chóng và dễ dàng.</span>
         </div>
