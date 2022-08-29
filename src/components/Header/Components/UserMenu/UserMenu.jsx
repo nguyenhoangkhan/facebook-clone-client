@@ -1,19 +1,30 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import {
   SettingsPrivacy,
   HelpSupport,
   DisplayAccessibility,
 } from "./Components";
+import { useClickOutside } from "../../../../Hooks";
 
-const UserMenu = ({ user }) => {
+const UserMenu = ({ user, isShowUserMenu, setIsShowUserMenu }) => {
   const [visible, setVisible] = useState(0);
+  const userMenuRef = useRef(null);
+
+  useClickOutside(userMenuRef, () => {
+    document.onclick = (e) => {
+      if (e.target.getAttribute("class")?.includes("user-menu-btn")) {
+        return;
+      }
+
+      setIsShowUserMenu(false);
+    };
+  });
 
   return (
-    <div className="mmenu">
-      {visible === 0 && (
+    <div className="mmenu" ref={userMenuRef}>
+      {visible === 0 && isShowUserMenu && (
         <div>
           <Link to="/profile" className="mmenu_header hover3">
             <img src={user?.picture} alt="" />
@@ -42,7 +53,7 @@ const UserMenu = ({ user }) => {
             <div className="small_circle">
               <i className="settings_filled_icon"></i>
             </div>
-            <span>Settings & privacy</span>
+            <span>Cài đặt & quyền riêng tư</span>
             <div className="rArrow">
               <i className="right_icon"></i>
             </div>
@@ -73,9 +84,15 @@ const UserMenu = ({ user }) => {
           </div>
         </div>
       )}
-      {visible === 1 && <SettingsPrivacy setVisible={setVisible} />}
-      {visible === 2 && <HelpSupport setVisible={setVisible} />}
-      {visible === 3 && <DisplayAccessibility setVisible={setVisible} />}
+      {visible === 1 && isShowUserMenu && (
+        <SettingsPrivacy setVisible={setVisible} />
+      )}
+      {visible === 2 && isShowUserMenu && (
+        <HelpSupport setVisible={setVisible} />
+      )}
+      {visible === 3 && isShowUserMenu && (
+        <DisplayAccessibility setVisible={setVisible} />
+      )}
     </div>
   );
 };

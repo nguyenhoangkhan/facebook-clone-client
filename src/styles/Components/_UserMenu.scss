@@ -15,7 +15,7 @@
   align-items: center;
   padding: 5px;
   border-radius: 10px;
-  gap: 10px;
+  gap: 20px;
 }
 .mmenu_header img {
   width: 60px;
@@ -58,6 +58,7 @@
   color: var(--color-secondary);
 }
 .mmenu_item {
+  height: 48px;
   position: relative;
   display: flex;
   align-items: center;
@@ -67,12 +68,27 @@
   font-size: 1.6rem;
   border-radius: 10px;
   gap: 12px;
+  &:hover {
+    background-color: var(--bg-secondary);
+    transition: 0.3s;
+  }
 }
 .small_circle {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+// Hover
+.hover1:hover {
+  transition: 0.3s;
+  background-color: var(--bg-secondary);
+}
+.hover3:hover {
+  transition: 0.3s;
+  background-color: var(--bg-secondary);
+}
+// Hover
 .rArrow {
   display: flex;
   align-items: center;

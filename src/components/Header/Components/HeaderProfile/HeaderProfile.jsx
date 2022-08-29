@@ -15,6 +15,7 @@ import UserMenu from "../UserMenu/UserMenu";
 const HeaderProfile = () => {
   const { user } = useSelector(selectors.user);
   const [isShowMenuList, setIsShowMenuList] = useState(false);
+  const [isShowUserMenu, setIsShowUserMenu] = useState(false);
 
   const handleShowMenuList = () => {
     setIsShowMenuList(!isShowMenuList);
@@ -41,14 +42,23 @@ const HeaderProfile = () => {
         <Notifications />
         <div className="right_notification">5</div>
       </div>
-      <div className="circle_icon hover1">
-        <ArrowDown />
-        <UserMenu user={user} />
+      <div
+        className="circle_icon hover1 user-menu-btn"
+        onClick={() => setIsShowUserMenu(!isShowUserMenu)}
+      >
+        <ArrowDown className="user-menu-btn" />
       </div>
       {isShowMenuList && (
         <MenuList
           isShowMenuList={isShowMenuList}
           setIsShowMenuList={setIsShowMenuList}
+        />
+      )}
+      {isShowUserMenu && (
+        <UserMenu
+          user={user}
+          setIsShowUserMenu={setIsShowUserMenu}
+          isShowUserMenu={isShowUserMenu}
         />
       )}
     </div>
