@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import {
   Friends,
@@ -13,22 +13,22 @@ const MiddleIcon = () => {
 
   return (
     <div className="middle-icon-wrapper">
-      <Link to="/" className="middle_icon active">
+      <NavLink to="/" className="middle_icon">
         <HomeActive />
-      </Link>
-      <Link to="/" className="middle_icon hover1">
+      </NavLink>
+      <NavLink to="/groups" className="middle_icon hover1">
         <Friends color={color} />
-      </Link>
-      <Link to="/" className="middle_icon hover1">
+      </NavLink>
+      <NavLink to="/watch" className="middle_icon hover1">
         <Watch color={color} />
         <div className="middle_notification">9+</div>
-      </Link>
-      <Link to="/" className="middle_icon hover1">
+      </NavLink>
+      <NavLink to="/marketplace" className="middle_icon hover1">
         <Market color={color} />
-      </Link>
-      <Link to="/" className="middle_icon hover1">
+      </NavLink>
+      <NavLink to="/gaming" className="middle_icon hover1">
         <Gaming color={color} />
-      </Link>
+      </NavLink>
     </div>
   );
 };
