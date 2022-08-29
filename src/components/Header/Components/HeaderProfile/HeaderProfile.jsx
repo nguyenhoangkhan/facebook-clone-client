@@ -15,7 +15,6 @@ import UserMenu from "../UserMenu/UserMenu";
 const HeaderProfile = () => {
   const { user } = useSelector(selectors.user);
   const [isShowMenuList, setIsShowMenuList] = useState(false);
-  const [rect, setRect] = useState({});
 
   const handleShowMenuList = () => {
     setIsShowMenuList(!isShowMenuList);
