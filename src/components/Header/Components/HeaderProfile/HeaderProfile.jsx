@@ -49,7 +49,6 @@ const HeaderProfile = () => {
         <MenuList
           isShowMenuList={isShowMenuList}
           setIsShowMenuList={setIsShowMenuList}
-          rect={rect}
         />
       )}
     </div>
