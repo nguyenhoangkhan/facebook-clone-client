@@ -5,9 +5,11 @@
 }
 body {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  overflow: hidden;
 }
 html {
   overflow-y: scroll;
+  font-size: 62.5%;
 }
 a {
   text-decoration: none;

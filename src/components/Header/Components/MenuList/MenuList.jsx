@@ -4,11 +4,16 @@ import { menu, create } from "../../../../assets/data/menu";
 import MenuItem from "./Components/MenuItem";
 import { useClickOutside } from "../../../../Hooks";
 
-const MenuList = ({ isShowMenuList, setIsShowMenuList }) => {
+const MenuList = ({ rect, isShowMenuList, setIsShowMenuList }) => {
   const allMenuRef = useRef(null);
 
   useClickOutside(allMenuRef, () => {
-    setIsShowMenuList(!isShowMenuList);
+    document.onclick = (e) => {
+      if (e.target.getAttribute("class")?.includes("menu-list-btn")) {
+        return;
+      }
+      setIsShowMenuList(false);
+    };
   });
 
   return (

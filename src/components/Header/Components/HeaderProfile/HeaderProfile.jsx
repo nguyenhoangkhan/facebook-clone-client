@@ -10,10 +10,12 @@ import {
   Notifications,
 } from "../../../../assets/svg";
 import MenuList from "../MenuList";
+import UserMenu from "../UserMenu/UserMenu";
 
 const HeaderProfile = () => {
   const { user } = useSelector(selectors.user);
   const [isShowMenuList, setIsShowMenuList] = useState(false);
+  const [rect, setRect] = useState({});
 
   const handleShowMenuList = () => {
     setIsShowMenuList(!isShowMenuList);
@@ -25,8 +27,13 @@ const HeaderProfile = () => {
         <img src={user?.picture} alt="" />
         <span>{user?.first_name}</span>
       </Link>
-      <div className="circle_icon hover1" onClick={handleShowMenuList}>
-        <Menu />
+      <div
+        className="circle_icon hover1 menu-list-btn"
+        onClick={() => {
+          handleShowMenuList();
+        }}
+      >
+        <Menu className="menu-list-btn" />
       </div>
       <div className="circle_icon hover1">
         <Messenger />
@@ -37,11 +44,13 @@ const HeaderProfile = () => {
       </div>
       <div className="circle_icon hover1">
         <ArrowDown />
+        <UserMenu user={user} />
       </div>
       {isShowMenuList && (
         <MenuList
           isShowMenuList={isShowMenuList}
           setIsShowMenuList={setIsShowMenuList}
+          rect={rect}
         />
       )}
     </div>

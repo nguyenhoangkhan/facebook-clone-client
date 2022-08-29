@@ -1,1 +1,1 @@
-export const user = (user) => ({ ...user });
+export const user = (user) => user;
