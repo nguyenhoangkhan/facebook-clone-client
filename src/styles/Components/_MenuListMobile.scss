@@ -1,0 +1,30 @@
+.menu-list-mobile-wrapper {
+  position: absolute;
+  background-color: red;
+  top: 57px;
+  right: 0;
+  left: 0;
+  height: fit-content;
+  background-color: #f7f8fa;
+  padding: 0 8px;
+  min-height: 100vh;
+  .menu-list-mobile {
+    height: 100%;
+    overflow: auto !important;
+  }
+  .menu-item-img {
+    border-radius: 8px;
+  }
+  .all_menu_group_mobile {
+    padding: 10px 0;
+    margin: 10px 0;
+    .all_menu_header-mobile__short-cut-header {
+      font-size: 1.6rem;
+      color: #787774;
+      font-weight: 600;
+      display: inline-block;
+      transform: translateY(-7px);
+      padding: 5px;
+    }
+  }
+}

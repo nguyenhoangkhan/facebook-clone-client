@@ -21,8 +21,14 @@ import Public from "./public";
 import NewRoom from "./newRoom";
 import Home from "./home";
 import FriendsActive from "./friendsActive";
+import Bar from "./bar";
+import arrowDownThin from "./arrowDownThin";
+import arrowUpThin from "./arrowUpThin";
 
 export {
+  arrowUpThin,
+  arrowDownThin,
+  Bar,
   Logo,
   HomeActive,
   Friends,
