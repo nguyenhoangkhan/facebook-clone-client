@@ -28,7 +28,9 @@ const HeaderProfile = () => {
         <span>{user?.first_name}</span>
       </Link>
       <div
-        className="circle_icon hover1 menu-list-btn"
+        className={`circle_icon hover1 menu-list-btn ${
+          isShowMenuList && "header-profile__active"
+        } `}
         onClick={() => {
           handleShowMenuList();
         }}
@@ -43,7 +45,9 @@ const HeaderProfile = () => {
         <div className="right_notification">5</div>
       </div>
       <div
-        className="circle_icon hover1 user-menu-btn"
+        className={`circle_icon hover1 user-menu-btn ${
+          isShowUserMenu && "header-profile__active"
+        }`}
         onClick={() => setIsShowUserMenu(!isShowUserMenu)}
       >
         <ArrowDown className="user-menu-btn" />

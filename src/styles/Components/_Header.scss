@@ -156,6 +156,15 @@ header {
     padding: 5px;
   }
 }
+.header-profile__active {
+  background-color: var(--light-blue-color);
+  svg {
+    fill: var(--blue-color);
+  }
+  &:hover {
+    background-color: var(--light-blue-color) !important;
+  }
+}
 // Responsive
 @media (max-width: 1295px) {
   .middle_icon {

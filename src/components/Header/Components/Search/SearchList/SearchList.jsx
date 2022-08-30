@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Return, Search } from "../../../../../assets/svg";
 import { useClickOutside } from "../../../../../Hooks";
 
-const SearchList = ({ color, setShowSearchList, isShowSearchList }) => {
+const SearchList = ({ color, setShowSearchList }) => {
   const [iconVisible, setIconVisible] = useState(true);
 
   const menuRef = useRef(null);
@@ -16,7 +16,6 @@ const SearchList = ({ color, setShowSearchList, isShowSearchList }) => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-  console.log(isShowSearchList);
   return (
     <div className="search-wrapper search_area scrollbar" ref={menuRef}>
       <div className="search_wrap">
