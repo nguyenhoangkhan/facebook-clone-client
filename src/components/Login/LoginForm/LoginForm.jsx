@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
+import PulseLoader from "react-spinners/PulseLoader";
 
 import * as actions from "../../../redux/actions";
 import LoginInput from "../../Inputs/LoginInput";
@@ -107,7 +108,13 @@ const LoginForm = ({ setShowRegister }) => {
                   className="blue_btn"
                   onClick={handleLoginSubmit}
                 >
-                  Đăng nhập
+                  {loading ? (
+                    <span>
+                      <PulseLoader size={10} color="white" />
+                    </span>
+                  ) : (
+                    "Đăng nhập"
+                  )}
                 </button>
               </Form>
             )}

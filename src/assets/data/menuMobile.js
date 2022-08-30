@@ -6,6 +6,7 @@ export const menuMobile = [
   {
     name: "Nhóm",
     icon: "groups",
+    notification: "5 new",
   },
   {
     name: "Marketplace",
@@ -18,6 +19,7 @@ export const menuMobile = [
   {
     name: "Kỷ niệm",
     icon: "memories",
+    notification: "6 new",
   },
   {
     name: "Chiến dịch gây quỹ",
