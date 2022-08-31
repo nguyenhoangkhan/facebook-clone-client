@@ -24,20 +24,30 @@
     width: 850px;
   }
 }
+@media (max-width: 1160px) {
+  .home_middle {
+    .stories {
+      grid-template-columns: repeat(6, 133px);
+    }
+  }
+}
 @media (max-width: 880px) {
   .home_middle {
     width: 700px;
+    .stories {
+      grid-template-columns: repeat(6, 108px);
+    }
   }
 }
 @media (max-width: 720px) {
   .home_middle {
-    padding: 0 10px;
+    padding: 0 5px;
     width: 100%;
     max-width: 100%;
     .stories {
       width: 100%;
       max-width: 100%;
-      grid-template-columns: repeat(6, 14vw);
+      overflow: auto;
       .story {
         width: 100%;
         .story_profile_pic {
@@ -54,6 +64,7 @@
     }
   }
 }
+
 // Home
 
 // Left Home
