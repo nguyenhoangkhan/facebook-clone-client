@@ -31,7 +31,27 @@
 }
 @media (max-width: 720px) {
   .home_middle {
+    padding: 0 10px;
     width: 100%;
+    max-width: 100%;
+    .stories {
+      width: 100%;
+      max-width: 100%;
+      grid-template-columns: repeat(6, 14vw);
+      .story {
+        width: 100%;
+        .story_profile_pic {
+          width: 45px;
+          height: 45px;
+        }
+        .story_profile_name {
+          display: none;
+        }
+      }
+      .create_post {
+        width: 100%;
+      }
+    }
   }
 }
 // Home
