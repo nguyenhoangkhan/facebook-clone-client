@@ -16,6 +16,19 @@ a {
   color: inherit;
 }
 
+.hover1:hover {
+  transition: 0.3s;
+  background-color: var(--bg-secondary);
+}
+.hover2:hover {
+  transition: 0.3s;
+  background-color: #d1d1d1;
+}
+.hover3:hover {
+  transition: 0.3s;
+  background-color: var(--bg-secondary);
+}
+
 .blue_btn {
   border: none;
   outline: none;
