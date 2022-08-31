@@ -114,4 +114,54 @@ export const stories = [
     profile_name: "The Witcher Wild Hunt",
     image: "../../stories/5.jfif",
   },
+  {
+    profile_picture: "../../stories/profile4.jfif",
+    profile_name: "Football World",
+    image: "../../stories/4.jpg",
+  },
+  {
+    profile_picture: "../../stories/profile5.png",
+    profile_name: "The Witcher Wild Hunt",
+    image: "../../stories/5.jfif",
+  },
+  {
+    profile_picture: "../../stories/profile4.jfif",
+    profile_name: "Football World",
+    image: "../../stories/4.jpg",
+  },
+  {
+    profile_picture: "../../stories/profile5.png",
+    profile_name: "The Witcher Wild Hunt",
+    image: "../../stories/5.jfif",
+  },
+  {
+    profile_picture: "../../stories/profile4.jfif",
+    profile_name: "Football World",
+    image: "../../stories/4.jpg",
+  },
+  {
+    profile_picture: "../../stories/profile5.png",
+    profile_name: "The Witcher Wild Hunt",
+    image: "../../stories/5.jfif",
+  },
+  {
+    profile_picture: "../../stories/profile4.jfif",
+    profile_name: "Football World",
+    image: "../../stories/4.jpg",
+  },
+  {
+    profile_picture: "../../stories/profile5.png",
+    profile_name: "The Witcher Wild Hunt",
+    image: "../../stories/5.jfif",
+  },
+  {
+    profile_picture: "../../stories/profile4.jfif",
+    profile_name: "Football World",
+    image: "../../stories/4.jpg",
+  },
+  {
+    profile_picture: "../../stories/profile5.png",
+    profile_name: "The Witcher Wild Hunt",
+    image: "../../stories/5.jfif",
+  },
 ];
