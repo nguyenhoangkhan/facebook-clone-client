@@ -12,7 +12,28 @@
   left: 50%;
   transform: translateX(-50%);
 }
-
+@media (max-width: 1335px) {
+  .home_middle {
+    left: 42%;
+    width: 800px;
+  }
+}
+@media (max-width: 1200px) {
+  .home_middle {
+    left: 50%;
+    width: 850px;
+  }
+}
+@media (max-width: 880px) {
+  .home_middle {
+    width: 700px;
+  }
+}
+@media (max-width: 720px) {
+  .home_middle {
+    width: 100%;
+  }
+}
 // Home
 
 // Left Home
@@ -141,6 +162,12 @@
   margin-top: 2rem;
 }
 
+@media (max-width: 1335px) {
+  .left_home {
+    display: none;
+  }
+}
+
 // Left Home
 
 // Stories
@@ -252,6 +279,11 @@
   cursor: pointer;
 }
 
+@media (max-width: 1335px) {
+  .white_circle {
+    right: 0;
+  }
+}
 // Stories
 
 // Right Home
@@ -334,5 +366,25 @@
     line-height: 44px;
   }
 }
-
+@media (max-width: 1500px) {
+  .right_home {
+    left: 77.7vw;
+  }
+}
+@media (max-width: 1335px) {
+  .right_home {
+    left: 76.7vw;
+    top: 6.5rem;
+  }
+}
+@media (max-width: 1270px) {
+  .right_home {
+    left: 76.7vw;
+  }
+}
+@media (max-width: 1200px) {
+  .right_home {
+    display: none;
+  }
+}
 // Right Home

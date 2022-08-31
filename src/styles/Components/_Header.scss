@@ -79,7 +79,11 @@ header {
   border-radius: 0;
   height: 56px;
   transform: translateX(0);
+  svg {
+    fill: var(--blue-color);
+  }
 }
+
 .active svg {
   transform: translateY(1px) translateX(-1px);
 }

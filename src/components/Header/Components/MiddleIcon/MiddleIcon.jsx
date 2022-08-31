@@ -3,18 +3,23 @@ import { NavLink } from "react-router-dom";
 import {
   Friends,
   Gaming,
-  HomeActive,
   Market,
   Watch,
+  Bar,
+  Home,
 } from "../../../../assets/svg";
-
+import { useMediaQuery } from "react-responsive";
 const MiddleIcon = () => {
   const color = "#65676b";
+
+  const view1335px = useMediaQuery({
+    query: "(max-width: 1335px)",
+  });
 
   return (
     <div className="middle-icon-wrapper">
       <NavLink to="/" className="middle_icon">
-        <HomeActive />
+        <Home />
       </NavLink>
       <NavLink to="/groups" className="middle_icon hover1">
         <Friends color={color} />
@@ -26,8 +31,11 @@ const MiddleIcon = () => {
       <NavLink to="/marketplace" className="middle_icon hover1">
         <Market color={color} />
       </NavLink>
-      <NavLink to="/gaming" className="middle_icon hover1">
-        <Gaming color={color} />
+      <NavLink
+        to={view1335px ? "/bookmarks" : "/gaming"}
+        className="middle_icon hover1 bookmarks-btn"
+      >
+        {view1335px ? <Bar color="#9fa0a2" /> : <Gaming color={color} />}
       </NavLink>
     </div>
   );
