@@ -1,5 +1,6 @@
 import { useSelector as selector } from "react-redux";
-import { Outlet, useNavigate as navigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import Home from "../pages/Home";
 
 import Login from "../pages/Login";
 import * as selectors from "../redux/selectors";
@@ -9,6 +10,9 @@ const user = () => {
   return user;
 };
 
+export const notLogginedRoutes = () => {
+  return !user() ? <Login /> : <Outlet />;
+};
 export const LogginedRoutes = () => {
-  return user() ? <Outlet /> : <Login />;
+  return user() ? <Home /> : <Outlet />;
 };

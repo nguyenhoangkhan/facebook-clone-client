@@ -1,1 +1,1 @@
-export { LogginedRoutes } from "./routes";
+export { notLogginedRoutes, LogginedRoutes } from "./routes";
