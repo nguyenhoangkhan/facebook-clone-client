@@ -10,9 +10,9 @@ const user = () => {
   return user;
 };
 
-export const notLogginedRoutes = () => {
+export const LogginedRoutes = () => {
   return !user() ? <Login /> : <Outlet />;
 };
-export const LogginedRoutes = () => {
+export const notLogginedRoutes = () => {
   return user() ? <Home /> : <Outlet />;
 };
