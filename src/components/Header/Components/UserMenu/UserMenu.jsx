@@ -1,5 +1,7 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 
 import {
   SettingsPrivacy,
@@ -7,8 +9,10 @@ import {
   DisplayAccessibility,
 } from "./Components";
 import { useClickOutside } from "../../../../Hooks";
+import * as actions from "../../../../redux/actions";
 
 const UserMenu = ({ user, isShowUserMenu, setIsShowUserMenu }) => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(0);
   const userMenuRef = useRef(null);
 
@@ -21,6 +25,11 @@ const UserMenu = ({ user, isShowUserMenu, setIsShowUserMenu }) => {
       setIsShowUserMenu(false);
     };
   });
+
+  const handleLogout = () => {
+    dispatch(actions.LOGOUT());
+    Cookies.remove("user");
+  };
 
   return (
     <div className="mmenu" ref={userMenuRef}>
@@ -76,7 +85,7 @@ const UserMenu = ({ user, isShowUserMenu, setIsShowUserMenu }) => {
               <i className="right_icon"></i>
             </div>
           </div>
-          <div className="mmenu_item hover3">
+          <div className="mmenu_item hover3" onClick={handleLogout}>
             <div className="small_circle">
               <i className="logout_filled_icon"></i>
             </div>

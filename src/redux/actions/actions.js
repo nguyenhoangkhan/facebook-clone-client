@@ -4,3 +4,8 @@ export const LOGIN = (payload) => {
     payload,
   };
 };
+export const LOGOUT = () => {
+  return {
+    type: "LOGOUT",
+  };
+};

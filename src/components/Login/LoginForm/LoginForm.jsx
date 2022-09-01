@@ -54,13 +54,12 @@ const LoginForm = ({ setShowRegister }) => {
 
       setErrorLogin("");
       setSuccessLogin(data.message);
-      setTimeout(() => {
-        const { message, ...rest } = data;
-        dispatch(actions.LOGIN(rest));
-        Cookies.set("user", JSON.stringify(rest));
-        navigate("/");
-        setLoading(false);
-      }, 1000);
+
+      const { message, ...rest } = data;
+      dispatch(actions.LOGIN(rest));
+      Cookies.set("user", JSON.stringify(rest));
+      navigate("/");
+      setLoading(false);
     } catch (err) {
       setLoading(false);
       setSuccessLogin("");
