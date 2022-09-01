@@ -102,7 +102,7 @@ const LoginForm = ({ setShowRegister }) => {
                 />
                 <button
                   type="submit"
-                  className="blue_btn"
+                  className={`blue_btn login-btn ${loading && "loading"}`}
                   onClick={handleLoginSubmit}
                 >
                   {loading ? (
