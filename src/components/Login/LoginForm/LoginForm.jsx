@@ -29,9 +29,7 @@ const LoginForm = ({ setShowRegister }) => {
 
   const loginValidation = Yup.object({
     email: Yup.string()
-      .required(
-        "Email hoặc số di động bạn nhập không kết nối với tài khoản nào."
-      )
+      .required("Bạn cần nhập Email.")
       .email("Email bạn nhập không hợp lệ, vui lòng thử lại")
       .max(100),
     password: Yup.string().required("Bạn cần nhập mật khẩu"),
