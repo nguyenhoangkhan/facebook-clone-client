@@ -28,7 +28,7 @@ export default function SendEmail({ user, setVisible }) {
         </div>
       </div>
       <div className="reset_form_btns">
-        <Link to="/login" className="gray_btn" style={{ width: "fit-content" }}>
+        <Link to="/login" className="gray_btn">
           Không phải bạn ?
         </Link>
         <button type="submit" className="blue_btn" onClick={handleSendMail}>

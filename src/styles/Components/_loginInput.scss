@@ -44,6 +44,7 @@
   font-size: 13px;
   border-radius: 5px;
   margin-bottom: 15px;
+  height: fit-content;
 }
 .error_arrow_top {
   border-top: 10px solid #b94a48;
@@ -62,7 +63,7 @@
 .input_error_desktop {
   position: absolute;
   width: 300px;
-  left: -19.5rem;
+  left: -31.5rem;
   top: -3px;
 }
 .error_arrow_left {
@@ -71,5 +72,5 @@
   border-bottom: 10px solid transparent;
   position: absolute;
   right: -10px;
-  top: 13px;
+  top: 10px;
 }

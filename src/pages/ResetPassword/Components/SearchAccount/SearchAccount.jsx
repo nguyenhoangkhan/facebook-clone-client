@@ -7,10 +7,9 @@ const SearchAccount = ({ email, setEmail, error, setVisible }) => {
   const handleSearchAccount = () => {
     setVisible(1);
   };
-
   return (
-    <div className="reset_form">
-      <div className="reset_form_header">Tìm kiếm tài khoản của b</div>
+    <div className="reset_form search_account">
+      <div className="reset_form_header">Tìm kiếm tài khoản của bạn</div>
       <div className="reset_form_text">
         Vui lòng nhập Email hoặc số di động để tìm tài khoản của bạn.
       </div>

@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 
 import LoginInput from "../../../../components/Inputs/LoginInput";
 
-export default function CodeVerification({ code, setCode, error }) {
+export default function CodeVerification({ code, setCode, error, setVisible }) {
+  const handleCodeVerification = () => {
+    setVisible(3);
+  };
+
   return (
-    <div className="reset_form">
+    <div className="reset_form code_verification">
       <div className="reset_form_header">Mã xác nhận</div>
       <div className="reset_form_text">
         Vui lòng nhập mã xác nhận được gửi trong Email của bạn.
@@ -29,7 +33,11 @@ export default function CodeVerification({ code, setCode, error }) {
               <Link to="/login" className="gray_btn">
                 Hủy
               </Link>
-              <button type="submit" className="blue_btn">
+              <button
+                type="submit"
+                className="blue_btn"
+                onClick={handleCodeVerification}
+              >
                 Tiếp tục
               </button>
             </div>

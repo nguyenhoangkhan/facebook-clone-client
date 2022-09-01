@@ -5,7 +5,12 @@ import Cookies from "js-cookie";
 
 import * as actions from "../../redux/actions";
 import * as selectors from "../../redux/selectors";
-import { CodeVerification, SearchAccount, SendEmail } from "./Components";
+import {
+  ChangePassword,
+  CodeVerification,
+  SearchAccount,
+  SendEmail,
+} from "./Components";
 import LoginFooter from "../../components/Login/LoginFooter";
 
 const ResetPassword = () => {
@@ -13,9 +18,11 @@ const ResetPassword = () => {
   const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(0);
-  const { email, setEmail } = useState("");
-  const { code, setCode } = useState("");
-  const { error, setError } = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [conf_password, setConf_password] = useState("");
+  const [code, setCode] = useState("");
+  const [error, setError] = useState("");
 
   const logout = () => {
     Cookies.remove("user");
@@ -60,6 +67,16 @@ const ResetPassword = () => {
             user={user}
             code={code}
             setCode={setCode}
+            error={error}
+            setVisible={setVisible}
+          />
+        )}
+        {visible === 3 && (
+          <ChangePassword
+            password={password}
+            setPassword={setPassword}
+            conf_password={conf_password}
+            setConf_password={setConf_password}
             error={error}
           />
         )}
