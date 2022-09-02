@@ -1,11 +1,35 @@
 import { Formik, Form } from "formik";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import PulseLoader from "react-spinners/PulseLoader";
 
 import LoginInput from "../../../../components/Inputs/LoginInput";
 
-const SearchAccount = ({ email, setEmail, error, setVisible }) => {
-  const handleSearchAccount = () => {
-    setVisible(1);
+const SearchAccount = ({
+  email,
+  setEmail,
+  setError,
+  error,
+  loading,
+  setLoading,
+  setVisible,
+  setuserInfosResult,
+}) => {
+  const handleSearchAccount = async () => {
+    try {
+      setLoading(true);
+      const serverURL = process.env.REACT_APP_BACKEND_URL;
+      const { data } = await axios.post(serverURL + "/password/findUser", {
+        email,
+      });
+      setuserInfosResult(data);
+      setError("");
+      setLoading(false);
+      setVisible(1);
+    } catch (err) {
+      setLoading(false);
+      setError(err.response.data.message);
+    }
   };
   return (
     <div className="reset_form search_account">
@@ -22,22 +46,27 @@ const SearchAccount = ({ email, setEmail, error, setVisible }) => {
         {(formik) => (
           <Form>
             <LoginInput
+              error={error}
               type="text"
               name="email"
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Nhập Email hoặc số di động"
             />
-            {error && <div className="error_text">{error}</div>}
+            {error && (
+              <div className="error_input_message search-account">{error}</div>
+            )}
             <div className="reset_form_btns">
               <Link to="/login" className="gray_btn">
                 Hủy
               </Link>
               <button
                 type="submit"
-                className="blue_btn"
+                className={`blue_btn reset-password ${
+                  loading ? "loading" : ""
+                }`}
                 onClick={handleSearchAccount}
               >
-                Tìm kiếm
+                {loading ? <PulseLoader color="white" size={5} /> : "Tìm kiếm"}
               </button>
             </div>
           </Form>

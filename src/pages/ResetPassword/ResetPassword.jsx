@@ -23,6 +23,9 @@ const ResetPassword = () => {
   const [conf_password, setConf_password] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState("");
+  const [userInfosResult, setuserInfosResult] = useState({});
 
   const logout = () => {
     Cookies.remove("user");
@@ -58,23 +61,44 @@ const ResetPassword = () => {
             email={email}
             setEmail={setEmail}
             error={error}
+            setError={setError}
+            loading={loading}
+            setLoading={setLoading}
             setVisible={setVisible}
+            setuserInfosResult={setuserInfosResult}
           />
         )}
-        {visible === 1 && <SendEmail user={user} setVisible={setVisible} />}
+        {visible === 1 && (
+          <SendEmail
+            user={user}
+            email={email}
+            userInfosResult={userInfosResult}
+            setVisible={setVisible}
+            setLoading={setLoading}
+            setError={setError}
+          />
+        )}
         {visible === 2 && (
           <CodeVerification
+            email={email}
             user={user}
             code={code}
             setCode={setCode}
             error={error}
+            setError={setError}
+            loading={loading}
+            setLoading={setLoading}
             setVisible={setVisible}
           />
         )}
         {visible === 3 && (
           <ChangePassword
+            email={email}
             password={password}
+            setError={setError}
+            setLoading={setLoading}
             setPassword={setPassword}
+            loading={loading}
             conf_password={conf_password}
             setConf_password={setConf_password}
             error={error}

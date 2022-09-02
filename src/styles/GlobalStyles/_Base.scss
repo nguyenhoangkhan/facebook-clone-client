@@ -49,6 +49,11 @@ a {
     transition: 0.3s;
     opacity: 0.8;
   }
+  &.reset-password.loading {
+    opacity: 0.8;
+    user-select: none;
+    cursor: default;
+  }
 }
 .gray_btn {
   border: none;

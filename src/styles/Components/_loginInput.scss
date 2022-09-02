@@ -33,6 +33,10 @@
   margin-top: -6px;
   text-align: start;
   font-size: 1.6rem;
+  &.search-account {
+    margin-top: -2rem;
+    padding: 5px;
+  }
 }
 .input_error {
   position: relative;

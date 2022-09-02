@@ -1,10 +1,12 @@
 import { useField, ErrorMessage } from "formik";
-const LoginInput = ({ placeholder, ...props }) => {
+const LoginInput = ({ placeholder, error, ...props }) => {
   const [field, meta] = useField(props);
   return (
     <div className="input_wrap">
       <input
-        className={meta.touched && meta.error ? "inputError_border" : ""}
+        className={
+          (meta.touched && meta.error) || error ? "inputError_border" : ""
+        }
         type={field.type}
         name={field.name}
         placeholder={placeholder}

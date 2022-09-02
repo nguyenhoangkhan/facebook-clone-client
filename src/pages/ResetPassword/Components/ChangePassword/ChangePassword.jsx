@@ -1,6 +1,9 @@
+import axios from "axios";
 import { Form, Formik } from "formik";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import { Modal, Box, Typography, Button } from "@mui/material";
+import { useState } from "react";
 
 import LoginInput from "../../../../components/Inputs/LoginInput";
 
@@ -9,8 +12,14 @@ const ChangePassword = ({
   setPassword,
   conf_password,
   setConf_password,
+  loading,
+  setLoading,
+  setError,
+  email,
   error,
 }) => {
+  const [isShow, setShow] = useState(false);
+
   const validatePassword = Yup.object({
     password: Yup.string()
       .required("Hãy nhập mật khẩu mới.")
@@ -20,6 +29,22 @@ const ChangePassword = ({
       .required("Xác nhận mật khẩu.")
       .oneOf([Yup.ref("password")], "Mật khẩu phải trùng khớp."),
   });
+
+  const handleChangePassword = async () => {
+    try {
+      const serverURL = process.env.REACT_APP_BACKEND_URL;
+      setLoading(true);
+      await axios.post(serverURL + "/password/changepassword", {
+        email,
+        password,
+      });
+      setLoading(false);
+      setShow(true);
+    } catch (err) {
+      setLoading(false);
+      setError(err.response.data.message);
+    }
+  };
 
   return (
     <div className="reset_form change_password">
@@ -32,6 +57,7 @@ const ChangePassword = ({
           conf_password,
         }}
         validationSchema={validatePassword}
+        onSubmit={() => handleChangePassword()}
       >
         {(formik) => (
           <Form>
@@ -60,6 +86,24 @@ const ChangePassword = ({
           </Form>
         )}
       </Formik>
+      <Modal
+        className="change-password-modal"
+        open={isShow}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="change-password-box">
+          <Typography
+            id="modal-modal-title"
+            variant="h3"
+            component="h2"
+            style={{ textAlign: "center" }}
+          >
+            Bạn đã thay đổi mật khẩu thành công
+          </Typography>
+          <Link to="/login">Đi đến đăng nhập</Link>
+        </Box>
+      </Modal>
     </div>
   );
 };
