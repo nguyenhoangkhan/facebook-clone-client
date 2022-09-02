@@ -1,32 +1,17 @@
 import { useState, useEffect, useRef } from "react";
-import Picker from "emoji-picker-react";
-import { useClickOutside } from "../../Hooks";
+import { AddToYourPost, EmojiPicker } from "./Components";
 
 const CreatePostPopup = ({ user }) => {
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(false);
-  const [picker, setPicker] = useState(false);
+
   const textRef = useRef(null);
-  const pickerRef = useRef(null);
+
   const [cursorPosition, setCursorPosition] = useState();
 
   useEffect(() => {
     textRef.current.selectionEnd = cursorPosition;
   }, [cursorPosition]);
-
-  const handleEmoji = (e, { emoji }) => {
-    const ref = textRef.current;
-    ref.focus();
-    const start = text.substring(0, ref.selectionStart);
-    const end = text.substring(ref.selectionStart);
-    const newText = start + emoji + end;
-    setText(newText);
-    setCursorPosition(start.length + emoji.length);
-  };
-
-  useClickOutside(pickerRef, () => {
-    setPicker(false);
-  });
 
   return (
     <div className="blur">
@@ -63,20 +48,14 @@ const CreatePostPopup = ({ user }) => {
             ></textarea>
           </div>
         )}
-        <div className="post_emojis_wrap" ref={pickerRef}>
-          {picker && (
-            <div className="comment_emoji_picker remove">
-              <Picker onEmojiClick={handleEmoji} />
-            </div>
-          )}
-          <img src="../../../icons/colorful.png" alt="" />
-          <i
-            className="emoji_icon_large"
-            onClick={() => {
-              setPicker((prev) => !prev);
-            }}
-          ></i>
-        </div>
+        <EmojiPicker
+          textRef={textRef}
+          text={text}
+          setText={setText}
+          setCursorPosition={setCursorPosition}
+        />
+        <AddToYourPost />
+        <button className={`post_submit ${!text && "empty-text"}`}>Đăng</button>
       </div>
     </div>
   );
