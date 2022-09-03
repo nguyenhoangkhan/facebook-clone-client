@@ -1,60 +1,47 @@
-import { useState, useEffect, useRef } from "react";
-import { AddToYourPost, EmojiPicker } from "./Components";
+import { useState } from "react";
+import {
+  AddToYourPost,
+  EmojiPicker,
+  CreatePostHeader,
+  ImagePreview,
+} from "./Components";
 
-const CreatePostPopup = ({ user }) => {
+const CreatePostPopup = ({
+  user,
+  setShowCreatePostPopup = { setShowCreatePostPopup },
+}) => {
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(false);
-
-  const textRef = useRef(null);
-
-  const [cursorPosition, setCursorPosition] = useState();
-
-  useEffect(() => {
-    textRef.current.selectionEnd = cursorPosition;
-  }, [cursorPosition]);
+  const [images, setImages] = useState([]);
 
   return (
     <div className="blur">
       <div className="postBox">
-        <div className="box_header">
-          <div className="small_circle">
-            <i className="exit_icon"></i>
-          </div>
-          <span>Tạo bài viết</span>
-        </div>
-        <div className="box_profile">
-          <img src={user.picture} alt="" className="box_profile_img" />
-          <div className="box_col">
-            <div className="box_profile_name">
-              {user.first_name} {user.last_name}
-            </div>
-            <div className="box_privacy">
-              <img src="../../../icons/public.png" alt="" />
-              <span>Công khai</span>
-              <i className="arrowDown_icon"></i>
-            </div>
-          </div>
-        </div>
-
-        {!showPrev && (
-          <div className="flex_center">
-            <textarea
-              ref={textRef}
-              maxLength="100"
-              value={text}
-              placeholder={`${user.first_name} ơi, bạn đang nghĩ gì thế?`}
-              className="post_input"
-              onChange={(e) => setText(e.target.value)}
-            ></textarea>
-          </div>
-        )}
-        <EmojiPicker
-          textRef={textRef}
-          text={text}
-          setText={setText}
-          setCursorPosition={setCursorPosition}
+        <CreatePostHeader
+          setShowCreatePostPopup={setShowCreatePostPopup}
+          user={user}
         />
-        <AddToYourPost />
+        {!showPrev ? (
+          <EmojiPicker
+            user={user}
+            showPrev={showPrev}
+            setShowPrev={setShowPrev}
+            text={text}
+            setText={setText}
+          />
+        ) : (
+          <ImagePreview
+            text={text}
+            setText={setText}
+            user={user}
+            showPrev={showPrev}
+            images={images}
+            setImages={setImages}
+            setShowPrev={setShowPrev}
+          />
+        )}
+
+        <AddToYourPost setShowPrev={setShowPrev} />
         <button className={`post_submit ${!text && "empty-text"}`}>Đăng</button>
       </div>
     </div>

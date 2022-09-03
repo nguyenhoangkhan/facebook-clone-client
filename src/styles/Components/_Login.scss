@@ -60,6 +60,7 @@
 .login-btn.loading {
   opacity: 0.6;
   user-select: none;
+  cursor: default;
 }
 .forgot_password {
   color: var(--blue-color);

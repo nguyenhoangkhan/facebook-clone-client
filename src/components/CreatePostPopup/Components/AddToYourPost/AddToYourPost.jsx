@@ -1,10 +1,13 @@
 import { Dots, Feeling, Photo } from "../../../../assets/svg";
 
-const AddToYourPost = () => {
+const AddToYourPost = ({ setShowPrev }) => {
   return (
     <div className="addtoyourpost">
       <div className="addto_text">Thêm vào bài viết của bạn</div>
-      <div className="post_header_right hover1">
+      <div
+        className="post_header_right hover1"
+        onClick={() => setShowPrev(true)}
+      >
         <Photo color="#45bd62" />
       </div>
       <div className="post_header_right hover1">

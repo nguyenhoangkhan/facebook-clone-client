@@ -1,11 +1,14 @@
 import { Feeling, LiveVideo, Photo } from "../../assets/svg";
 
-export default function CreatePost({ user }) {
+export default function CreatePost({ user, setShowCreatePostPopup }) {
   return (
     <div className="createPost">
       <div className="createPost_header">
         <img src={user?.picture} alt="" />
-        <div className="open_post hover2">
+        <div
+          className="open_post hover2"
+          onClick={() => setShowCreatePostPopup(true)}
+        >
           {user?.first_name} ơi, bạn đang nghĩ gì thế ?
         </div>
       </div>
