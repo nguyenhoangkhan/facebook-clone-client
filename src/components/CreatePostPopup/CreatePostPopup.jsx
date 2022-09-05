@@ -9,6 +9,8 @@ import {
   ImagePreview,
 } from "./Components";
 import submitPost from "../../functions/submitPost";
+import dataURItoBlob from "../../helpers/dataURItoBlob";
+import uploadImages from "../../functions/uploadImages";
 
 const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
   const [text, setText] = useState("");
@@ -22,15 +24,33 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
     setShowCreatePostPopup(false);
   });
 
+  const submitPostSuccessfully = () => {
+    setLoading(false);
+    setText(false);
+    setBackground("");
+    setImages([]);
+    setShowCreatePostPopup(false);
+  };
+
   const handleSubmitPost = async () => {
     if (background) {
       setLoading(true);
       await submitPost(null, background, text, null, user.id, user.token);
-      setLoading(false);
-      setText(false);
-      setBackground("");
-      setBackground([]);
-      setShowCreatePostPopup(false);
+      submitPostSuccessfully();
+    } else if (images && images.length > 0) {
+      setLoading(true);
+      const path = `${user.username}/Post Images`;
+      const postImages = images.map((image) => dataURItoBlob(image));
+      const formData = new FormData();
+      formData.append("path", path);
+      postImages.forEach((image) => formData.append("file", image));
+      const response = await uploadImages(formData, path, user.token);
+      await submitPost(null, null, text, response, user.id, user.token);
+      submitPostSuccessfully();
+    } else if (text) {
+      setLoading(true);
+      await submitPost(null, null, text, null, user.id, user.token);
+      submitPostSuccessfully();
     }
   };
 
@@ -65,7 +85,7 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
 
         <AddToYourPost setShowPrev={setShowPrev} />
         <button
-          className={`post_submit ${!text && "empty-text"} ${
+          className={`post_submit ${!text && "empty-text"}  ${
             loading && "loading"
           }`}
           onClick={handleSubmitPost}
