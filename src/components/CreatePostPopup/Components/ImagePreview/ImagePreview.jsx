@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import EmojiPicker from "../EmojiPicker";
 
 const ImagePreview = ({
@@ -8,12 +8,25 @@ const ImagePreview = ({
   setText,
   setImages,
   setShowPrev,
+  setError,
 }) => {
   const imageInputRef = useRef(null);
-
   const handleImages = (e) => {
     const files = Array.from(e.target.files);
+    console.log("files ", files);
     files.forEach((img) => {
+      if (
+        img.type !== "image/jpeg" &&
+        "image/png" &&
+        "image/gif" &&
+        "image/webp" &&
+        "image/jpg"
+      ) {
+        files.filter((file) => file.name !== file.name);
+        console.log("files ", files);
+        setError("Định dạng file không hợp lệ");
+        return;
+      }
       const reader = new FileReader();
       reader.readAsDataURL(img);
       reader.onload = (readerE) => {
@@ -33,6 +46,7 @@ const ImagePreview = ({
       <EmojiPicker text={text} user={user} setText={setText} type2 />
       <div className="add_pics_wrap">
         <input
+          accept="image/jpeg,image/png,image/gif,image/webp,image/jpg"
           type="file"
           multiple
           hidden

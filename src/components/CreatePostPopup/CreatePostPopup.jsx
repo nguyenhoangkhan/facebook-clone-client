@@ -7,6 +7,7 @@ import {
   EmojiPicker,
   CreatePostHeader,
   ImagePreview,
+  PostError,
 } from "./Components";
 import dataURItoBlob from "../../helpers/dataURItoBlob";
 import { submitPost, uploadImages } from "../../functions";
@@ -18,7 +19,8 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
   const [background, setBackground] = useState("");
   const createPostPopupRef = useRef(null);
   const [loading, setLoading] = useState(false);
-  console.log(images.length);
+  const [error, setError] = useState("");
+
   useClickOutside(createPostPopupRef, () => {
     setShowCreatePostPopup(false);
   });
@@ -34,6 +36,7 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
   const handleSubmitPost = async () => {
     if (background) {
       setLoading(true);
+
       // Submit Post
       await submitPost(null, background, text, null, user.id, user.token);
       submitPostSuccessfully();
@@ -64,10 +67,12 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
       submitPostSuccessfully();
     }
   };
+  console.log(error);
 
   return (
     <div className="blur">
       <div className="postBox" ref={createPostPopupRef}>
+        {error && <PostError error={error} setError={setError} />}
         <CreatePostHeader
           setShowCreatePostPopup={setShowCreatePostPopup}
           user={user}
@@ -81,6 +86,7 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
             setText={setText}
             background={background}
             setBackground={setBackground}
+            setError={setError}
           />
         ) : (
           <ImagePreview
@@ -91,6 +97,7 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
             images={images}
             setImages={setImages}
             setShowPrev={setShowPrev}
+            setError={setError}
           />
         )}
 
