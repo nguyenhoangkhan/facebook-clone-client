@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import PulseLoader from "react-spinners/PulseLoader";
+
 import { useClickOutside } from "../../Hooks";
 import {
   AddToYourPost,
@@ -6,6 +8,7 @@ import {
   CreatePostHeader,
   ImagePreview,
 } from "./Components";
+import submitPost from "../../functions/submitPost";
 
 const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
   const [text, setText] = useState("");
@@ -13,10 +16,23 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
   const [images, setImages] = useState([]);
   const [background, setBackground] = useState("");
   const createPostPopupRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   useClickOutside(createPostPopupRef, () => {
     setShowCreatePostPopup(false);
   });
+
+  const handleSubmitPost = async () => {
+    if (background) {
+      setLoading(true);
+      await submitPost(null, background, text, null, user.id, user.token);
+      setLoading(false);
+      setText(false);
+      setBackground("");
+      setBackground([]);
+      setShowCreatePostPopup(false);
+    }
+  };
 
   return (
     <div className="blur">
@@ -48,7 +64,14 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
         )}
 
         <AddToYourPost setShowPrev={setShowPrev} />
-        <button className={`post_submit ${!text && "empty-text"}`}>Đăng</button>
+        <button
+          className={`post_submit ${!text && "empty-text"} ${
+            loading && "loading"
+          }`}
+          onClick={handleSubmitPost}
+        >
+          {loading ? <PulseLoader color="white" size={5} /> : "Đăng"}
+        </button>
       </div>
     </div>
   );

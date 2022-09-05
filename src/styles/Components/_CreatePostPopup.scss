@@ -154,6 +154,11 @@
     background-color: var(--bg-third);
     color: #ccc;
   }
+  &.loading {
+    cursor: not-allowed;
+    background-color: var(--bg-third);
+    color: #ccc;
+  }
 }
 .overflow_a {
   max-height: 500px;

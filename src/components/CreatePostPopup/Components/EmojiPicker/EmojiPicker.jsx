@@ -17,8 +17,6 @@ const EmojiPicker = ({
   const [isShowBackgrounds, setShowBackgrounds] = useState(false);
   const textRef = useRef(null);
   const backgroundRef = useRef(null);
-  console.log(background);
-
   useEffect(() => {
     textRef.current.selectionEnd = cursorPosition;
   }, [cursorPosition]);
