@@ -9,6 +9,7 @@ const CreateComment = ({ user }) => {
   const [cursorPosition, setCursorPosition] = useState();
   const textRef = useRef(null);
   const imgInput = useRef(null);
+
   useEffect(() => {
     textRef.current.selectionEnd = cursorPosition;
   }, [cursorPosition]);

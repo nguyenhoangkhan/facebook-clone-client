@@ -1,6 +1,7 @@
 .posts {
   margin-top: 1rem;
   width: 100%;
+  position: relative;
 }
 .post {
   position: relative;
@@ -11,7 +12,6 @@
   color: var(--color-primary);
   margin-bottom: 10px;
   margin-bottom: 20px;
-  overflow: hidden;
 }
 .post_header {
   display: flex;

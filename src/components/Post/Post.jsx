@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { useState, memo } from "react";
+import "moment/locale/vi"; // without this line it didn't work
 
 import { Dots, Public } from "../../assets/svg";
 import ReactsPopup from "../ReactsPopup";
-import CreateComment from "./CreateComment";
+import CreateComment from "./Components/CreateComment";
+import PostMenu from "./Components/PostMenu";
+
+Moment.locale("vi");
 
 const Post = ({ post, user }) => {
   const [isShowReactsPopup, setShowReactsPopup] = useState(false);
-
+  const [isShowMenu, setShowMenu] = useState(false);
   return (
     <div className="post">
       <div className="post_header">
@@ -39,7 +43,10 @@ const Post = ({ post, user }) => {
             </div>
           </div>
         </Link>
-        <div className="post_header_right hover1">
+        <div
+          className="post_header_right hover1"
+          onClick={() => setShowMenu((prev) => !prev)}
+        >
           <Dots color="#828387" />
         </div>
       </div>
@@ -129,6 +136,14 @@ const Post = ({ post, user }) => {
         <div className="comments_order"></div>
         <CreateComment user={user} />
       </div>
+      {isShowMenu && (
+        <PostMenu
+          userId={user.id}
+          postUserId={post.user._id}
+          imagesLength={post?.images?.length}
+          setShowMenu={setShowMenu}
+        />
+      )}
     </div>
   );
 };
