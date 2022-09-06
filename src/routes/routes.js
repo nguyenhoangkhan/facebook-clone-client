@@ -6,7 +6,7 @@ import Login from "../pages/Login";
 import * as selectors from "../redux/selectors";
 
 const user = () => {
-  const { user } = selector(selectors.user);
+  const user = selector(selectors.user);
   return user;
 };
 

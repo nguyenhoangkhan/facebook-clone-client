@@ -13,7 +13,7 @@ import MenuList from "../MenuList";
 import UserMenu from "../UserMenu/UserMenu";
 
 const HeaderProfile = () => {
-  const { user } = useSelector(selectors.user);
+  const user = useSelector(selectors.user);
   const [isShowMenuList, setIsShowMenuList] = useState(false);
   const [isShowUserMenu, setIsShowUserMenu] = useState(false);
 

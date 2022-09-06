@@ -6,11 +6,13 @@ import { LeftHome, RightHome, Stories } from "../../components/Home";
 import CreatePost from "../../components/CreatePost";
 import CreatePostPopup from "../../components/CreatePostPopup";
 import { useState } from "react";
+import Post from "../../components/Post";
 
 const Home = () => {
-  const { user } = useSelector(selectors.user);
+  const user = useSelector(selectors.user);
+  const posts = useSelector(selectors.posts);
   const [isShowCreatePostPopup, setShowCreatePostPopup] = useState(false);
-
+  console.log(posts);
   return (
     <div className="home">
       <Header />
@@ -21,6 +23,11 @@ const Home = () => {
           user={user}
           setShowCreatePostPopup={setShowCreatePostPopup}
         />
+        <div className="posts">
+          {posts.map((post) => (
+            <Post key={post._id} user={user} post={post} />
+          ))}
+        </div>
       </div>
       <RightHome user={user} />
       {isShowCreatePostPopup && (
