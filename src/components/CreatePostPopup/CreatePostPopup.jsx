@@ -38,11 +38,22 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
       setLoading(true);
 
       // Submit Post
-      await submitPost(null, background, text, null, user.id, user.token);
-      submitPostSuccessfully();
+      const res = await submitPost(
+        null,
+        background,
+        text,
+        null,
+        user.id,
+        user.token
+      );
+      if (res === "Successfully") {
+        submitPostSuccessfully();
+      } else {
+        setLoading(false);
+        setError(res);
+      }
     } else if (images && images.length > 0) {
       setLoading(true);
-
       // Create path
       const path = `${user.username}/Post Images`;
 
@@ -57,14 +68,30 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
       const responseImages = await uploadImages(formData, user.token);
 
       // Submit Post
-      await submitPost(null, null, text, responseImages, user.id, user.token);
-      submitPostSuccessfully();
+      const res = await submitPost(
+        null,
+        null,
+        text,
+        responseImages,
+        user.id,
+        user.token
+      );
+      if (res === "Successfully") {
+        submitPostSuccessfully();
+      } else {
+        setLoading(false);
+        setError(res);
+      }
     } else if (text) {
       setLoading(true);
-
       // Submit Post
-      await submitPost(null, null, text, null, user.id, user.token);
-      submitPostSuccessfully();
+      const res = await submitPost(null, null, text, null, user.id, user.id);
+      if (res === "Successfully") {
+        submitPostSuccessfully();
+      } else {
+        setLoading(false);
+        setError(res);
+      }
     }
   };
   console.log(error);

@@ -3,7 +3,7 @@ import axios from "axios";
 const submitPost = async (type, background, text, images, user, token) => {
   try {
     const serverUrl = process.env.REACT_APP_BACKEND_URL;
-    const { data } = await axios.post(
+    await axios.post(
       serverUrl + "/createPost",
       {
         type,
@@ -18,7 +18,7 @@ const submitPost = async (type, background, text, images, user, token) => {
         },
       }
     );
-    return data;
+    return "Successfully";
   } catch (err) {
     return err.response.data.message;
   }
