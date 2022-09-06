@@ -4,9 +4,11 @@ import { useState, memo } from "react";
 
 import { Dots, Public } from "../../assets/svg";
 import ReactsPopup from "../ReactsPopup";
+import CreateComment from "./CreateComment";
 
-const Post = ({ post }) => {
+const Post = ({ post, user }) => {
   const [isShowReactsPopup, setShowReactsPopup] = useState(false);
+
   return (
     <div className="post">
       <div className="post_header">
@@ -122,6 +124,10 @@ const Post = ({ post }) => {
           <i className="share_icon"></i>
           <span>Chia sẻ</span>
         </div>
+      </div>
+      <div className="comments_wrap">
+        <div className="comments_order"></div>
+        <CreateComment user={user} />
       </div>
     </div>
   );

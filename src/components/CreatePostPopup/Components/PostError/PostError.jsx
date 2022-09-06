@@ -10,7 +10,7 @@ const PostError = ({ error, setError }) => {
           setError("");
         }}
       >
-        Try again
+        Thử lại
       </button>
     </div>
   );
