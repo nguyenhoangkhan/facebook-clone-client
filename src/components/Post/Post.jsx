@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
+import { useState } from "react";
+
 import { Dots, Public } from "../../assets/svg";
+import ReactsPopup from "../ReactsPopup";
 
 const Post = ({ post }) => {
+  const [isShowReactsPopup, setShowReactsPopup] = useState(false);
   return (
     <div className="post">
       <div className="post_header">
@@ -79,6 +83,46 @@ const Post = ({ post }) => {
           )}
         </>
       )}
+      <div className="post_infos">
+        <div className="reacts_count">
+          <div className="reacts_count_imgs">
+            <div className="reacts_count_num"></div>
+          </div>
+          <div className="to_right">
+            <div className="comments_count">13 bình luận</div>
+            <div className="share_count">1 chia sẻ</div>
+          </div>
+        </div>
+      </div>
+      <div className="post_actions">
+        {isShowReactsPopup && (
+          <ReactsPopup setShowReactsPopup={setShowReactsPopup} />
+        )}
+        <div
+          className="post_action hover1"
+          onMouseOver={() =>
+            setTimeout(() => {
+              setShowReactsPopup(true);
+            }, 500)
+          }
+          onMouseLeave={() =>
+            setTimeout(() => {
+              setShowReactsPopup(false);
+            }, 500)
+          }
+        >
+          <i className="like_icon"></i>
+          <span>Thích</span>
+        </div>
+        <div className="post_action hover1 ">
+          <i className="comment_icon"></i>
+          <span>Bình luận</span>
+        </div>
+        <div className="post_action hover1 ">
+          <i className="share_icon"></i>
+          <span>Chia sẻ</span>
+        </div>
+      </div>
     </div>
   );
 };

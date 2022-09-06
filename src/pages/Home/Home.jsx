@@ -12,7 +12,6 @@ const Home = () => {
   const user = useSelector(selectors.user);
   const posts = useSelector(selectors.posts);
   const [isShowCreatePostPopup, setShowCreatePostPopup] = useState(false);
-  console.log(posts);
   return (
     <div className="home">
       <Header />
