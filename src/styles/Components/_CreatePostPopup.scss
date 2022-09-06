@@ -79,7 +79,6 @@
   border: none;
   resize: none;
   padding: 5px;
-  margin-bottom: 10px;
   width: 470px;
   margin-left: 1px;
   font-family: inherit;
@@ -170,6 +169,7 @@
   display: block;
   font-size: 15px;
   min-height: 15px !important;
+  padding-left: 20px;
 }
 .moveleft {
   transform: translateX(-10px);
@@ -246,7 +246,7 @@
   border-radius: 10px;
 }
 .mobile_text {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 }
 .addphone_btn {

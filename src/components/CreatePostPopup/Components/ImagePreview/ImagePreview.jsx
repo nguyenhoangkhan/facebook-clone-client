@@ -32,6 +32,7 @@ const ImagePreview = ({
         setImages((prev) => [...prev, image]);
       };
     });
+    e.target.value = null;
   };
 
   const handleExitImagesPreview = (e) => {

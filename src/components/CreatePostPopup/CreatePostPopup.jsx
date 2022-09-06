@@ -1,5 +1,7 @@
 import { useState, useRef, memo } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 
 import { useClickOutside } from "../../Hooks";
 import {
@@ -11,6 +13,7 @@ import {
 } from "./Components";
 import dataURItoBlob from "../../helpers/dataURItoBlob";
 import { submitPost, uploadImages } from "../../functions";
+import * as actions from "../../redux/actions";
 
 const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
   const [text, setText] = useState("");
@@ -20,6 +23,7 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
   const createPostPopupRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
 
   useClickOutside(createPostPopupRef, () => {
     setShowCreatePostPopup(false);
@@ -93,7 +97,24 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
         setError(res);
       }
     }
+    // get Posts from API after created
+    getPostsFromAPI();
   };
+
+  const getPostsFromAPI = async () => {
+    try {
+      const serverURL = process.env.REACT_APP_BACKEND_URL;
+      const { data } = await axios.get(serverURL + "/post/getAllPosts", {
+        headers: {
+          Authorization: "Bearer " + user.token,
+        },
+      });
+      dispatch(actions.POST_SUCCESS(data));
+    } catch (err) {
+      setError(err);
+    }
+  };
+
   return (
     <div className="blur">
       <div className="postBox" ref={createPostPopupRef}>

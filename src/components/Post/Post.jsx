@@ -8,8 +8,6 @@ import ReactsPopup from "../ReactsPopup";
 import CreateComment from "./Components/CreateComment";
 import PostMenu from "./Components/PostMenu";
 
-Moment.locale("vi");
-
 const Post = ({ post, user }) => {
   const [isShowReactsPopup, setShowReactsPopup] = useState(false);
   const [isShowMenu, setShowMenu] = useState(false);
