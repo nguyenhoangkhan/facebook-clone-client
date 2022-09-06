@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { Link } from "react-router-dom";
 
 import { ArrowDown1 } from "../../../assets/svg";
@@ -74,7 +74,9 @@ const LeftHome = ({ user }) => {
           />
         ))}
       </div>
-      <div className={`fb_copyright ${visible && "relative_fb_copyright"}`}>
+      <div
+        className={`fb_copyright nofixed ${visible && "relative_fb_copyright"}`}
+      >
         <Link to="/">Quyền riêng tư </Link>
         <span>. </span>
         <Link to="/">Điều kiện </Link>
@@ -93,4 +95,4 @@ const LeftHome = ({ user }) => {
     </div>
   );
 };
-export default LeftHome;
+export default memo(LeftHome);

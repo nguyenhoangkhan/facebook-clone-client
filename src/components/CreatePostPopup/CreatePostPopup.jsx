@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, memo } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
 
 import { useClickOutside } from "../../Hooks";
@@ -139,4 +139,4 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
     </div>
   );
 };
-export default CreatePostPopup;
+export default memo(CreatePostPopup);

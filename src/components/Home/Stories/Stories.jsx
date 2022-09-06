@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import Splide from "@splidejs/splide";
 import "@splidejs/splide/css";
 import "@splidejs/splide/css/core";
@@ -85,4 +85,4 @@ const Stories = () => {
     </section>
   );
 };
-export default Stories;
+export default memo(Stories);

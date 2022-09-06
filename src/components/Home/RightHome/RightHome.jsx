@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { Dots, NewRoom, Search } from "../../../assets/svg";
 import Contact from "./Components/Contact";
 
@@ -29,4 +31,4 @@ const RightHome = ({ user }) => {
     </div>
   );
 };
-export default RightHome;
+export default memo(RightHome);

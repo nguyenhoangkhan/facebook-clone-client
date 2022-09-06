@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { useMediaQuery } from "react-responsive";
 
 import { Search, MiddleIcon, HeaderProfile } from "./Components";
@@ -26,4 +26,4 @@ const Header = () => {
     </>
   );
 };
-export default Header;
+export default memo(Header);
