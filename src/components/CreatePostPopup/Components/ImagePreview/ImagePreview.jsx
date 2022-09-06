@@ -13,7 +13,6 @@ const ImagePreview = ({
   const imageInputRef = useRef(null);
   const handleImages = (e) => {
     const files = Array.from(e.target.files);
-    console.log("files ", files);
     files.forEach((img) => {
       if (
         img.type !== "image/jpeg" &&
@@ -23,7 +22,6 @@ const ImagePreview = ({
         "image/jpg"
       ) {
         files.filter((file) => file.name !== file.name);
-        console.log("files ", files);
         setError("Định dạng file không hợp lệ");
         return;
       }

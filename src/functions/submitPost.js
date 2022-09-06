@@ -4,7 +4,7 @@ const submitPost = async (type, background, text, images, user, token) => {
   try {
     const serverUrl = process.env.REACT_APP_BACKEND_URL;
     await axios.post(
-      serverUrl + "/createPost",
+      serverUrl + "/post/createPost",
       {
         type,
         background,

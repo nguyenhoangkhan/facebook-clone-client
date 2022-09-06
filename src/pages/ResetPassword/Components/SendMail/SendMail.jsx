@@ -25,7 +25,6 @@ export default function SendEmail({
       setError(err.response.data.message);
     }
   };
-  console.log(userInfosResult);
   return (
     <div className="reset_form dynamic_height">
       <div className="reset_form_header">Tạo mới mật khẩu</div>

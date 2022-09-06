@@ -85,7 +85,7 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
     } else if (text) {
       setLoading(true);
       // Submit Post
-      const res = await submitPost(null, null, text, null, user.id, user.id);
+      const res = await submitPost(null, null, text, null, user.id, user.token);
       if (res === "Successfully") {
         submitPostSuccessfully();
       } else {
@@ -94,8 +94,6 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
       }
     }
   };
-  console.log(error);
-
   return (
     <div className="blur">
       <div className="postBox" ref={createPostPopupRef}>
