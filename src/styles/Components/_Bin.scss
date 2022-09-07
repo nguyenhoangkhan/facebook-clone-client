@@ -9,6 +9,7 @@
   &-wrapper {
     height: 100%;
     background-color: var(--bg-primary);
+    box-shadow: 1px 1px 9px 0px rgb(156 137 137 / 50%);
   }
   &-header {
     padding: 20px 18px;
@@ -75,6 +76,34 @@
   &-options {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    height: 70px;
+    padding: 0 16px;
+    border-radius: 10px;
+    background-color: var(--bg-primary);
+    &-left-items {
+      display: flex;
+      align-items: center;
+      column-gap: 6px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      input {
+        width: 24px;
+        height: 24px;
+        background-color: red;
+        padding: 3px;
+        cursor: pointer;
+      }
+    }
+    &-left-item {
+      &-input {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-radius: 50%;
+      }
+    }
     &-right-items {
       display: flex;
       column-gap: 32px;
@@ -87,6 +116,92 @@
       background-color: var(--bg-third);
       padding: 6px 14px;
       border-radius: 8px;
+      opacity: 0.5;
+      &:hover {
+        transition: 0.2s;
+        box-shadow: inset 0.6px 0.6px 10px 0px rgb(0 0 0 / 20%);
+      }
+      &.active {
+        cursor: pointer;
+        user-select: auto;
+        opacity: 1 !important;
+      }
+    }
+  }
+  &-trashs {
+    background-color: var(--bg-primary);
+    height: 500px;
+    border-radius: 10px;
+    padding: 20px 18px;
+    .trash-item {
+      &-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 17px;
+      }
+      &-checkbox {
+        margin-right: 16px;
+        padding: 10px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        input {
+          width: 24px;
+          height: 24px;
+          cursor: pointer;
+        }
+      }
+      &-content {
+        flex: 1;
+        display: flex;
+        column-gap: 12px;
+        align-items: center;
+        padding: 8px 10px;
+        border-radius: 8px;
+        &-image {
+          width: 65px;
+          height: 65px;
+          border-radius: 50%;
+          object-fit: cover;
+          object-position: center;
+        }
+        &-infos {
+          font-size: 1.6rem;
+          display: flex;
+          flex-direction: column;
+          row-gap: 1px;
+          flex: 1;
+        }
+        &-info {
+          &-username {
+          }
+          &-text {
+            font-size: 1.5rem;
+          }
+          &-icon {
+            .left {
+              display: flex;
+              align-items: flex-end;
+              column-gap: 5px;
+            }
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            margin-top: 8px;
+          }
+        }
+      }
+      &-menu {
+        padding: 6px;
+        border-radius: 50%;
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
     }
   }
 }
