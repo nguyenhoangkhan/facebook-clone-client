@@ -143,6 +143,7 @@
         align-items: center;
         gap: 17px;
         margin: 20px 0;
+        position: relative;
       }
       &-checkbox {
         margin-right: 16px;
@@ -186,6 +187,7 @@
             font-size: 1.5rem;
           }
           &-icon {
+            user-select: none;
             .left {
               display: flex;
               align-items: flex-end;
@@ -202,9 +204,15 @@
       &-menu {
         padding: 6px;
         border-radius: 50%;
+        position: relative;
         svg {
           width: 24px;
           height: 24px;
+        }
+        &-wrapper {
+          top: -3.9rem;
+          right: 37px;
+          width: 345px;
         }
       }
     }

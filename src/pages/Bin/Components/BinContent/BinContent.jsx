@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 import TrashItem from "./Components/TrashItem";
 import * as selectors from "../../../../redux/selectors";
@@ -7,14 +8,35 @@ import * as selectors from "../../../../redux/selectors";
 const BinContent = () => {
   const checkAllInputRef = useRef(null);
   const [isCheckAll, setCheckAll] = useState(false);
+  const [deletedPosts, setDeletedPost] = useState([]);
   const user = useSelector(selectors.user);
 
   const handleCheckAll = (e) => {
     e.stopPropagation();
     setCheckAll((prev) => !prev);
   };
-
-  console.log(isCheckAll);
+  useEffect(() => {
+    const getPostsDeleted = async () => {
+      try {
+        const serverURL = process.env.REACT_APP_BACKEND_URL;
+        const { data } = await axios.post(
+          serverURL + "/post/getDeletedPosts",
+          {
+            userId: user.id,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        setDeletedPost(data);
+      } catch (err) {
+        return err.response.data.message;
+      }
+    };
+    getPostsDeleted();
+  }, []);
   return (
     <div className="bin-content-wrapper">
       <div className="bin-content-prompt">
@@ -60,38 +82,15 @@ const BinContent = () => {
         </div>
       </div>
       <div className="bin-content-trashs">
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
-        <TrashItem user={user} />
+        {deletedPosts.map((data) => (
+          <TrashItem
+            key={data._id}
+            user={data.user}
+            text={data.text}
+            deleteAt={data.deletedAt}
+            images={data.images}
+          />
+        ))}
       </div>
     </div>
   );
