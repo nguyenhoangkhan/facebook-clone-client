@@ -61,6 +61,37 @@ const BinContent = () => {
       </div>
       <div className="bin-content-trashs">
         <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
+        <TrashItem user={user} />
       </div>
     </div>
   );
