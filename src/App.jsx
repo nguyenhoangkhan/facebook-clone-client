@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Profile from "./pages/Profile";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Bin from "./pages/Bin";
 import {
   notLogginedRoutes as NotLogginedRoutes,
   LogginedRoutes,
@@ -43,6 +44,7 @@ function App() {
         <Route element={<LogginedRoutes />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/bookmarks" element={<BookMarks />} />
+          <Route path="/bin" element={<Bin />} />
           <Route path="/" element={<Home />} />
         </Route>
         <Route element={<NotLogginedRoutes />}>

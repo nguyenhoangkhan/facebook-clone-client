@@ -1,6 +1,6 @@
-const MenuItem = ({ icon, title, subtitle, img }) => {
+const MenuItem = ({ icon, title, subtitle, img, onClick }) => {
   return (
-    <li className="hover1">
+    <li className="hover1" onClick={onClick}>
       {img ? <img src={img} alt="" /> : <i className={icon}></i>}
       <div className="post_menu_text">
         <span>{title}</span>

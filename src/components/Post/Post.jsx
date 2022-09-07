@@ -23,11 +23,11 @@ const Post = ({ post, user }) => {
             <div className="post_profile_name">
               {post.user.first_name} {post.user.last_name}
               <div className="updated_profile">
-                {post.type == "profilePicture" &&
+                {post.type === "profilePicture" &&
                   `đã cập nhật ảnh đại diện của ${
                     post.user.gender === "male" ? "anh ấy" : "cô ấy"
                   }`}
-                {post.type == "cover" &&
+                {post.type === "cover" &&
                   `đã cập nhật ảnh bìa của ${
                     post.user.gender === "male" ? "anh ấy" : "cô ấy"
                   }`}
@@ -138,6 +138,8 @@ const Post = ({ post, user }) => {
         <PostMenu
           userId={user.id}
           postUserId={post.user._id}
+          userToken={user.token}
+          postId={post._id}
           imagesLength={post?.images?.length}
           setShowMenu={setShowMenu}
         />

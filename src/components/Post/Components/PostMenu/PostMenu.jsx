@@ -1,12 +1,44 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 
 import PostMenuItem from "./Components/PostMenuItem";
 import useOnClickOutside from "../../../../Hooks/useClickOutside";
+import * as actions from "../../../../redux/actions";
 
-const PostMenu = ({ postUserId, userId, imagesLength, setShowMenu }) => {
+const PostMenu = ({
+  postUserId,
+  userId,
+  postId,
+  imagesLength,
+  userToken,
+  setShowMenu,
+}) => {
+  const dispatch = useDispatch();
   const own = userId === postUserId ? true : false;
   const menu = useRef(null);
   useOnClickOutside(menu, () => setShowMenu(false));
+
+  const handleDeletePost = async (postId) => {
+    try {
+      const serverURL = process.env.REACT_APP_BACKEND_URL;
+      const { data } = await axios.patch(
+        serverURL + "/post",
+        {
+          postId,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + userToken,
+          },
+        }
+      );
+
+      dispatch(actions.POST_SUCCESS(data));
+    } catch (err) {
+      console.log(err.response.data.message);
+    }
+  };
 
   return (
     <ul className="post_menu" ref={menu}>
@@ -48,6 +80,7 @@ const PostMenu = ({ postUserId, userId, imagesLength, setShowMenu }) => {
           icon="trash_icon"
           title="Bỏ vào thùng rác"
           subtitle="Bài viết trong thùng rác sẽ bị xóa sau 30 ngày"
+          onClick={() => handleDeletePost(postId)}
         />
       )}
       {!own && <div className="line"></div>}
