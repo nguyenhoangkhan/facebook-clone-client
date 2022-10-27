@@ -36,13 +36,13 @@ function App() {
       }
     };
     getAllPosts();
-  }, []);
+  }, [user]);
 
   return (
     <div className="App">
       <Routes>
         <Route element={<LogginedRoutes />}>
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/:username" element={<Profile />} />
           <Route path="/bookmarks" element={<BookMarks />} />
           <Route path="/bin" element={<Bin />} />
           <Route path="/" element={<Home />} />

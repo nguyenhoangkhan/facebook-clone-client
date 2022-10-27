@@ -8,6 +8,7 @@ const useClickOutside = (ref, func) => {
       }
       func();
     };
+
     document.addEventListener("mousedown", listener);
     document.addEventListener("touchstart", listener);
 

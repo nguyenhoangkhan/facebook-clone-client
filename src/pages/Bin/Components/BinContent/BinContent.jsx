@@ -37,6 +37,7 @@ const BinContent = () => {
     };
     getPostsDeleted();
   }, []);
+
   return (
     <div className="bin-content-wrapper">
       <div className="bin-content-prompt">
@@ -85,6 +86,7 @@ const BinContent = () => {
         {deletedPosts.map((data) => (
           <TrashItem
             key={data._id}
+            postId={data._id}
             user={data.user}
             text={data.text}
             deleteAt={data.deletedAt}

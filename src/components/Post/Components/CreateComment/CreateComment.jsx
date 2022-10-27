@@ -5,7 +5,7 @@ const CreateComment = ({ user }) => {
   const [picker, setPicker] = useState(false);
   const [text, setText] = useState("");
   const [error, setError] = useState("");
-  const [commentImage, setCommentImage] = useState("");
+  const [commentImages, setCommentImages] = useState("");
   const [cursorPosition, setCursorPosition] = useState();
   const textRef = useRef(null);
   const imgInput = useRef(null);
@@ -39,7 +39,7 @@ const CreateComment = ({ user }) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (event) => {
-      setCommentImage(event.target.result);
+      setCommentImages((prev) => [...prev, event.target.result]);
     };
   };
 
@@ -97,17 +97,18 @@ const CreateComment = ({ user }) => {
           </div>
         </div>
       </div>
-      {commentImage && (
-        <div className="comment_img_preview">
-          <img src={commentImage} alt="" />
-          <div
-            className="small_white_circle"
-            onClick={() => setCommentImage("")}
-          >
-            <i className="exit_icon"></i>
+      {commentImages.length &&
+        commentImages.map((item, idx) => (
+          <div className="comment_img_preview">
+            <img src={item} alt="" />
+            <div
+              className="small_white_circle"
+              onClick={() => setCommentImages([])}
+            >
+              <i className="exit_icon"></i>
+            </div>
           </div>
-        </div>
-      )}
+        ))}
     </div>
   );
 };

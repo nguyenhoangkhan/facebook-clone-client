@@ -23,7 +23,7 @@ const HeaderProfile = () => {
 
   return (
     <div className="header-profile-wrapper">
-      <Link to="/profile" className="profile_link hover1">
+      <Link to={user?.username} className="profile_link hover1">
         <img src={user?.picture} alt="" />
         <span>{user?.first_name}</span>
       </Link>

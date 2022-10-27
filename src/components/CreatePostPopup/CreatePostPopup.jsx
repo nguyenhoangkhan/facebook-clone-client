@@ -59,7 +59,7 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
     } else if (images && images.length > 0) {
       setLoading(true);
       // Create path
-      const path = `${user.username}/Post Images`;
+      const path = `${user.username}/posts_images`;
 
       // Convert URL type to Blob type
       const postImages = images.map((image) => dataURItoBlob(image));

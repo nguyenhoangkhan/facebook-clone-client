@@ -28,3 +28,21 @@ export const POST_ERROR = (payload) => {
     payload,
   };
 };
+// POSTS
+export const PROFILE_REQUEST = () => {
+  return {
+    type: "PROFILE_REQUEST",
+  };
+};
+export const PROFILE_SUCCESS = (payload) => {
+  return {
+    type: "PROFILE_SUCCESS",
+    payload,
+  };
+};
+export const PROFILE_ERROR = (payload) => {
+  return {
+    type: "PROFILE_ERROR",
+    payload,
+  };
+};

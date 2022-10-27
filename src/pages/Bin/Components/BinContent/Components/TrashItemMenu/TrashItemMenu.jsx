@@ -1,14 +1,38 @@
 import { useRef } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 import PostMenuItem from "../../../../../../components/Post/Components/PostMenu/Components/PostMenuItem";
 import { useClickOutside } from "../../../../../../Hooks";
+import * as selectors from "../../../../../../redux/selectors";
 
-const TrashItemMenu = ({ setShowTrashItemMenu }) => {
+const TrashItemMenu = ({ setShowTrashItemMenu, postId }) => {
+  const user = useSelector(selectors.user);
   const menuRef = useRef(null);
 
   useClickOutside(menuRef, () => {
     setShowTrashItemMenu(false);
   });
+
+  const handleRestorePost = async (postId) => {
+    try {
+      const serverURL = process.env.REACT_APP_BACKEND_URL;
+      await axios.patch(
+        serverURL + "/post/restorePosts",
+        {
+          postId,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        }
+      );
+    } catch (err) {
+      return err.response.data.message;
+    }
+  };
+
   return (
     <ul ref={menuRef} className="post_menu trash-item-menu-wrapper">
       <PostMenuItem
@@ -20,6 +44,7 @@ const TrashItemMenu = ({ setShowTrashItemMenu }) => {
         icon="refresh_icon"
         title="Khôi phục"
         subtitle="Khôi phục về trang cá nhân"
+        onClick={() => handleRestorePost(postId)}
       />
       <PostMenuItem icon="trash_icon" title="Xóa" subtitle="Xóa" />
     </ul>

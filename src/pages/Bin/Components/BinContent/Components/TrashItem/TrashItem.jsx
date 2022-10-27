@@ -1,11 +1,11 @@
 import { Dots } from "../../../../../../assets/svg";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Moment from "react-moment";
 import "moment/locale/vi";
 
 import TrashItemMenu from "../TrashItemMenu/TrashItemMenu";
 
-const TrashItem = ({ text, user, deleteAt, images }) => {
+const TrashItem = ({ text, user, deleteAt, images, postId }) => {
   const [isShowTrashItemMenu, setShowTrashItemMenu] = useState(false);
 
   return (
@@ -45,7 +45,10 @@ const TrashItem = ({ text, user, deleteAt, images }) => {
         <Dots />
       </div>
       {isShowTrashItemMenu && (
-        <TrashItemMenu setShowTrashItemMenu={setShowTrashItemMenu} />
+        <TrashItemMenu
+          setShowTrashItemMenu={setShowTrashItemMenu}
+          postId={postId}
+        />
       )}
     </div>
   );
