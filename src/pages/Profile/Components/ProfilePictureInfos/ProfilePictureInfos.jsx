@@ -1,6 +1,13 @@
+import { useState } from "react";
+import ProfileAvatar from "../ProfileAvatar";
+
 const ProfilePictureInfos = ({ profile = {} }) => {
+  const [show, setShow] = useState(false);
+
   return (
     <div className="profile_img_wrap">
+      {show && <ProfileAvatar setShow={setShow} />}
+
       <div className="profile_w_left">
         <div className="profile_w_img">
           <div
@@ -11,7 +18,7 @@ const ProfilePictureInfos = ({ profile = {} }) => {
             }}
           ></div>
           <div className="profile_circle hover1">
-            <i className="camera_filled_icon"></i>
+            <i className="camera_filled_icon" onClick={() => setShow(true)}></i>
           </div>
         </div>
         <div className="profile_w_col">

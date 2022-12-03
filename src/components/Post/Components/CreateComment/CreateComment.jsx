@@ -48,10 +48,12 @@ const CreateComment = ({ user }) => {
       <div className="create_comment">
         <img src={user?.picture} alt="" />
         <div className="comment_input_wrap">
-          {picker && (
+          {picker ? (
             <div className="comment_emoji_picker">
               <Picker onEmojiClick={handleEmoji} />
             </div>
+          ) : (
+            ""
           )}
           <input
             type="file"
@@ -60,13 +62,15 @@ const CreateComment = ({ user }) => {
             accept="image/jpeg,image/png,image/gif,image/webp"
             onChange={handleImage}
           />
-          {error && (
+          {error ? (
             <div className="postError comment_error">
               <div className="postError_error">{error}</div>
               <button className="blue_btn" onClick={() => setError("")}>
                 Thử lại
               </button>
             </div>
+          ) : (
+            ""
           )}
           <input
             type="text"
@@ -97,18 +101,19 @@ const CreateComment = ({ user }) => {
           </div>
         </div>
       </div>
-      {commentImages.length &&
-        commentImages.map((item, idx) => (
-          <div className="comment_img_preview">
-            <img src={item} alt="" />
-            <div
-              className="small_white_circle"
-              onClick={() => setCommentImages([])}
-            >
-              <i className="exit_icon"></i>
+      {commentImages.length
+        ? commentImages.map((item, idx) => (
+            <div className="comment_img_preview">
+              <img src={item} alt="" />
+              <div
+                className="small_white_circle"
+                onClick={() => setCommentImages([])}
+              >
+                <i className="exit_icon"></i>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        : ""}
     </div>
   );
 };
