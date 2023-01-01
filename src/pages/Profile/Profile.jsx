@@ -92,7 +92,7 @@ const Profile = () => {
                 </div>
               </div>
               <div className="profile_right">
-                <CreatePost user={user} profile />
+                <CreatePost user={profile.profile} profile />
                 <GridPosts friends={profile?.profile?.friends} />
                 <div className="posts">
                   {profile?.profile?.post &&

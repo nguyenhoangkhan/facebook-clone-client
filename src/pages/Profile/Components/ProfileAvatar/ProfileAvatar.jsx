@@ -34,7 +34,6 @@ const ProfileAvatar = ({ setShow, photos = [] }) => {
   };
 
   useClickOutside(mainRef, () => setShow(false));
-  console.log("photos ", photos);
   return (
     <div className="blur ">
       <input

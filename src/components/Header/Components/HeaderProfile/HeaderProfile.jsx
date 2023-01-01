@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
-import * as selectors from "../../../../redux/selectors";
 import {
   ArrowDown,
   Menu,
@@ -13,7 +12,7 @@ import MenuList from "../MenuList";
 import UserMenu from "../UserMenu/UserMenu";
 
 const HeaderProfile = () => {
-  const user = useSelector(selectors.user);
+  const { profile, user } = useSelector((state) => ({ ...state }));
   const [isShowMenuList, setIsShowMenuList] = useState(false);
   const [isShowUserMenu, setIsShowUserMenu] = useState(false);
 
@@ -23,9 +22,9 @@ const HeaderProfile = () => {
 
   return (
     <div className="header-profile-wrapper">
-      <Link to={user?.username} className="profile_link hover1">
-        <img src={user?.picture} alt="" />
-        <span>{user?.first_name}</span>
+      <Link to={profile?.profile?.username} className="profile_link hover1">
+        <img src={profile?.profile?.picture} alt="" />
+        <span>{profile?.profile?.first_name}</span>
       </Link>
       <div
         className={`circle_icon hover1 menu-list-btn ${
