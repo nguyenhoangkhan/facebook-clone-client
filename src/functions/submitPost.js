@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const submitPost = async (type, background, text, images, user, token) => {
+const submitPost = async (type, background, text, images, userId, token) => {
   try {
     const serverUrl = process.env.REACT_APP_BACKEND_URL;
     await axios.post(
@@ -10,7 +10,7 @@ const submitPost = async (type, background, text, images, user, token) => {
         background,
         text,
         images,
-        user,
+        user: userId,
       },
       {
         headers: {

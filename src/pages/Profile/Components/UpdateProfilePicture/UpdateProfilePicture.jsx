@@ -2,10 +2,26 @@ import { useCallback, useRef, useState } from "react";
 import { useClickOutside } from "../../../../Hooks";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../../../../helpers/getCroppedImg";
+import { useDispatch, useSelector } from "react-redux";
+import * as selectors from "../../../../redux/selectors";
+import * as actions from "../../../../redux/actions";
+import axios from "axios";
+import uploadImages from "../../../../functions/uploadImages";
+import submitPost from "../../../../functions/submitPost";
+import PulseLoader from "react-spinners/PulseLoader";
 
-const UpdateProfilePicture = ({ setImage, setShow, image }) => {
+const UpdateProfilePicture = ({
+  setImage,
+  setShow,
+  image,
+  setError,
+  error,
+}) => {
   const [description, setDescription] = useState("");
   const mainRef = useRef(null);
+  const user = useSelector(selectors.user);
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -33,15 +49,77 @@ const UpdateProfilePicture = ({ setImage, setShow, image }) => {
     }
   };
 
-  const getCroppedImage = useCallback(async () => {
+  const getCroppedImage = useCallback(
+    async (show) => {
+      if (isLoading || error) {
+        return;
+      }
+      setIsLoading(true);
+      try {
+        const img = await getCroppedImg(image, croppedAreaPixels);
+        if (show) {
+          if (zoom !== 1) {
+            setZoom(1);
+            setCrop({ x: 0, y: 0 });
+            setImage(img);
+            setIsLoading(false);
+          }
+        } else {
+          await updateProfilePicture(img);
+          setIsLoading(false);
+        }
+      } catch (err) {
+        setIsLoading(false);
+        setError(err?.response?.data?.message);
+      }
+    },
+    [croppedAreaPixels]
+  );
+
+  const updateProfilePicture = async (img) => {
     try {
-      const img = await getCroppedImg(image, croppedAreaPixels);
-      console.log("img ", img);
-      setImage(img);
+      let blob = await fetch(img).then((img) => img.blob());
+      let path = `${user.username}/profile_pictures`;
+
+      const formData = new FormData();
+      formData.append("picture", blob);
+      formData.append("path", path);
+
+      const res = await uploadImages(formData, user.token);
+
+      const data = await axios.patch(
+        `${process.env.REACT_APP_BACKEND_URL}/picture-profile`,
+        {
+          picture: res[0].url,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + user?.token,
+          },
+        }
+      );
+      if (data.status === 200) {
+        setError("");
+        dispatch(actions.UPDATE_PICTURE_PROFILE(data?.data?.data?.picture));
+        const arrayPictures = res;
+        const newPost = await submitPost(
+          "profilePicture",
+          null,
+          description,
+          arrayPictures,
+          user.id,
+          user?.token
+        );
+        if (newPost !== "Successfully") {
+          setError(newPost);
+        }
+        handleClose();
+      }
     } catch (err) {
-      console.log(err);
+      setIsLoading(false);
+      setError(err?.response?.data?.message);
     }
-  }, [croppedAreaPixels]);
+  };
 
   return (
     <div className="update_img_wrapper">
@@ -93,7 +171,7 @@ const UpdateProfilePicture = ({ setImage, setShow, image }) => {
           </div>
         </div>
         <div className="flex_up">
-          <div className="gray_btn">
+          <div className="gray_btn" onClick={() => getCroppedImage("show")}>
             <i className="crop_icon"></i>
             Cắt ảnh
           </div>
@@ -107,9 +185,11 @@ const UpdateProfilePicture = ({ setImage, setShow, image }) => {
           Ảnh đại diện của bạn hiển thị công khai.
         </div>
         <div className="update_submit_wrap">
-          <div className="blue_link">Hủy</div>
+          <div className="blue_link" onClick={() => setShow(false)}>
+            Hủy
+          </div>
           <button className="blue_btn" onClick={() => getCroppedImage()}>
-            Lưu
+            {isLoading ? <PulseLoader color="white" size={5} /> : "Lưu"}
           </button>
         </div>
       </div>

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import ProfileAvatar from "../ProfileAvatar";
 
-const ProfilePictureInfos = ({ profile = {} }) => {
+const ProfilePictureInfos = ({ profile = {}, photos = [] }) => {
   const [show, setShow] = useState(false);
 
   return (
     <div className="profile_img_wrap">
-      {show && <ProfileAvatar setShow={setShow} />}
+      {show && <ProfileAvatar setShow={setShow} photos={photos} />}
 
       <div className="profile_w_left">
         <div className="profile_w_img">

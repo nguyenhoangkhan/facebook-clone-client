@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import GridPosts from "./Components/GridPosts";
 import Post from "../../components/Post";
 import Photos from "./Components/Photos";
 import FriendsList from "./Components/FriendsList";
+import { useQuery } from "@tanstack/react-query";
 
 const Profile = () => {
   const { username } = useParams();
@@ -19,6 +20,8 @@ const Profile = () => {
 
   const { user, profile } = useSelector((state) => ({ ...state }));
   const userName = username === undefined ? user.username : username;
+
+  const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
     const getProfile = async () => {
@@ -37,13 +40,30 @@ const Profile = () => {
     };
     getProfile();
   }, [userName, username, user.token, dispatch]);
+
+  const { isLoading, error, data } = useQuery(["uploadImages"], () =>
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/uploadImages`, {
+        headers: { Authorization: `Bearer ${user.token}` },
+        params: {
+          path: `${username}/*`,
+          order: "desc",
+          max: 30,
+        },
+      })
+      .then((res) => res.data)
+      .then((data) => setPhotos(data))
+  );
   return (
     <div>
       <Header />
       <div className="profile_top">
         <div className="profile_container">
           <Cover cover={profile?.profile?.cover} />
-          <ProfilePictureInfos profile={profile?.profile} />
+          <ProfilePictureInfos
+            profile={profile?.profile}
+            photos={photos.resources}
+          />
           <ProfileMenu />
         </div>
       </div>
@@ -52,7 +72,7 @@ const Profile = () => {
           <div className="bottom_container">
             <div className="profile_grid">
               <div className="profile_left">
-                <Photos username={username} />
+                <Photos photos={photos} />
                 <FriendsList />
                 <div className="relative_fb_copyright">
                   <Link to="/">Privacy </Link>

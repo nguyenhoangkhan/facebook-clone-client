@@ -1,25 +1,4 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
-import axios from "axios";
-
-const Photos = ({ username }) => {
-  const [photos, setPhotos] = useState([]);
-  const { user } = useSelector((state) => ({ ...state }));
-  const { isLoading, error, data } = useQuery(["uploadImages"], () =>
-    axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/uploadImages`, {
-        headers: { Authorization: `Bearer ${user.token}` },
-        params: {
-          path: `${username}/posts_images`,
-          order: "desc",
-          max: 30,
-        },
-      })
-      .then((res) => res.data)
-      .then((data) => setPhotos(data))
-  );
-
+const Photos = ({ photos }) => {
   return (
     <div className="profile_card">
       <div className="profile_card_header">

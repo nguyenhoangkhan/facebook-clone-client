@@ -25,6 +25,14 @@ const profileReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+    case "UPDATE_PICTURE_PROFILE":
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          picture: action.payload,
+        },
+      };
     default:
       return state;
   }

@@ -46,3 +46,10 @@ export const PROFILE_ERROR = (payload) => {
     payload,
   };
 };
+// PROFILE
+export const UPDATE_PICTURE_PROFILE = (payload) => {
+  return {
+    type: "UPDATE_PICTURE_PROFILE",
+    payload,
+  };
+};
