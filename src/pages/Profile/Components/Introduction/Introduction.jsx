@@ -1,25 +1,55 @@
 import { useState } from "react";
+import { Bio } from "../Bio";
 
-const Introduction = ({ details }) => {
+const Introduction = ({ details, isVisitor }) => {
   const detailInfos = {
     bio: details?.bio ? details.bio : "",
     otherName: details?.otherName ? details.otherName : "",
     job: details?.job ? details.job : "",
-    workPlace: details?.workPlace ? details.workPlace : "Google",
-    highSchool: details?.highSchool ? details.highSchool : "some high school",
-    college: details?.college ? details.college : "some college",
-    currentCity: details?.currentCity ? details.currentCity : "Bình Dương",
-    homeTown: details?.homeTown ? details.homeTown : "Cần Thơ",
-    relationship: details?.relationship ? details.relationship : "Độc thân",
-    instagram: details?.instagram ? details.instagram : "hwang.khan_",
+    workPlace: details?.workPlace ? details.workPlace : "",
+    highSchool: details?.highSchool ? details.highSchool : "",
+    college: details?.college ? details.college : "",
+    currentCity: details?.currentCity ? details.currentCity : "",
+    homeTown: details?.homeTown ? details.homeTown : "",
+    relationship: details?.relationship ? details.relationship : "",
+    instagram: details?.instagram ? details.instagram : "",
   };
 
   const [infos, setInfos] = useState(detailInfos);
+  const [showBio, setShowBio] = useState(true);
+  const [max, setMax] = useState(infos.bio ? 100 - infos.bio.length : 100);
 
-  console.log("detailInfos ", detailInfos);
+  const handleBioChange = (e) => {
+    setInfos({ ...infos, bio: e.target.value });
+    setMax(100 - e.target.value.length);
+  };
+
   return (
     <div className="profile_card">
       <div className="profile_card_header">Giới thiệu</div>
+      {infos.bio && (
+        <div className="info_col">
+          <span className="info_text">{infos.bio}</span>
+          {!isVisitor && !showBio ? (
+            <button
+              className="gray_btn hover1"
+              onClick={() => setShowBio(true)}
+            >
+              Chỉnh sửa Bio
+            </button>
+          ) : (
+            ""
+          )}
+        </div>
+      )}
+      {showBio && (
+        <Bio
+          infos={infos}
+          handleBioChange={handleBioChange}
+          setShowBio={setShowBio}
+          max={max}
+        />
+      )}
       {infos.job && infos.workPlace ? (
         <div className="info_profile">
           <img src="../../../icons/job.png" alt="" />
@@ -41,7 +71,12 @@ const Introduction = ({ details }) => {
       )}
       {infos?.relationship && (
         <div className="info_profile">
-          <img src="../../../icons/relationship.png" alt="" />
+          <img
+            width={20}
+            height={20}
+            src="https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/eu1ZIPJje34.png"
+            alt=""
+          />
           {infos.relationship}
         </div>
       )}
@@ -80,6 +115,15 @@ const Introduction = ({ details }) => {
             {infos.instagram}
           </a>
         </div>
+      )}
+      {!isVisitor && (
+        <button className="gray_btn hover1 w100">Chỉnh sửa chi tiết</button>
+      )}
+      {!isVisitor && (
+        <button className="gray_btn hover1 w100">Chỉnh sửa sở thích</button>
+      )}
+      {!isVisitor && (
+        <button className="gray_btn hover1 w100">Thêm nổi bật</button>
       )}
     </div>
   );

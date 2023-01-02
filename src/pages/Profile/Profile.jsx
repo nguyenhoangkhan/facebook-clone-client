@@ -20,6 +20,9 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   const { user, profile } = useSelector((state) => ({ ...state }));
+
+  let isVisitor = username === user.username ? false : true;
+
   const userName = username === undefined ? user.username : username;
 
   const [photos, setPhotos] = useState([]);
@@ -73,7 +76,10 @@ const Profile = () => {
           <div className="bottom_container">
             <div className="profile_grid">
               <div className="profile_left">
-                <Introduction details={profile?.profile?.details} />
+                <Introduction
+                  details={profile?.profile?.details}
+                  isVisitor={isVisitor}
+                />
                 <Photos photos={photos} />
                 <FriendsList />
                 <div className="relative_fb_copyright">
