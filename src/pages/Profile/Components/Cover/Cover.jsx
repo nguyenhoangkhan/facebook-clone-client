@@ -33,7 +33,7 @@ const Cover = ({ cover = "", photos = [] }) => {
 
   const [coverPicture, setCoverPicture] = useState("");
   const [showCoverMenu, setShowCoverMenu] = useState(false);
-  const [showOldCovers, setShowOldCovers] = useState(true);
+  const [showOldCovers, setShowOldCovers] = useState(false);
 
   useEffect(() => {
     setCoverWidth(coverRef.current.clientWidth);

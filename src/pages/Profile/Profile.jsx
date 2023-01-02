@@ -13,6 +13,7 @@ import Post from "../../components/Post";
 import Photos from "./Components/Photos";
 import FriendsList from "./Components/FriendsList";
 import { useQuery } from "@tanstack/react-query";
+import { Introduction } from "./Components/Introduction";
 
 const Profile = () => {
   const { username } = useParams();
@@ -72,6 +73,7 @@ const Profile = () => {
           <div className="bottom_container">
             <div className="profile_grid">
               <div className="profile_left">
+                <Introduction details={profile?.profile?.details} />
                 <Photos photos={photos} />
                 <FriendsList />
                 <div className="relative_fb_copyright">
