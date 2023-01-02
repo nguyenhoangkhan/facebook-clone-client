@@ -100,7 +100,7 @@ const UpdateProfilePicture = ({
       );
       if (data.status === 200) {
         setError("");
-        dispatch(actions.UPDATE_PICTURE_PROFILE(data?.data?.data?.picture));
+        dispatch(actions.UPDATE_PICTURE_PROFILE(data?.data?.picture));
         const arrayPictures = res;
         const newPost = await submitPost(
           "profilePicture",

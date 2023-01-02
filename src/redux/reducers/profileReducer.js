@@ -5,6 +5,7 @@ const initialState = {
 };
 
 const profileReducer = (state = initialState, action) => {
+  console.log("action.payload ", action.payload);
   switch (action.type) {
     case "PROFILE_REQUEST":
       return {
@@ -31,6 +32,14 @@ const profileReducer = (state = initialState, action) => {
         profile: {
           ...state.profile,
           picture: action.payload,
+        },
+      };
+    case "UPDATE_COVER_PROFILE":
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          cover: action.payload,
         },
       };
     default:

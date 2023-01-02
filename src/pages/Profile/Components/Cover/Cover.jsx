@@ -4,23 +4,36 @@ import Cropper from "react-easy-crop";
 import { PublicIcon } from "../../../../assets/svg";
 import getCroppedImg from "../../../../helpers/getCroppedImg";
 import useClickOutside from "../../../../Hooks/useClickOutside";
+import uploadImages from "../../../../functions/uploadImages";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../../redux/actions";
+import axios from "axios";
+import { submitPost } from "../../../../functions";
+import PulseLoader from "react-spinners/PulseLoader";
+import { OldCovers } from "../OldCovers";
 
-const Cover = ({ cover = "" }) => {
+const Cover = ({ cover = "", photos = [] }) => {
+  const dispatch = useDispatch();
+
   const menuRef = useRef(null);
   const inputRef = useRef(null);
   const coverRef = useRef(null);
 
-  const [coverPicture, setCoverPicture] = useState("");
+  const { user, profile } = useSelector((state) => ({ ...state }));
+
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
 
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const [coverWidth, setCoverWidth] = useState(null);
   const [coverHeight, setCoverHeight] = useState(null);
 
+  const [coverPicture, setCoverPicture] = useState("");
   const [showCoverMenu, setShowCoverMenu] = useState(false);
+  const [showOldCovers, setShowOldCovers] = useState(true);
 
   useEffect(() => {
     setCoverWidth(coverRef.current.clientWidth);
@@ -31,8 +44,6 @@ const Cover = ({ cover = "" }) => {
       setCoverHeight(coverRef.current.clientHeight);
     };
   }, []);
-
-  console.log("coverHeight ", coverHeight);
 
   const handleImage = (e) => {
     let file = e.target.files[0];
@@ -56,47 +67,76 @@ const Cover = ({ cover = "" }) => {
     };
   };
 
+  const handleClose = () => {
+    setCoverPicture("");
+  };
+
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
-  const handleZoomOut = () => {
-    if (zoom > 1) {
-      setZoom((prev) => prev - 0.1);
+  const getCroppedImage = useCallback(async () => {
+    if (isLoading || error) {
+      return;
     }
-  };
-  const handleZoomIn = () => {
-    if (zoom < 3) {
-      setZoom((prev) => prev + 0.1);
-    }
-  };
+    setIsLoading(true);
+    try {
+      const img = await getCroppedImg(coverPicture, croppedAreaPixels);
 
-  const getCroppedImage = useCallback(
-    async (show) => {
-      if (isLoading || error) {
-        return;
-      }
-      setIsLoading(true);
-      try {
-        const img = await getCroppedImg(coverPicture, croppedAreaPixels);
-        if (show) {
-          if (zoom !== 1) {
-            setZoom(1);
-            setCrop({ x: 0, y: 0 });
-            setCoverPicture(img);
-            setIsLoading(false);
-          }
-        } else {
-          // await UpdateProfilePicture(img);
-          setIsLoading(false);
+      await updateCoverPicture(img);
+
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+      setError(err?.response?.data?.message);
+    }
+  }, [croppedAreaPixels, coverPicture]);
+
+  const updateCoverPicture = async (img) => {
+    try {
+      let blob = await fetch(img).then((img) => img.blob());
+      let path = `${user.username}/cover_pictures`;
+
+      const formData = new FormData();
+      formData.append("picture", blob);
+      formData.append("path", path);
+
+      const result = await uploadImages(formData, user.token);
+
+      const data = await axios.patch(
+        `${process.env.REACT_APP_BACKEND_URL}/cover-profile`,
+        {
+          cover: result[0].url,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + user?.token,
+          },
         }
-      } catch (err) {
-        setIsLoading(false);
-        setError(err?.response?.data?.message);
+      );
+      if (data.status === 200) {
+        setError("");
+        dispatch(actions.UPDATE_COVER_PROFILE(data?.data?.cover));
+        const newPost = await submitPost(
+          "coverPicture",
+          null,
+          "",
+          result,
+          user.id,
+          user?.token
+        );
+        if (newPost !== "Successfully") {
+          setIsLoading(false);
+          setCoverPicture("");
+          setError(newPost);
+        }
+        handleClose();
       }
-    },
-    [croppedAreaPixels, coverPicture]
-  );
+    } catch (err) {
+      setIsLoading(false);
+      setError(err?.response?.data?.message);
+    }
+  };
 
   useClickOutside(menuRef, () => setShowCoverMenu(false));
 
@@ -115,7 +155,13 @@ const Cover = ({ cover = "" }) => {
             >
               Hủy
             </button>
-            <button className="blue_btn">Lưu thay đổi</button>
+            <button className="blue_btn" onClick={getCroppedImage}>
+              {isLoading ? (
+                <PulseLoader color="white" size={5} />
+              ) : (
+                "Lưu thay đổi"
+              )}
+            </button>
           </div>
         </div>
       )}
@@ -133,7 +179,7 @@ const Cover = ({ cover = "" }) => {
             crop={crop}
             zoom={zoom}
             objectFit="horizontal-cover"
-            aspect={coverWidth / coverHeight}
+            aspect={16 / 8}
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
             onZoomChange={setZoom}
@@ -155,7 +201,11 @@ const Cover = ({ cover = "" }) => {
         </div>
         {showCoverMenu && (
           <div ref={menuRef} className="open_cover_menu">
-            <button type="button" className="open_cover_menu_item hover1">
+            <button
+              type="button"
+              className="open_cover_menu_item hover1"
+              onClick={() => setShowOldCovers(true)}
+            >
               <i className="photo_icon"></i>
               Chọn ảnh
             </button>
@@ -170,6 +220,13 @@ const Cover = ({ cover = "" }) => {
           </div>
         )}
       </div>
+      {showOldCovers && (
+        <OldCovers
+          setCoverPicture={setCoverPicture}
+          setShowOldCovers={setShowOldCovers}
+          photos={photos}
+        />
+      )}
     </div>
   );
 };

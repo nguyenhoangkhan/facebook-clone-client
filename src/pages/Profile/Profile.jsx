@@ -59,7 +59,7 @@ const Profile = () => {
       <Header />
       <div className="profile_top">
         <div className="profile_container">
-          <Cover cover={profile?.profile?.cover} />
+          <Cover cover={profile?.profile?.cover} photos={photos.resources} />
           <ProfilePictureInfos
             profile={profile?.profile}
             photos={photos.resources}

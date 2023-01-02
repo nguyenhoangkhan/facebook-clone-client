@@ -27,7 +27,7 @@ const Post = ({ post, user }) => {
                   `đã cập nhật ảnh đại diện của ${
                     post.user.gender === "male" ? "anh ấy" : "cô ấy"
                   }`}
-                {post.type === "cover" &&
+                {post.type === "coverPicture" &&
                   `đã cập nhật ảnh bìa của ${
                     post.user.gender === "male" ? "anh ấy" : "cô ấy"
                   }`}

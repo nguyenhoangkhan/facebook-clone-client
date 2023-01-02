@@ -18,6 +18,11 @@ a {
   color: inherit;
 }
 
+button {
+  outline: none;
+  border: none;
+}
+
 .hover1:hover {
   transition: 0.3s;
   cursor: pointer;
