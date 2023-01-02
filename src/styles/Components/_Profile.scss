@@ -17,7 +17,6 @@
   width: 100%;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  overflow: hidden;
   background: var(--bg-secondary);
   img {
     width: 100%;
@@ -56,16 +55,23 @@
   box-shadow: 0 12px 28px 0 var(--shadow-1), 0 2px 4px 0 var(--shadow-2),
     inset 0 0 0 px var(--shadow-inset);
   z-index: 99;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 .open_cover_menu_item {
   display: flex;
   align-items: center;
+  width: 100%;
+  outline: none;
+  border: none;
   gap: 10px;
   padding: 10px;
   cursor: pointer;
   font-weight: 600;
   font-size: 14px;
   border-radius: 10px;
+  background: var(--bg-primary);
 }
 .profile_img_wrap {
   position: relative;
@@ -272,7 +278,49 @@
   object-fit: cover;
   border-radius: 10px;
 }
-
+.cover_cropper {
+  height: 100%;
+}
+.cover_cropper img {
+  object-fit: cover;
+  width: 100%;
+}
+.save_changes_cover {
+  z-index: 999;
+  position: fixed;
+  display: flex;
+  right: 0;
+  left: 0;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 15px;
+  background: rgba(0, 0, 0, 0.7);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-primary);
+}
+.save_changes_left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+.save_changes_left i {
+  filter: invert(100%);
+}
+.save_changes_right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.save_changes_right button:first-of-type {
+  width: 100px;
+  background-color: #39393f;
+}
+.save_changes_right button:last-of-type {
+  width: 160px;
+}
 .pictureBox {
   width: 700px !important;
   height: 62vh;
