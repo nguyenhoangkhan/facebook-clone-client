@@ -3,6 +3,49 @@ import { useClickOutside } from "../../../../Hooks";
 
 import { Detail } from "./Components/Detail";
 
+const detailsList = [
+  {
+    header: "Biệt danh",
+    name: "otherName",
+    img: "studies",
+  },
+  {
+    header: "Nơi làm việc",
+    name: "workPlace",
+    img: "job",
+  },
+  {
+    header: "Trình độ học vấn",
+    name: "highSchool",
+    img: "studies",
+  },
+  {
+    header: "Trình độ học vấn",
+    name: "college",
+    img: "studies",
+  },
+  {
+    header: "Sống tại",
+    name: "currentCity",
+    img: "home",
+  },
+  {
+    header: "Đến từ",
+    name: "homeTown",
+    img: "home",
+  },
+  {
+    header: "Mối quan hệ",
+    name: "relationship",
+    img: "relationship",
+  },
+  {
+    header: "Instagram",
+    name: "instagram",
+    img: "instagram",
+  },
+];
+
 const EditDetails = ({
   details,
   setShowEditDetails,
@@ -29,14 +72,17 @@ const EditDetails = ({
             <span>Tùy chỉnh thông tin</span>
             <span>Thông tin của bạn sẽ được công khai</span>
           </div>
-          <Detail
-            infos={infos}
-            header="Tên khác"
-            value={details?.otherName}
-            img="studies"
-            name="otherName"
-            handleChangeInputsValue={handleChangeInputsValue}
-          />
+          {detailsList.map((item, idx) => (
+            <Detail
+              key={idx}
+              infos={infos}
+              header={item.header}
+              value={details?.[item.name]}
+              img={item.img}
+              name={item.name}
+              handleChangeInputsValue={handleChangeInputsValue}
+            />
+          ))}
         </div>
       </div>
     </div>
