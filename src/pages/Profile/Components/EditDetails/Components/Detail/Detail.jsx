@@ -4,12 +4,14 @@ import { Bio } from "../../../Bio";
 const Details = ({
   header,
   img,
+  isLoading,
   value,
   placeholder,
   name,
   handleChangeInputsValue,
   infos,
-  rel,
+  rel = false,
+  handleUpdateUserDetails,
 }) => {
   const [showEdit, setShowEdit] = useState(false);
 
@@ -19,7 +21,7 @@ const Details = ({
       <div className="add_details_flex" onClick={() => setShowEdit(true)}>
         {value ? (
           <div className="info_profile no_underline">
-            <img src={`../../../../../../assets/images/${img}.png`} alt="" />
+            <img src={`/icons/${img}.png`} alt="" />
             {value}
             <i className="edit_icon"></i>
           </div>
@@ -32,12 +34,14 @@ const Details = ({
       </div>
       {showEdit && (
         <Bio
-          rel
+          rel={rel}
           handleChangeInputsValue={handleChangeInputsValue}
+          handleUpdateUserDetails={handleUpdateUserDetails}
           placeholder={placeholder}
           name={name}
           setShowEditBio={setShowEdit}
           infos={infos}
+          isLoading={isLoading}
         />
       )}
     </div>

@@ -10,6 +10,7 @@ const Bio = ({
   handleUpdateUserDetails,
   isLoading,
   name,
+  placeholder = "",
   rel,
 }) => {
   return (
@@ -21,6 +22,9 @@ const Bio = ({
           value={infos.relationship}
           onChange={handleChangeInputsValue}
         >
+          <option value="" defaultValue>
+            Chọn mối quan hệ
+          </option>
           <option value="Single">Độc thân</option>
           <option value="In a Relationship">Hẹn hò</option>
           <option value="Married">Đã kết hôn</option>
@@ -29,7 +33,7 @@ const Bio = ({
       ) : (
         <textarea
           name={name}
-          placeholder="Add Bio"
+          placeholder={placeholder}
           value={infos?.[name]}
           maxLength="100"
           className="textarea_blue details_input"
@@ -48,7 +52,10 @@ const Bio = ({
           </button>
           <button
             className="blue_btn"
-            onClick={() => handleUpdateUserDetails()}
+            onClick={() => {
+              setShowEditBio(false);
+              handleUpdateUserDetails();
+            }}
           >
             {isLoading ? <PulseLoader size={5} color="white" /> : "Lưu"}
           </button>

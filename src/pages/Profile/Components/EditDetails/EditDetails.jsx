@@ -7,7 +7,7 @@ const detailsList = [
   {
     header: "Biệt danh",
     name: "otherName",
-    img: "studies",
+    img: "friends",
   },
   {
     header: "Nơi làm việc",
@@ -48,8 +48,10 @@ const detailsList = [
 
 const EditDetails = ({
   details,
+  isLoading,
   setShowEditDetails,
   handleChangeInputsValue,
+  handleUpdateUserDetails,
   infos,
 }) => {
   const mainRef = useRef(null);
@@ -74,7 +76,7 @@ const EditDetails = ({
           </div>
           {detailsList.map((item, idx) => (
             <Detail
-              rel={item.name === "relationship"}
+              rel={item.name === "relationship" ? true : false}
               key={idx}
               infos={infos}
               header={item.header}
@@ -82,6 +84,8 @@ const EditDetails = ({
               img={item.img}
               name={item.name}
               handleChangeInputsValue={handleChangeInputsValue}
+              handleUpdateUserDetails={handleUpdateUserDetails}
+              isLoading={isLoading}
             />
           ))}
         </div>
