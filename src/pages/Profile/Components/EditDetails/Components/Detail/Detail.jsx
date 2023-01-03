@@ -22,7 +22,7 @@ const Details = ({
         {value ? (
           <div className="info_profile no_underline">
             <img src={`/icons/${img}.png`} alt="" />
-            {value}
+            <p className="detail_text">{value}</p>
             <i className="edit_icon"></i>
           </div>
         ) : (

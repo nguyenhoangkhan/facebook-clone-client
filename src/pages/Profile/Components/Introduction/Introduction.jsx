@@ -150,7 +150,7 @@ const Introduction = ({ detailsInfo, isVisitor, getProfile }) => {
           Đến từ {details.homeTown}
         </div>
       )}
-      {details?.homeTown && (
+      {details?.instagram && (
         <div className="info_profile">
           <img src="../../../icons/instagram.png" alt="" />
           <a
