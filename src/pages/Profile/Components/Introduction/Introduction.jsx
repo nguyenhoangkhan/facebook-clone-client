@@ -3,8 +3,8 @@ import { Bio } from "../Bio";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../../redux/actions";
-import { useCallback } from "react";
 import { memo } from "react";
+import { EditDetails } from "../EditDetails";
 
 const Introduction = ({ detailsInfo, isVisitor, getProfile }) => {
   const serverURL = process.env.REACT_APP_BACKEND_URL;
@@ -28,11 +28,16 @@ const Introduction = ({ detailsInfo, isVisitor, getProfile }) => {
   const [infos, setInfos] = useState(initDetails);
 
   useEffect(() => {
-    setDetails(detailsInfo);
+    if (detailsInfo) {
+      setDetails(detailsInfo);
+      setInfos(detailsInfo);
+    }
   }, [detailsInfo]);
 
+  console.log("infos ", infos);
+
   const [showEditBio, setShowEditBio] = useState(false);
-  const [showEditDetails, setShowEditDetails] = useState(true);
+  const [showEditDetails, setShowEditDetails] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -40,8 +45,10 @@ const Introduction = ({ detailsInfo, isVisitor, getProfile }) => {
 
   const dispatch = useDispatch();
 
-  const handleBioChange = (e) => {
-    setInfos({ ...infos, bio: e.target.value });
+  const handleChangeInputsValue = (e) => {
+    const { name, value } = e.target;
+
+    setInfos({ ...infos, [name]: value });
     setMax(100 - e.target.value.length);
   };
 
@@ -84,10 +91,11 @@ const Introduction = ({ detailsInfo, isVisitor, getProfile }) => {
         <Bio
           handleUpdateUserDetails={handleUpdateUserDetails}
           infos={infos}
-          handleBioChange={handleBioChange}
+          handleChangeInputsValue={handleChangeInputsValue}
           setShowEditBio={setShowEditBio}
           max={max}
           isLoading={isLoading}
+          name="bio"
         />
       )}
       {!isVisitor && !showEditBio ? (
@@ -155,8 +163,21 @@ const Introduction = ({ detailsInfo, isVisitor, getProfile }) => {
           </a>
         </div>
       )}
+      {showEditDetails && !isVisitor && (
+        <EditDetails
+          infos={infos}
+          details={details}
+          setShowEditDetails={setShowEditDetails}
+          handleChangeInputsValue={handleChangeInputsValue}
+        />
+      )}
       {!isVisitor && (
-        <button className="gray_btn hover1 w100">Chỉnh sửa chi tiết</button>
+        <button
+          className="gray_btn hover1 w100"
+          onClick={() => setShowEditDetails(true)}
+        >
+          Chỉnh sửa chi tiết
+        </button>
       )}
       {!isVisitor && (
         <button className="gray_btn hover1 w100">Chỉnh sửa sở thích</button>

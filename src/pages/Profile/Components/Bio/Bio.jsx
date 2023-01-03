@@ -4,21 +4,22 @@ import { PublicIcon } from "../../../../assets/svg";
 
 const Bio = ({
   infos,
-  handleBioChange,
+  handleChangeInputsValue,
   max,
   setShowEditBio,
   handleUpdateUserDetails,
   isLoading,
+  name,
 }) => {
   return (
     <div className="add_bio_wrap">
       <textarea
+        name={name}
         placeholder="Add Bio"
-        name="bio"
-        value={infos?.bio}
+        value={infos?.[name]}
         maxLength="100"
         className="textarea_blue details_input"
-        onChange={handleBioChange}
+        onChange={handleChangeInputsValue}
       ></textarea>
       <div className="remaining">{max} kí tự còn lại</div>
       <div className="flex">
