@@ -9,6 +9,7 @@ const Details = ({
   name,
   handleChangeInputsValue,
   infos,
+  rel,
 }) => {
   const [showEdit, setShowEdit] = useState(false);
 
@@ -31,6 +32,7 @@ const Details = ({
       </div>
       {showEdit && (
         <Bio
+          rel
           handleChangeInputsValue={handleChangeInputsValue}
           placeholder={placeholder}
           name={name}

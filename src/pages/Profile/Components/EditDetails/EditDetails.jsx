@@ -74,6 +74,7 @@ const EditDetails = ({
           </div>
           {detailsList.map((item, idx) => (
             <Detail
+              rel={item.name === "relationship"}
               key={idx}
               infos={infos}
               header={item.header}

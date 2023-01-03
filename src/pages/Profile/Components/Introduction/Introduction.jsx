@@ -34,8 +34,6 @@ const Introduction = ({ detailsInfo, isVisitor, getProfile }) => {
     }
   }, [detailsInfo]);
 
-  console.log("infos ", infos);
-
   const [showEditBio, setShowEditBio] = useState(false);
   const [showEditDetails, setShowEditDetails] = useState(false);
 

@@ -10,17 +10,33 @@ const Bio = ({
   handleUpdateUserDetails,
   isLoading,
   name,
+  rel,
 }) => {
   return (
     <div className="add_bio_wrap">
-      <textarea
-        name={name}
-        placeholder="Add Bio"
-        value={infos?.[name]}
-        maxLength="100"
-        className="textarea_blue details_input"
-        onChange={handleChangeInputsValue}
-      ></textarea>
+      {rel ? (
+        <select
+          className="select_rel"
+          name={name}
+          value={infos.relationship}
+          onChange={handleChangeInputsValue}
+        >
+          <option value="Single">Độc thân</option>
+          <option value="In a Relationship">Hẹn hò</option>
+          <option value="Married">Đã kết hôn</option>
+          <option value="Divorced">Đã li hôn</option>
+        </select>
+      ) : (
+        <textarea
+          name={name}
+          placeholder="Add Bio"
+          value={infos?.[name]}
+          maxLength="100"
+          className="textarea_blue details_input"
+          onChange={handleChangeInputsValue}
+        ></textarea>
+      )}
+
       <div className="remaining">{max} kí tự còn lại</div>
       <div className="flex">
         <div className="flex_left">
