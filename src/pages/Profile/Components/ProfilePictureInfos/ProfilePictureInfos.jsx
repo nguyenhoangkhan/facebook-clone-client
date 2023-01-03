@@ -3,7 +3,6 @@ import ProfileAvatar from "../ProfileAvatar";
 
 const ProfilePictureInfos = ({ profile = {}, photos = [] }) => {
   const [show, setShow] = useState(false);
-
   return (
     <div className="profile_img_wrap">
       {show && <ProfileAvatar setShow={setShow} photos={photos} />}
@@ -23,8 +22,10 @@ const ProfilePictureInfos = ({ profile = {}, photos = [] }) => {
         </div>
         <div className="profile_w_col">
           <div className="profile_name">
-            {profile?.first_name} {profile?.last_name}
-            {/* <div className="othername">Othername</div> */}
+            <p>
+              {profile?.first_name} {profile?.last_name}
+            </p>
+            <span className="othername">({profile?.details?.otherName})</span>
           </div>
           <div className="profile_friend_count"></div>
           <div className="profile_friend_imgs"></div>

@@ -24,15 +24,6 @@
   position: absolute;
   right: 16px;
   top: 12px;
-  cursor: pointer;
-  background-color: var(--bg-secondary);
-
-  padding: 10px;
-  border-radius: 50%;
-  &:hover {
-    transition: 0.2s;
-    background-color: var(--bg-third);
-  }
 }
 .box_profile {
   display: flex;
@@ -62,9 +53,9 @@
   border-radius: 7px;
   background: var(--bg-third);
   cursor: pointer;
-  span {
-    margin-bottom: 1px;
-  }
+}
+.box_privacy span {
+  margin-bottom: 1px;
 }
 .flex_center {
   min-height: 90px;
@@ -78,7 +69,8 @@
   outline: none;
   border: none;
   resize: none;
-  padding: 5px;
+  padding: 5px 15px;
+  margin-bottom: 10px;
   width: 470px;
   margin-left: 1px;
   font-family: inherit;
@@ -111,7 +103,7 @@
   right: 0;
   bottom: 2.5rem;
 }
-.remove {
+.rlmove {
   right: -7rem;
 }
 .addtoyourpost {
@@ -138,7 +130,7 @@
 }
 .post_submit {
   width: calc(100% - 18px);
-  margin: 16px 10px;
+  margin: 5px 10px;
   padding: 10px;
   outline: none;
   border: none;
@@ -146,30 +138,18 @@
   color: #fff;
   font-weight: 600;
   border-radius: 5px;
-  font-size: 1.6rem;
   cursor: pointer;
-  &.empty-text {
-    cursor: not-allowed;
-    background-color: var(--bg-third);
-    color: #ccc;
-  }
-  &.loading {
-    cursor: not-allowed;
-    background-color: var(--bg-third);
-    color: #ccc;
-  }
 }
 .overflow_a {
   max-height: 500px;
-  overflow-x: hidden;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .input2 {
   position: relative;
   display: block;
   font-size: 15px;
   min-height: 15px !important;
-  padding-left: 20px;
 }
 .moveleft {
   transform: translateX(-10px);
@@ -246,7 +226,7 @@
   border-radius: 10px;
 }
 .mobile_text {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
 }
 .addphone_btn {
@@ -265,9 +245,6 @@
   height: 100%;
   cursor: default;
   overflow: hidden;
-  &:hover .preview_actions {
-    display: flex;
-  }
 }
 .preview_actions {
   position: absolute;
@@ -276,41 +253,43 @@
   display: flex;
   gap: 1rem;
   display: none;
-
-  button {
-    outline: none;
-    border: none;
-    padding: 8px 10px;
-    border-radius: 7px;
-    background: var(--bg-primary);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 14px;
-    font-family: inherit;
-    color: var(--color-primary);
-  }
+}
+.preview_actions button {
+  outline: none;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 7px;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--color-primary);
+}
+.p0:hover .preview_actions {
+  display: flex;
 }
 .preview1 {
   width: 100%;
   height: 100%;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+}
+.preview1 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .preview2 {
   height: 100%;
   display: flex;
   gap: 2px;
-  img {
-    width: 50%;
-    height: 230px;
-    object-fit: cover;
-  }
+}
+.preview2 img {
+  width: 50%;
+  height: 230px;
+  object-fit: cover;
 }
 .preview3 {
   height: 100%;
@@ -319,14 +298,14 @@
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 2px;
-  img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-  img:nth-child(1) {
-    grid-column: 1/3;
-  }
+}
+.preview3 img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.preview3 img:nth-child(1) {
+  grid-column: 1/3;
 }
 .preview4 {
   height: 100%;
@@ -334,14 +313,14 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 2px;
-  img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    &:nth-child(1) {
-      grid-column: 1/4;
-    }
-  }
+}
+.preview4 img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.preview4 img:nth-child(1) {
+  grid-column: 1/4;
 }
 .preview5 {
   height: 100%;
@@ -349,28 +328,27 @@
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 2px;
-  img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    grid-column: auto / span 2;
-  }
-  img:nth-child(1),
-  img:nth-child(2) {
-    grid-column: auto / span 3;
-  }
 }
-
+.preview5 img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  grid-column: auto / span 2;
+}
+.preview5 img:nth-child(1),
+.preview5 img:nth-child(2) {
+  grid-column: auto / span 3;
+}
 .preview6 {
   height: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2px;
-  img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
+}
+.preview6 img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 .singular_grid img:nth-child(1) {
   grid-column: 1/3;
@@ -393,7 +371,6 @@
   border-radius: 10px;
   cursor: pointer;
 }
-
 .bgHandler {
   height: 360px;
   width: 100%;
@@ -403,7 +380,6 @@
   text-align: center;
   height: 360px;
   margin-top: 10px;
-  font-size: 3rem;
 }
 
 /*----post error----*/
@@ -424,15 +400,13 @@
   animation: anim 0.3s;
   border-radius: 5px;
   padding: 3rem;
-  flex-direction: column;
 }
 .postError_error {
   width: 75%;
-  font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 20px;
-  text-align: center;
 }
+/*----post error----*/
+
 @keyframes anim {
   0% {
     width: 0;
@@ -441,4 +415,45 @@
     width: 100%;
   }
 }
-/*----post error----*/
+@media (max-width: 735px) {
+  .rlmove {
+    right: 10px;
+  }
+}
+@media (max-width: 550px) {
+  .postBox {
+    width: 96%;
+  }
+
+  .post_backgrounds {
+    width: 80%;
+    overflow-x: auto;
+  }
+  .post_backgrounds img {
+    width: 30px;
+    height: 30px;
+  }
+}
+@media (max-width: 405px) {
+  .preview_actions {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .mobile_text {
+    width: 50%;
+  }
+}
+@media (max-width: 380px) {
+  .post_input {
+    font-size: 17px;
+  }
+  .addtoyourpost {
+    justify-content: center;
+  }
+  .addto_text {
+    display: none;
+  }
+}
+.l0 {
+  left: 0;
+}
