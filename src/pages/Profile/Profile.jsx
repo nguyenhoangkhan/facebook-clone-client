@@ -27,37 +27,44 @@ const Profile = () => {
 
   const [photos, setPhotos] = useState([]);
 
-  useEffect(() => {
-    const getProfile = async () => {
-      try {
-        dispatch(actions.PROFILE_REQUEST());
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/${username}`,
-          {
-            headers: { Authorization: `Bearer ${user.token}` },
-          }
-        );
-        dispatch(actions.PROFILE_SUCCESS(data));
-      } catch (err) {
-        dispatch(actions.PROFILE_ERROR(err));
-      }
-    };
-    getProfile();
-  }, [userName, username, user.token, dispatch]);
+  const getProfile = async () => {
+    try {
+      dispatch(actions.PROFILE_REQUEST());
 
-  const { isLoading, error, data } = useQuery(["uploadImages"], () =>
-    axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/uploadImages`, {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/${username}`,
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      );
+      dispatch(actions.PROFILE_SUCCESS(data));
+    } catch (err) {
+      dispatch(actions.PROFILE_ERROR(err));
+    }
+  };
+
+  const getUploadedImages = async () => {
+    const res = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/uploadImages`,
+      {
         headers: { Authorization: `Bearer ${user.token}` },
         params: {
           path: `${username}/*`,
           order: "desc",
           max: 30,
         },
-      })
-      .then((res) => res.data)
-      .then((data) => setPhotos(data))
-  );
+      }
+    );
+    if (res.status === 200) {
+      setPhotos(res?.data);
+    }
+  };
+
+  useEffect(() => {
+    getProfile();
+    getUploadedImages();
+  }, [userName, username, user.token]);
+
   return (
     <div>
       <Header />
@@ -77,8 +84,9 @@ const Profile = () => {
             <div className="profile_grid">
               <div className="profile_left">
                 <Introduction
-                  details={profile?.profile?.details}
+                  detailsInfo={profile?.profile?.details}
                   isVisitor={isVisitor}
+                  getProfile={getProfile}
                 />
                 <Photos photos={photos} />
                 <FriendsList />

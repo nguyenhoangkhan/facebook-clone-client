@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
+import * as actions from "../../../../redux/actions";
 import {
   ArrowDown,
   Menu,
@@ -10,8 +11,11 @@ import {
 } from "../../../../assets/svg";
 import MenuList from "../MenuList";
 import UserMenu from "../UserMenu/UserMenu";
+import axios from "axios";
 
 const HeaderProfile = () => {
+  const dispatch = useDispatch();
+
   const { profile, user } = useSelector((state) => ({ ...state }));
   const [isShowMenuList, setIsShowMenuList] = useState(false);
   const [isShowUserMenu, setIsShowUserMenu] = useState(false);
@@ -19,6 +23,24 @@ const HeaderProfile = () => {
   const handleShowMenuList = () => {
     setIsShowMenuList(!isShowMenuList);
   };
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        dispatch(actions.PROFILE_REQUEST());
+
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/${user?.username}`,
+          {
+            headers: { Authorization: `Bearer ${user.token}` },
+          }
+        );
+        dispatch(actions.PROFILE_SUCCESS(data));
+      } catch (err) {
+        dispatch(actions.PROFILE_ERROR(err));
+      }
+    };
+    getProfile();
+  }, [user?.token]);
 
   return (
     <div className="header-profile-wrapper">
@@ -62,7 +84,7 @@ const HeaderProfile = () => {
       )}
       {isShowUserMenu && (
         <UserMenu
-          user={user}
+          user={profile?.profile}
           setIsShowUserMenu={setIsShowUserMenu}
           isShowUserMenu={isShowUserMenu}
         />

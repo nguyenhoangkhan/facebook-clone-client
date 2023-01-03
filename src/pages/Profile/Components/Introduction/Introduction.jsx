@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Bio } from "../Bio";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../../redux/actions";
+import { useCallback } from "react";
+import { memo } from "react";
 
-const Introduction = ({ details, isVisitor }) => {
-  const detailInfos = {
+const Introduction = ({ detailsInfo, isVisitor, getProfile }) => {
+  const serverURL = process.env.REACT_APP_BACKEND_URL;
+
+  const { user } = useSelector((state) => ({ ...state }));
+
+  const [details, setDetails] = useState();
+
+  const initDetails = {
     bio: details?.bio ? details.bio : "",
     otherName: details?.otherName ? details.otherName : "",
-    job: details?.job ? details.job : "",
     workPlace: details?.workPlace ? details.workPlace : "",
     highSchool: details?.highSchool ? details.highSchool : "",
     college: details?.college ? details.college : "",
@@ -15,61 +25,90 @@ const Introduction = ({ details, isVisitor }) => {
     instagram: details?.instagram ? details.instagram : "",
   };
 
-  const [infos, setInfos] = useState(detailInfos);
-  const [showBio, setShowBio] = useState(true);
+  const [infos, setInfos] = useState(initDetails);
+
+  useEffect(() => {
+    setDetails(detailsInfo);
+  }, [detailsInfo]);
+
+  const [showEditBio, setShowEditBio] = useState(false);
+  const [showEditDetails, setShowEditDetails] = useState(true);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [max, setMax] = useState(infos.bio ? 100 - infos.bio.length : 100);
+
+  const dispatch = useDispatch();
 
   const handleBioChange = (e) => {
     setInfos({ ...infos, bio: e.target.value });
     setMax(100 - e.target.value.length);
   };
 
+  const handleUpdateUserDetails = async () => {
+    try {
+      setIsLoading(true);
+      const res = await axios.patch(
+        serverURL + "/details",
+        {
+          details: infos,
+        },
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      );
+      if (res.status === 200) {
+        setError("");
+        setShowEditBio(false);
+        dispatch(actions.UPDATE_DETAILS_PROFILE(res?.data?.details));
+        await getProfile();
+        setIsLoading(false);
+      }
+
+      setIsLoading(false);
+    } catch (err) {
+      setError(err?.response?.data?.message);
+    }
+  };
   return (
     <div className="profile_card">
       <div className="profile_card_header">Giới thiệu</div>
-      {infos.bio && (
+      {details?.bio ? (
         <div className="info_col">
-          <span className="info_text">{infos.bio}</span>
-          {!isVisitor && !showBio ? (
-            <button
-              className="gray_btn hover1"
-              onClick={() => setShowBio(true)}
-            >
-              Chỉnh sửa Bio
-            </button>
-          ) : (
-            ""
-          )}
-        </div>
-      )}
-      {showBio && (
-        <Bio
-          infos={infos}
-          handleBioChange={handleBioChange}
-          setShowBio={setShowBio}
-          max={max}
-        />
-      )}
-      {infos.job && infos.workPlace ? (
-        <div className="info_profile">
-          <img src="../../../icons/job.png" alt="" />
-          Làm việc tại {infos.job} at <b>{infos.workPlace}</b>
-        </div>
-      ) : infos.job && !infos.workPlace ? (
-        <div className="info_profile">
-          <img src="../../../icons/job.png" alt="" />
-          Làm việc tại {infos.job}
+          <span className="info_text">{details.bio}</span>
         </div>
       ) : (
-        infos.workPlace &&
-        !infos.job && (
-          <div className="info_profile">
-            <img src="../../../icons/job.png" alt="" />
-            Làm việc tại {infos.workPlace}
-          </div>
-        )
+        ""
       )}
-      {infos?.relationship && (
+      {showEditBio && (
+        <Bio
+          handleUpdateUserDetails={handleUpdateUserDetails}
+          infos={infos}
+          handleBioChange={handleBioChange}
+          setShowEditBio={setShowEditBio}
+          max={max}
+          isLoading={isLoading}
+        />
+      )}
+      {!isVisitor && !showEditBio ? (
+        <div className="info_col">
+          <button
+            className="gray_btn hover1"
+            onClick={() => setShowEditBio(true)}
+          >
+            Chỉnh sửa Bio
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
+      {details?.workPlace && (
+        <div className="info_profile">
+          <img src="../../../icons/job.png" alt="" />
+          Làm việc tại {details.workPlace}
+        </div>
+      )}
+      {details?.relationship && (
         <div className="info_profile">
           <img
             width={20}
@@ -77,42 +116,42 @@ const Introduction = ({ details, isVisitor }) => {
             src="https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/eu1ZIPJje34.png"
             alt=""
           />
-          {infos.relationship}
+          {details.relationship}
         </div>
       )}
-      {infos?.college && (
+      {details?.college && (
         <div className="info_profile">
           <img src="../../../icons/studies.png" alt="" />
-          Đang học tại {infos.college}
+          Đang học tại {details.college}
         </div>
       )}
-      {infos?.highSchool && (
+      {details?.highSchool && (
         <div className="info_profile">
           <img src="../../../icons/studies.png" alt="" />
-          Đang học tại {infos.highSchool}
+          Đang học tại {details.highSchool}
         </div>
       )}
-      {infos?.currentCity && (
+      {details?.currentCity && (
         <div className="info_profile">
           <img src="../../../icons/home.png" alt="" />
-          Sống tại {infos.currentCity}
+          Sống tại {details.currentCity}
         </div>
       )}
-      {infos?.homeTown && (
+      {details?.homeTown && (
         <div className="info_profile">
           <img src="../../../icons/home.png" alt="" />
-          Đến từ {infos.homeTown}
+          Đến từ {details.homeTown}
         </div>
       )}
-      {infos?.homeTown && (
+      {details?.homeTown && (
         <div className="info_profile">
           <img src="../../../icons/instagram.png" alt="" />
           <a
-            href={`https://www.instagram.com/${infos.instagram}`}
+            href={`https://www.instagram.com/${details.instagram}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {infos.instagram}
+            {details.instagram}
           </a>
         </div>
       )}
@@ -129,4 +168,4 @@ const Introduction = ({ details, isVisitor }) => {
   );
 };
 
-export default Introduction;
+export default memo(Introduction);

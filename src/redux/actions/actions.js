@@ -59,3 +59,9 @@ export const UPDATE_COVER_PROFILE = (payload) => {
     payload,
   };
 };
+export const UPDATE_DETAILS_PROFILE = (payload) => {
+  return {
+    type: "UPDATE_COVER_PROFILE",
+    payload,
+  };
+};

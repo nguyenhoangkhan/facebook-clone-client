@@ -1,6 +1,15 @@
-import React from "react";
+import { memo } from "react";
+import PulseLoader from "react-spinners/PulseLoader";
+import { PublicIcon } from "../../../../assets/svg";
 
-const Bio = ({ infos, handleBioChange, max, setShowBio }) => {
+const Bio = ({
+  infos,
+  handleBioChange,
+  max,
+  setShowEditBio,
+  handleUpdateUserDetails,
+  isLoading,
+}) => {
   return (
     <div className="add_bio_wrap">
       <textarea
@@ -13,17 +22,22 @@ const Bio = ({ infos, handleBioChange, max, setShowBio }) => {
       ></textarea>
       <div className="remaining">{max} kí tự còn lại</div>
       <div className="flex">
-        <div className="flex flex_left">
-          <i className="public_icon"></i>Công khai
+        <div className="flex_left">
+          <PublicIcon /> Công khai
         </div>
         <div className="flex flex_right">
-          <button className="gray_btn" onClick={() => setShowBio(false)}>
+          <button className="gray_btn" onClick={() => setShowEditBio(false)}>
             Hủy
           </button>
-          <button className="blue_btn">Lưu</button>
+          <button
+            className="blue_btn"
+            onClick={() => handleUpdateUserDetails()}
+          >
+            {isLoading ? <PulseLoader size={5} color="white" /> : "Lưu"}
+          </button>
         </div>
       </div>
     </div>
   );
 };
-export default Bio;
+export default memo(Bio);
