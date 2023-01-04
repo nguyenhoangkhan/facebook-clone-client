@@ -45,6 +45,33 @@ header {
 .search input::placeholder {
   transform: translateY(-1px);
 }
+.search_results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: -10px;
+}
+.search-item {
+  display: flex;
+  border-radius: 8px;
+  padding: 6px;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  &--avatar img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  &--name {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
 .middle-icon-wrapper {
   display: flex;
   align-items: center;

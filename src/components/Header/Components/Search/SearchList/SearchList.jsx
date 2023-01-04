@@ -2,8 +2,16 @@ import { useEffect, useRef, useState } from "react";
 
 import { Return, Search } from "../../../../../assets/svg";
 import { useClickOutside } from "../../../../../Hooks";
+import { SearchItem } from "../SearchItem";
 
-const SearchList = ({ color, setShowSearchList }) => {
+const SearchList = ({
+  color,
+  setShowSearchList,
+  search,
+  setSearch,
+  users,
+  debouncedSearch,
+}) => {
   const [iconVisible, setIconVisible] = useState(true);
 
   const menuRef = useRef(null);
@@ -43,6 +51,8 @@ const SearchList = ({ color, setShowSearchList }) => {
           <input
             type="text"
             placeholder="Search Facebook"
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
             ref={inputRef}
             onFocus={() => {
               setIconVisible(false);
@@ -53,12 +63,18 @@ const SearchList = ({ color, setShowSearchList }) => {
           />
         </div>
       </div>
-      <div className="search_history_header">
-        <span>Tìm kiếm gần đây</span>
-        <a>Chỉnh sửa</a>
-      </div>
+      {!debouncedSearch && (
+        <div className="search_history_header">
+          <span>Tìm kiếm gần đây</span>
+          <a>Chỉnh sửa</a>
+        </div>
+      )}
       <div className="search_history"></div>
-      <div className="search_results scrollbar"></div>
+      <div className="search_results scrollbar">
+        {users.map((user, idx) => (
+          <SearchItem key={idx} user={user} />
+        ))}
+      </div>
     </div>
   );
 };
