@@ -59,11 +59,11 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    console.log();
     getProfile();
     getUploadedImages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userName, user.token]);
+
   return (
     <div>
       <Header />

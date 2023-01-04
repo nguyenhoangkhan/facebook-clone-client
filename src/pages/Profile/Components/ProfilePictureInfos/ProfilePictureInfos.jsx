@@ -33,31 +33,37 @@ const ProfilePictureInfos = ({ profile = {}, photos = [], isVisitor }) => {
             )}
           </div>
           <div className="profile_friend_count">
-            {profile?.friends?.length && (
+            {profile?.friends?.length ? (
               <div className="profile_card_count">
                 {`${profile?.friends.length} bạn bè`}
               </div>
+            ) : (
+              ""
             )}
           </div>
           <div className="profile_friend_imgs">
-            {profile?.friends.length &&
-              profile.friends.slice(0, 6).map((friend, i) => (
-                <Link to={`/${friend.username}`} key={i}>
-                  <img
-                    src={friend.picture}
-                    alt=""
-                    style={{
-                      transform: `translateX(${-i * 7}px)`,
-                      zIndex: `${i}`,
-                    }}
-                  />
-                </Link>
-              ))}
+            {profile?.friends.length
+              ? profile.friends.slice(0, 6).map((friend, i) => (
+                  <Link to={`/${friend.username}`} key={i}>
+                    <img
+                      src={friend.picture}
+                      alt=""
+                      style={{
+                        transform: `translateX(${-i * 7}px)`,
+                        zIndex: `${i}`,
+                      }}
+                    />
+                  </Link>
+                ))
+              : ""}
           </div>
         </div>
       </div>
       {isVisitor ? (
-        <Friendship friendship={profile?.friendship} profileId={profile?._id} />
+        <Friendship
+          friendshipInfo={profile?.friendship}
+          profileId={profile?._id}
+        />
       ) : (
         <div className="profile_w_right">
           <div className="blue_btn add-to-story-btn">

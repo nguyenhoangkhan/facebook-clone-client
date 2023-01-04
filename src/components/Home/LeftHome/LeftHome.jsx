@@ -7,9 +7,10 @@ import { ShortCut, LeftLink } from "./Components";
 
 const LeftHome = ({ user }) => {
   const [visible, setVisible] = useState(false);
+
   return (
     <div className="left_home scrollbar">
-      <Link to="/profile" className="left_link hover2">
+      <Link to={`/${user?.username}`} className="left_link hover2">
         <img src={user?.picture} alt="" />
         <span>
           {user?.first_name} {user.last_name}

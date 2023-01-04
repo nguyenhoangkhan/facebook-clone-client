@@ -66,6 +66,8 @@
   font-weight: 600;
   font-size: 14px;
   border-radius: 10px;
+  background: transparent;
+  width: 100%;
 }
 .profile_img_wrap {
   position: relative;
@@ -349,6 +351,7 @@
 .profile_friend_imgs {
   display: flex;
   align-items: center;
+  margin-bottom: 20px;
 }
 .profile_friend_imgs img {
   width: 32px;
@@ -450,7 +453,6 @@
     right: 1rem;
   }
   .profile_name {
-    padding-bottom: 20px;
     flex-direction: column;
     gap: 6px;
   }

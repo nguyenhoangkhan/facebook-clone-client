@@ -21,10 +21,6 @@ const Friendship = ({ friendshipInfo, profileId }) => {
 
   const [friendship, setFriendship] = useState({});
 
-  useEffect(() => {
-    setFriendship(friendshipInfo);
-  }, [friendshipInfo]);
-
   const [friendsMenu, setFriendsMenu] = useState(false);
   const [respondMenu, setRespondMenu] = useState(false);
 
@@ -32,6 +28,11 @@ const Friendship = ({ friendshipInfo, profileId }) => {
   const respondMenuRef = useRef(null);
   useClickOutside(menuRef, () => setFriendsMenu(false));
   useClickOutside(respondMenuRef, () => setRespondMenu(false));
+
+  useEffect(() => {
+    setFriendship(friendshipInfo);
+  }, [friendshipInfo]);
+  console.log("friendship ", friendship);
 
   const handleAddFriend = async () => {
     setIsLoading(true);
@@ -102,21 +103,21 @@ const Friendship = ({ friendshipInfo, profileId }) => {
                   Hủy theo dõi
                 </button>
               ) : (
-                <button
+                <div
                   className="open_cover_menu_item hover1"
                   onClick={handleFollow}
                 >
                   <img src="../../../icons/unfollowOutlined.png" alt="" />
                   Theo dõi
-                </button>
+                </div>
               )}
-              <button
+              <div
                 className="open_cover_menu_item hover1"
                 onClick={handleUnFriend}
               >
                 <i className="unfriend_outlined_icon"></i>
                 Hủy kết bạn
-              </button>
+              </div>
             </div>
           )}
         </div>
