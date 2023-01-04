@@ -1,5 +1,4 @@
 const Photos = ({ photos }) => {
-  console.log("photos ", photos);
   return (
     <div className="profile_card">
       <div className="profile_card_header">

@@ -75,7 +75,6 @@ const Introduction = ({ detailsInfo, isVisitor, getProfile }) => {
       setError(err?.response?.data?.message);
     }
   };
-  console.log("infos ", infos);
   return (
     <div className="profile_card">
       <div className="profile_card_header">Giới thiệu</div>

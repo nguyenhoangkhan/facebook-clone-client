@@ -14,10 +14,7 @@ const Post = ({ post, user }) => {
   return (
     <div className="post">
       <div className="post_header">
-        <Link
-          to={`/profile/${post.user.username}`}
-          className="post_header_left"
-        >
+        <Link to={`/${post.user.username}`} className="post_header_left">
           <img src={post.user.picture} alt="" />
           <div className="header_col">
             <div className="post_profile_name">

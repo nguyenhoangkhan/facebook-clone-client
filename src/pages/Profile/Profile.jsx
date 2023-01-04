@@ -37,6 +37,7 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${user.token}` },
         }
       );
+      console.log("data ", data);
       dispatch(actions.PROFILE_SUCCESS(data));
     } catch (err) {
       dispatch(actions.PROFILE_ERROR(err));
@@ -72,6 +73,7 @@ const Profile = () => {
         <div className="profile_container">
           <Cover cover={profile?.profile?.cover} photos={photos.resources} />
           <ProfilePictureInfos
+            isVisitor={isVisitor}
             profile={profile?.profile}
             photos={photos.resources}
           />
