@@ -1,8 +1,17 @@
 import { memo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import PulseLoader from "react-spinners/PulseLoader";
-import { addFriend } from "../../../../functions/friendship";
+
 import { useClickOutside } from "../../../../Hooks";
+import {
+  acceptFriendRequest,
+  addFriend,
+  cancelFriendRequest,
+  deleteFriendRequest,
+  follow,
+  unFollow,
+  unFriend,
+} from "../../../../functions/friendship";
 
 const Friendship = ({ friendship, profileId }) => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -23,11 +32,47 @@ const Friendship = ({ friendship, profileId }) => {
     setIsLoading(false);
   };
 
+  const handleUnFriend = async () => {
+    setIsLoading(true);
+    await unFriend(profileId, user.token);
+    setIsLoading(false);
+  };
+
+  const handleDeleteFriendRequest = async () => {
+    setIsLoading(true);
+    await deleteFriendRequest(profileId, user.token);
+    setIsLoading(false);
+  };
+
+  const handleFollow = async () => {
+    setIsLoading(true);
+    await follow(profileId, user.token);
+    setIsLoading(false);
+  };
+
+  const handleUnFollow = async () => {
+    setIsLoading(true);
+    await unFollow(profileId, user.token);
+    setIsLoading(false);
+  };
+
+  const handleAcceptFriendRequest = async () => {
+    setIsLoading(true);
+    await acceptFriendRequest(profileId, user.token);
+    setIsLoading(false);
+  };
+
+  const handleCancelFriendRequest = async () => {
+    setIsLoading(true);
+    await cancelFriendRequest(profileId, user.token);
+    setIsLoading(false);
+  };
+
   console.log("friendship ", friendship);
 
   return (
     <div className="friendship">
-      {friendship?.friends ? (
+      {friendship?.isFriend ? (
         <div className="friends_menu_wrap">
           <button className="gray_btn" onClick={() => setFriendsMenu(true)}>
             <img src="../../../icons/friends.png" alt="" />
@@ -43,21 +88,30 @@ const Friendship = ({ friendship, profileId }) => {
                 <img src="../../../icons/editFriends.png" alt="" />
                 Chỉnh sửa danh sách bạn bè
               </div>
-              {friendship?.following ? (
-                <div className="open_cover_menu_item hover1">
+              {friendship?.isFollowing ? (
+                <button
+                  className="open_cover_menu_item hover1"
+                  onClick={handleFollow}
+                >
                   <img src="../../../icons/unfollowOutlined.png" alt="" />
                   Hủy theo dõi
-                </div>
+                </button>
               ) : (
-                <div className="open_cover_menu_item hover1">
+                <button
+                  className="open_cover_menu_item hover1"
+                  onClick={handleUnFollow}
+                >
                   <img src="../../../icons/unfollowOutlined.png" alt="" />
                   Theo dõi
-                </div>
+                </button>
               )}
-              <div className="open_cover_menu_item hover1">
+              <button
+                className="open_cover_menu_item hover1"
+                onClick={handleUnFriend}
+              >
                 <i className="unfriend_outlined_icon"></i>
                 Hủy kết bạn
-              </div>
+              </button>
             </div>
           )}
         </div>
@@ -81,7 +135,7 @@ const Friendship = ({ friendship, profileId }) => {
         )
       )}
       {friendship?.requestSent ? (
-        <button className="blue_btn">
+        <button className="blue_btn" onClick={handleDeleteFriendRequest}>
           <img
             width={15}
             height={15}
@@ -89,7 +143,7 @@ const Friendship = ({ friendship, profileId }) => {
             className="invert"
             alt=""
           />
-          <span>Hủy bỏ yêu cầu</span>
+          <span>Hủy bỏ lời mời</span>
         </button>
       ) : (
         friendship?.requestReceived && (
@@ -100,8 +154,18 @@ const Friendship = ({ friendship, profileId }) => {
             </button>
             {respondMenu && (
               <div className="open_cover_menu" ref={respondMenuRef}>
-                <div className="open_cover_menu_item hover1">Xác nhận</div>
-                <div className="open_cover_menu_item hover1">Xóa</div>
+                <div
+                  className="open_cover_menu_item hover1"
+                  onClick={handleAcceptFriendRequest}
+                >
+                  Xác nhận
+                </div>
+                <div
+                  className="open_cover_menu_item hover1"
+                  onClick={handleCancelFriendRequest}
+                >
+                  Xóa
+                </div>
               </div>
             )}
           </div>

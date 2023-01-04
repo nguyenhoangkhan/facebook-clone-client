@@ -27,7 +27,9 @@ const ProfilePictureInfos = ({ profile = {}, photos = [], isVisitor }) => {
             <p>
               {profile?.first_name} {profile?.last_name}
             </p>
-            <span className="othername">({profile?.details?.otherName})</span>
+            {profile?.details?.otherName && (
+              <span className="othername">({profile?.details?.otherName})</span>
+            )}
           </div>
           <div className="profile_friend_count"></div>
           <div className="profile_friend_imgs"></div>
