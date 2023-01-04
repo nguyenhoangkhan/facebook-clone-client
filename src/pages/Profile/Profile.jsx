@@ -12,7 +12,6 @@ import GridPosts from "./Components/GridPosts";
 import Post from "../../components/Post";
 import Photos from "./Components/Photos";
 import FriendsList from "./Components/FriendsList";
-import { useQuery } from "@tanstack/react-query";
 import { Introduction } from "./Components/Introduction";
 
 const Profile = () => {
@@ -26,13 +25,12 @@ const Profile = () => {
   const userName = username === undefined ? user.username : username;
 
   const [photos, setPhotos] = useState([]);
-
   const getProfile = async () => {
     try {
       dispatch(actions.PROFILE_REQUEST());
 
       const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/${username}`,
+        `${process.env.REACT_APP_BACKEND_URL}/${userName}`,
         {
           headers: { Authorization: `Bearer ${user.token}` },
         }
@@ -49,7 +47,7 @@ const Profile = () => {
       {
         headers: { Authorization: `Bearer ${user.token}` },
         params: {
-          path: `${username}/*`,
+          path: `${userName}/*`,
           order: "desc",
           max: 30,
         },
@@ -61,9 +59,11 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    console.log();
     getProfile();
     getUploadedImages();
-  }, [userName, username, user.token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userName, user.token]);
   return (
     <div>
       <Header />

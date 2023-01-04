@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 
 const FriendsList = ({ friends }) => {
-  console.log("profile?.friends? ", friends);
-
   return (
     <div className="profile_card">
       <div className="profile_card_header">

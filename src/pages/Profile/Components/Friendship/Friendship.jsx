@@ -12,11 +12,18 @@ import {
   unFollow,
   unFriend,
 } from "../../../../functions/friendship";
+import { useEffect } from "react";
 
-const Friendship = ({ friendship, profileId }) => {
+const Friendship = ({ friendshipInfo, profileId }) => {
   const { user } = useSelector((state) => ({ ...state }));
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [friendship, setFriendship] = useState({});
+
+  useEffect(() => {
+    setFriendship(friendshipInfo);
+  }, [friendshipInfo]);
 
   const [friendsMenu, setFriendsMenu] = useState(false);
   const [respondMenu, setRespondMenu] = useState(false);
