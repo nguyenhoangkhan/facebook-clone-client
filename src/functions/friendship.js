@@ -6,7 +6,7 @@ export const follow = async (receiverId, token) => {
   let result, error;
   try {
     const res = await axios.patch(
-      `${SERVER_URL}/follow/:id/${receiverId}`,
+      `${SERVER_URL}/follow/${receiverId}`,
       {},
       {
         headers: {
@@ -27,7 +27,7 @@ export const unFollow = async (receiverId, token) => {
   let result, error;
   try {
     const res = await axios.patch(
-      `${SERVER_URL}/unFollow/:id/${receiverId}`,
+      `${SERVER_URL}/unFollow/${receiverId}`,
       {},
       {
         headers: {

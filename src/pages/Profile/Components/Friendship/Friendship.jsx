@@ -89,7 +89,7 @@ const Friendship = ({ friendship, profileId }) => {
               {friendship?.isFollowing ? (
                 <button
                   className="open_cover_menu_item hover1"
-                  onClick={handleFollow}
+                  onClick={handleUnFollow}
                 >
                   <img src="../../../icons/unfollowOutlined.png" alt="" />
                   Hủy theo dõi
@@ -97,7 +97,7 @@ const Friendship = ({ friendship, profileId }) => {
               ) : (
                 <button
                   className="open_cover_menu_item hover1"
-                  onClick={handleUnFollow}
+                  onClick={handleFollow}
                 >
                   <img src="../../../icons/unfollowOutlined.png" alt="" />
                   Theo dõi
@@ -180,7 +180,7 @@ const Friendship = ({ friendship, profileId }) => {
           <span>Đang theo dõi</span>
         </button>
       ) : (
-        <button className="blue_btn">
+        <button className="blue_btn" onClick={handleFollow}>
           <img src="../../../icons/follow.png" className="invert" alt="" />
           <span>Theo dõi</span>
         </button>

@@ -41,23 +41,25 @@ const Stories = () => {
     const prevBtn = document.querySelector(".splide__arrow--prev") ?? "";
     const nextBtn = document.querySelector(".splide__arrow--next") ?? "";
 
-    if (!isOnMobile) {
-      prevBtn.onclick = () => {
-        setIsHide((prev) => prev - 1);
-      };
-      nextBtn.onclick = () => {
-        setIsHide((prev) => prev + 1);
-      };
+    if (prevBtn && nextBtn) {
+      if (!isOnMobile) {
+        prevBtn.onclick = () => {
+          setIsHide((prev) => prev - 1);
+        };
+        nextBtn.onclick = () => {
+          setIsHide((prev) => prev + 1);
+        };
 
-      if (isHide < 1) {
-        prevBtn.classList.add("hide");
-      } else {
-        prevBtn.classList.remove("hide");
-      }
-      if (isHide === stories.length - 5) {
-        nextBtn.classList.add("hide");
-      } else {
-        nextBtn.classList.remove("hide");
+        if (isHide < 1) {
+          prevBtn.classList.add("hide");
+        } else {
+          prevBtn.classList.remove("hide");
+        }
+        if (isHide === stories.length - 5) {
+          nextBtn.classList.add("hide");
+        } else {
+          nextBtn.classList.remove("hide");
+        }
       }
     }
   }, [isHide]);
