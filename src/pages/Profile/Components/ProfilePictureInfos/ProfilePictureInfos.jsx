@@ -34,7 +34,7 @@ const ProfilePictureInfos = ({ profile = {}, photos = [], isVisitor }) => {
         </div>
       </div>
       {isVisitor ? (
-        <Friendship friendship={profile?.friendship} />
+        <Friendship friendship={profile?.friendship} profileId={profile?._id} />
       ) : (
         <div className="profile_w_right">
           <div className="blue_btn add-to-story-btn">

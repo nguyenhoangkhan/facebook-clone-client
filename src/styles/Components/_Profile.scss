@@ -118,10 +118,11 @@
 .profile_name {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-weight: 700;
   font-size: 32px;
 }
+
 .profile_w_right {
   display: flex;
   gap: 8px;
@@ -572,7 +573,8 @@
     right: 1rem;
   }
   .profile_name {
-    padding-bottom: 10px;
+    padding-bottom: 20px;
+    gap: 6px;
   }
 
   .profile_grid {
@@ -580,13 +582,14 @@
     width: 95%;
   }
 }
+
 @media (max-width: 650px) {
   .profile_menu_wrap {
     display: none;
   }
 }
 @media (max-width: 510px) {
-  .udpate_cover_wrapper {
+  .update_cover_wrapper {
     bottom: 3rem;
   }
 }

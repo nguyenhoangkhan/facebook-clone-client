@@ -1,7 +1,14 @@
 import { memo, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import PulseLoader from "react-spinners/PulseLoader";
+import { addFriend } from "../../../../functions/friendship";
 import { useClickOutside } from "../../../../Hooks";
 
-const Friendship = ({ friendship }) => {
+const Friendship = ({ friendship, profileId }) => {
+  const { user } = useSelector((state) => ({ ...state }));
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const [friendsMenu, setFriendsMenu] = useState(false);
   const [respondMenu, setRespondMenu] = useState(false);
 
@@ -9,6 +16,14 @@ const Friendship = ({ friendship }) => {
   const respondMenuRef = useRef(null);
   useClickOutside(menuRef, () => setFriendsMenu(false));
   useClickOutside(respondMenuRef, () => setRespondMenu(false));
+
+  const handleAddFriend = async () => {
+    setIsLoading(true);
+    await addFriend(profileId, user.token);
+    setIsLoading(false);
+  };
+
+  console.log("friendship ", friendship);
 
   return (
     <div className="friendship">
@@ -49,15 +64,27 @@ const Friendship = ({ friendship }) => {
       ) : (
         !friendship?.requestSent &&
         !friendship?.requestReceived && (
-          <button className="blue_btn">
-            <img src="../../../icons/addFriend.png" alt="" className="invert" />
-            <span>Kết bạn</span>
+          <button className="blue_btn" onClick={handleAddFriend}>
+            {isLoading ? (
+              <PulseLoader color="white" size={5} />
+            ) : (
+              <>
+                <img
+                  src="../../../icons/addFriend.png"
+                  alt=""
+                  className="invert"
+                />
+                <span>Kết bạn</span>
+              </>
+            )}
           </button>
         )
       )}
       {friendship?.requestSent ? (
         <button className="blue_btn">
           <img
+            width={15}
+            height={15}
             src="../../../icons/cancelRequest.png"
             className="invert"
             alt=""
@@ -80,9 +107,14 @@ const Friendship = ({ friendship }) => {
           </div>
         )
       )}
-      {friendship?.following ? (
+      {friendship?.isFollowing ? (
         <button className="gray_btn">
-          <img src="../../../icons/follow.png" alt="" />
+          <img
+            width={15}
+            height={15}
+            src="../../../icons/followed.png"
+            alt=""
+          />
           <span>Đang theo dõi</span>
         </button>
       ) : (
@@ -91,10 +123,12 @@ const Friendship = ({ friendship }) => {
           <span>Theo dõi</span>
         </button>
       )}
-      <button className={friendship?.friends ? "blue_btn" : "gray_btn"}>
+      <button className={friendship?.isFriends ? "blue_btn" : "gray_btn"}>
         <img
           src="../../../icons/message.png"
-          className={friendship?.friends && "invert"}
+          width={15}
+          height={15}
+          className={friendship?.isFriends && "invert"}
           alt=""
         />
         <span>Gửi tin nhắn</span>

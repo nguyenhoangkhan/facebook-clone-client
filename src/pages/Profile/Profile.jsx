@@ -37,7 +37,6 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${user.token}` },
         }
       );
-      console.log("data ", data);
       dispatch(actions.PROFILE_SUCCESS(data));
     } catch (err) {
       dispatch(actions.PROFILE_ERROR(err));
