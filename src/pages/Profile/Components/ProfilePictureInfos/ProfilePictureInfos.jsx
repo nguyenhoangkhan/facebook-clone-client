@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Friendship } from "../Friendship";
 import ProfileAvatar from "../ProfileAvatar";
+import { Link } from "react-router-dom";
 
 const ProfilePictureInfos = ({ profile = {}, photos = [], isVisitor }) => {
   const [show, setShow] = useState(false);
@@ -31,8 +32,28 @@ const ProfilePictureInfos = ({ profile = {}, photos = [], isVisitor }) => {
               <span className="othername">({profile?.details?.otherName})</span>
             )}
           </div>
-          <div className="profile_friend_count"></div>
-          <div className="profile_friend_imgs"></div>
+          <div className="profile_friend_count">
+            {profile?.friends?.length && (
+              <div className="profile_card_count">
+                {`${profile?.friends.length} bạn bè`}
+              </div>
+            )}
+          </div>
+          <div className="profile_friend_imgs">
+            {profile?.friends.length &&
+              profile.friends.slice(0, 6).map((friend, i) => (
+                <Link to={`/${friend.username}`} key={i}>
+                  <img
+                    src={friend.picture}
+                    alt=""
+                    style={{
+                      transform: `translateX(${-i * 7}px)`,
+                      zIndex: `${i}`,
+                    }}
+                  />
+                </Link>
+              ))}
+          </div>
         </div>
       </div>
       {isVisitor ? (

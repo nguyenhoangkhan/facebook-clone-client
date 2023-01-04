@@ -64,7 +64,6 @@ const Profile = () => {
     getProfile();
     getUploadedImages();
   }, [userName, username, user.token]);
-
   return (
     <div>
       <Header />
@@ -90,7 +89,7 @@ const Profile = () => {
                   getProfile={getProfile}
                 />
                 <Photos photos={photos} />
-                <FriendsList />
+                <FriendsList friends={profile?.profile?.friends} />
                 <div className="relative_fb_copyright">
                   <Link to="/">Privacy </Link>
                   <span>. </span>
