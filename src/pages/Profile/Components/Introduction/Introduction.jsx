@@ -28,8 +28,8 @@ const Introduction = ({ detailsInfo, isVisitor, getProfile }) => {
   const [infos, setInfos] = useState(initDetails);
 
   useEffect(() => {
+    setDetails(detailsInfo);
     if (detailsInfo) {
-      setDetails(detailsInfo);
       setInfos(detailsInfo);
     }
   }, [detailsInfo]);
@@ -75,91 +75,97 @@ const Introduction = ({ detailsInfo, isVisitor, getProfile }) => {
       setError(err?.response?.data?.message);
     }
   };
+
   return (
     <div className="profile_card">
       <div className="profile_card_header">Giới thiệu</div>
-      {details?.bio ? (
-        <div className="info_col">
-          <span className="info_text">{details.bio}</span>
-        </div>
-      ) : (
-        ""
-      )}
-      {showEditBio && (
-        <Bio
-          handleUpdateUserDetails={handleUpdateUserDetails}
-          infos={infos}
-          handleChangeInputsValue={handleChangeInputsValue}
-          setShowEditBio={setShowEditBio}
-          max={max}
-          isLoading={isLoading}
-          name="bio"
-        />
-      )}
-      {!isVisitor && !showEditBio ? (
-        <div className="info_col">
-          <button
-            className="gray_btn hover1"
-            onClick={() => setShowEditBio(true)}
-          >
-            Chỉnh sửa Bio
-          </button>
-        </div>
-      ) : (
-        ""
-      )}
-      {details?.workPlace && (
-        <div className="info_profile">
-          <img src="../../../icons/job.png" alt="" />
-          Làm việc tại {details.workPlace}
-        </div>
-      )}
-      {details?.relationship && (
-        <div className="info_profile">
-          <img
-            width={20}
-            height={20}
-            src="https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/eu1ZIPJje34.png"
-            alt=""
-          />
-          {details.relationship}
-        </div>
-      )}
-      {details?.college && (
-        <div className="info_profile">
-          <img src="../../../icons/studies.png" alt="" />
-          Đang học tại {details.college}
-        </div>
-      )}
-      {details?.highSchool && (
-        <div className="info_profile">
-          <img src="../../../icons/studies.png" alt="" />
-          Đang học tại {details.highSchool}
-        </div>
-      )}
-      {details?.currentCity && (
-        <div className="info_profile">
-          <img src="../../../icons/home.png" alt="" />
-          Sống tại {details.currentCity}
-        </div>
-      )}
-      {details?.homeTown && (
-        <div className="info_profile">
-          <img src="../../../icons/home.png" alt="" />
-          Đến từ {details.homeTown}
-        </div>
-      )}
-      {details?.instagram && (
-        <div className="info_profile">
-          <img src="../../../icons/instagram.png" alt="" />
-          <a
-            href={`https://www.instagram.com/${details.instagram}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {details.instagram}
-          </a>
-        </div>
+      {details && (
+        <>
+          {" "}
+          {details?.bio ? (
+            <div className="info_col">
+              <span className="info_text">{details.bio}</span>
+            </div>
+          ) : (
+            ""
+          )}
+          {showEditBio && (
+            <Bio
+              handleUpdateUserDetails={handleUpdateUserDetails}
+              infos={infos}
+              handleChangeInputsValue={handleChangeInputsValue}
+              setShowEditBio={setShowEditBio}
+              max={max}
+              isLoading={isLoading}
+              name="bio"
+            />
+          )}
+          {!isVisitor && !showEditBio ? (
+            <div className="info_col">
+              <button
+                className="gray_btn hover1"
+                onClick={() => setShowEditBio(true)}
+              >
+                Chỉnh sửa Bio
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
+          {details?.workPlace && (
+            <div className="info_profile">
+              <img src="../../../icons/job.png" alt="" />
+              Làm việc tại {details.workPlace}
+            </div>
+          )}
+          {details?.relationship && (
+            <div className="info_profile">
+              <img
+                width={20}
+                height={20}
+                src="https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/eu1ZIPJje34.png"
+                alt=""
+              />
+              {details.relationship}
+            </div>
+          )}
+          {details?.college && (
+            <div className="info_profile">
+              <img src="../../../icons/studies.png" alt="" />
+              Đang học tại {details.college}
+            </div>
+          )}
+          {details?.highSchool && (
+            <div className="info_profile">
+              <img src="../../../icons/studies.png" alt="" />
+              Đang học tại {details.highSchool}
+            </div>
+          )}
+          {details?.currentCity && (
+            <div className="info_profile">
+              <img src="../../../icons/home.png" alt="" />
+              Sống tại {details.currentCity}
+            </div>
+          )}
+          {details?.homeTown && (
+            <div className="info_profile">
+              <img src="../../../icons/home.png" alt="" />
+              Đến từ {details.homeTown}
+            </div>
+          )}
+          {details?.instagram && (
+            <div className="info_profile">
+              <img src="../../../icons/instagram.png" alt="" />
+              <a
+                href={`https://www.instagram.com/${details.instagram}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {details.instagram}
+              </a>
+            </div>
+          )}
+        </>
       )}
       {showEditDetails && !isVisitor && (
         <EditDetails

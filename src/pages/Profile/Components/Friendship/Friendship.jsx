@@ -68,8 +68,6 @@ const Friendship = ({ friendship, profileId }) => {
     setIsLoading(false);
   };
 
-  console.log("friendship ", friendship);
-
   return (
     <div className="friendship">
       {friendship?.isFriend ? (

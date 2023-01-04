@@ -42,7 +42,6 @@ const HeaderProfile = () => {
     getProfile();
   }, [user?.token]);
 
-  console.log("user ", user);
   return (
     <div className="header-profile-wrapper">
       <Link to={`/${user?.username}`} className="profile_link hover1">
