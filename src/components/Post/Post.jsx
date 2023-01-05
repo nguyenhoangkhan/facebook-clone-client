@@ -147,8 +147,54 @@ const Post = ({ post, user }) => {
             }, 500)
           }
         >
-          <i className="like_icon"></i>
-          <span>Thích</span>
+          {hasReact ? (
+            <>
+              <img
+                src={`../../../reacts/${hasReact}.svg`}
+                alt=""
+                className="small_react"
+                style={{ width: "18px" }}
+              />
+              <span
+                style={{
+                  color: `${
+                    hasReact === "like"
+                      ? "rgb(32, 120, 244)"
+                      : hasReact === "haha"
+                      ? "rgb(247, 177, 37)"
+                      : hasReact === "love"
+                      ? "rgb(243, 62, 88)"
+                      : hasReact === "wow"
+                      ? "rgb(247, 177, 37)"
+                      : hasReact === "angry"
+                      ? "rgb(233, 113, 15)"
+                      : hasReact === "sad"
+                      ? "rgb(247, 177, 37)"
+                      : ""
+                  }`,
+                }}
+              >
+                {hasReact === "like"
+                  ? "Thích"
+                  : hasReact === "haha"
+                  ? "Haha"
+                  : hasReact === "love"
+                  ? "Yêu thương"
+                  : hasReact === "wow"
+                  ? "Wow"
+                  : hasReact === "angry"
+                  ? "Phẫn nộ"
+                  : hasReact === "sad"
+                  ? "Buồn"
+                  : ""}
+              </span>
+            </>
+          ) : (
+            <>
+              <i className="like_icon"></i>
+              <span>Thích</span>
+            </>
+          )}
         </div>
         <div className="post_action hover1 ">
           <i className="comment_icon"></i>
