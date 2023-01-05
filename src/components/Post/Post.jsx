@@ -8,17 +8,33 @@ import ReactsPopup from "../ReactsPopup";
 import CreateComment from "./Components/CreateComment";
 import PostMenu from "./Components/PostMenu";
 import { useEffect } from "react";
-import { getReacts } from "../../functions/post";
+import { getReacts, reactPost } from "../../functions/post";
 
 const Post = ({ post, user }) => {
   const [isShowReactsPopup, setShowReactsPopup] = useState(false);
   const [isShowMenu, setShowMenu] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isReacting, setIsReacting] = useState(false);
   const [err, setErr] = useState("");
 
   const [reacts, setReacts] = useState([]);
   const [hasReact, setHasReact] = useState("");
+
+  const handleReactPost = async (react) => {
+    if (isReacting) {
+      return;
+    }
+
+    setIsReacting(true);
+    await reactPost(post._id, react, user.token);
+    if (hasReact === react) {
+      setHasReact("");
+    } else {
+      setHasReact(react);
+    }
+    setIsReacting(false);
+  };
 
   const handleGetReacts = async () => {
     setIsLoading(true);
@@ -129,8 +145,7 @@ const Post = ({ post, user }) => {
       <div className="post_actions">
         {isShowReactsPopup && (
           <ReactsPopup
-            postId={post?._id}
-            token={user.token}
+            handleReactPost={handleReactPost}
             setShowReactsPopup={setShowReactsPopup}
           />
         )}
@@ -146,6 +161,7 @@ const Post = ({ post, user }) => {
               setShowReactsPopup(false);
             }, 500)
           }
+          onClick={() => handleReactPost(hasReact ? hasReact : "like")}
         >
           {hasReact ? (
             <>
@@ -186,7 +202,7 @@ const Post = ({ post, user }) => {
                   ? "Phẫn nộ"
                   : hasReact === "sad"
                   ? "Buồn"
-                  : ""}
+                  : "Thích"}
               </span>
             </>
           ) : (
