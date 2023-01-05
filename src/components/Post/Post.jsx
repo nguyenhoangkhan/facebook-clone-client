@@ -7,10 +7,38 @@ import { Dots, Public } from "../../assets/svg";
 import ReactsPopup from "../ReactsPopup";
 import CreateComment from "./Components/CreateComment";
 import PostMenu from "./Components/PostMenu";
+import { useEffect } from "react";
+import { getReacts } from "../../functions/post";
 
 const Post = ({ post, user }) => {
   const [isShowReactsPopup, setShowReactsPopup] = useState(false);
   const [isShowMenu, setShowMenu] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [err, setErr] = useState("");
+
+  const [reacts, setReacts] = useState([]);
+  const [hasReact, setHasReact] = useState("");
+
+  const handleGetReacts = async () => {
+    setIsLoading(true);
+
+    const [result, error] = await getReacts(post._id, user.token);
+    if (error) {
+      return setErr(error);
+    }
+
+    setErr("");
+    setReacts(result?.reacts);
+    setHasReact(result?.currentUserReact);
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    handleGetReacts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [post]);
   return (
     <div className="post">
       <div className="post_header">
@@ -100,7 +128,11 @@ const Post = ({ post, user }) => {
       </div>
       <div className="post_actions">
         {isShowReactsPopup && (
-          <ReactsPopup setShowReactsPopup={setShowReactsPopup} />
+          <ReactsPopup
+            postId={post?._id}
+            token={user.token}
+            setShowReactsPopup={setShowReactsPopup}
+          />
         )}
         <div
           className="post_action hover1"

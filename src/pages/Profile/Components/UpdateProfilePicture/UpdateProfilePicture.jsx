@@ -7,8 +7,8 @@ import * as selectors from "../../../../redux/selectors";
 import * as actions from "../../../../redux/actions";
 import axios from "axios";
 import uploadImages from "../../../../functions/uploadImages";
-import submitPost from "../../../../functions/submitPost";
 import PulseLoader from "react-spinners/PulseLoader";
+import { submitPost } from "../../../../functions/post";
 
 const UpdateProfilePicture = ({
   setImage,

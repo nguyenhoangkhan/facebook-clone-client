@@ -8,9 +8,10 @@ import uploadImages from "../../../../functions/uploadImages";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../../redux/actions";
 import axios from "axios";
-import { submitPost } from "../../../../functions";
+
 import PulseLoader from "react-spinners/PulseLoader";
 import { OldCovers } from "../OldCovers";
+import { submitPost } from "../../../../functions/post";
 
 const Cover = ({ cover = "", photos = [] }) => {
   const dispatch = useDispatch();

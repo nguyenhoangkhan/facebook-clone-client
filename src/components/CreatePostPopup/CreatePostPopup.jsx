@@ -12,8 +12,9 @@ import {
   PostError,
 } from "./Components";
 import dataURItoBlob from "../../helpers/dataURItoBlob";
-import { submitPost, uploadImages } from "../../functions";
+import { uploadImages } from "../../functions";
 import * as actions from "../../redux/actions";
+import { submitPost } from "../../functions/post";
 
 const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
   const [text, setText] = useState("");
