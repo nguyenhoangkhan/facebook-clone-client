@@ -112,17 +112,32 @@ const Friendship = ({ friendshipInfo, profileId }) => {
       {friendship?.isFriend ? (
         <div className="friends_menu_wrap">
           <button className="gray_btn" onClick={() => setFriendsMenu(true)}>
-            <img src="../../../icons/friends.png" alt="" />
+            <img
+              src="../../../icons/friends.png"
+              alt=""
+              width={15}
+              height={15}
+            />
             <span>Bạn bè</span>
           </button>
           {friendsMenu && (
             <div className="open_cover_menu" ref={menuRef}>
               <button className="open_cover_menu_item hover1">
-                <img src="../../../icons/favoritesOutline.png" alt="" />
+                <img
+                  src="../../../icons/favoritesOutline.png"
+                  alt=""
+                  width={15}
+                  height={15}
+                />
                 Yêu thích
               </button>
               <button className="open_cover_menu_item hover1">
-                <img src="../../../icons/editFriends.png" alt="" />
+                <img
+                  src="../../../icons/editFriends.png"
+                  alt=""
+                  width={15}
+                  height={15}
+                />
                 Chỉnh sửa danh sách bạn bè
               </button>
               {friendship?.isFollowing ? (
@@ -130,7 +145,12 @@ const Friendship = ({ friendshipInfo, profileId }) => {
                   className="open_cover_menu_item hover1"
                   onClick={handleUnFollow}
                 >
-                  <img src="../../../icons/unfollowOutlined.png" alt="" />
+                  <img
+                    src="../../../icons/unfollowOutlined.png"
+                    alt=""
+                    width={15}
+                    height={15}
+                  />
                   Hủy theo dõi
                 </button>
               ) : (
@@ -138,7 +158,12 @@ const Friendship = ({ friendshipInfo, profileId }) => {
                   className="open_cover_menu_item hover1"
                   onClick={handleFollow}
                 >
-                  <img src="../../../icons/unfollowOutlined.png" alt="" />
+                  <img
+                    src="../../../icons/unfollowOutlined.png"
+                    alt=""
+                    width={15}
+                    height={15}
+                  />
                   Theo dõi
                 </button>
               )}
@@ -164,6 +189,8 @@ const Friendship = ({ friendshipInfo, profileId }) => {
                   src="../../../icons/addFriend.png"
                   alt=""
                   className="invert"
+                  width={15}
+                  height={15}
                 />
                 <span>Kết bạn</span>
               </>
@@ -220,7 +247,13 @@ const Friendship = ({ friendshipInfo, profileId }) => {
         </button>
       ) : (
         <button className="blue_btn" onClick={handleFollow}>
-          <img src="../../../icons/follow.png" className="invert" alt="" />
+          <img
+            src="../../../icons/follow.png"
+            className="invert"
+            alt=""
+            width={15}
+            height={15}
+          />
           <span>Theo dõi</span>
         </button>
       )}
