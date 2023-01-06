@@ -194,8 +194,8 @@ const Post = ({ post, user }) => {
           </div>
         </div>
         <div className="to_right">
-          <div className="comments_count">13 bình luận</div>
-          <div className="share_count">1 chia sẻ</div>
+          <div className="comments_count">{comments?.length} bình luận</div>
+          {/* <div className="share_count">0 chia sẻ</div> */}
         </div>
       </div>
       <div className="post_actions">

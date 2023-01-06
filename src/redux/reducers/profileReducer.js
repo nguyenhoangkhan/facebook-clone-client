@@ -49,6 +49,14 @@ const profileReducer = (state = initialState, action) => {
           details: action.payload,
         },
       };
+    case "PROFILE_POST_SUCCESS":
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          post: action.payload,
+        },
+      };
     default:
       return state;
   }

@@ -16,7 +16,7 @@ import { uploadImages } from "../../functions";
 import * as actions from "../../redux/actions";
 import { submitPost } from "../../functions/post";
 
-const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
+const CreatePostPopup = ({ user, setShowCreatePostPopup, profile = false }) => {
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(false);
   const [images, setImages] = useState([]);
@@ -110,7 +110,11 @@ const CreatePostPopup = ({ user, setShowCreatePostPopup }) => {
           Authorization: "Bearer " + user.token,
         },
       });
-      dispatch(actions.POST_SUCCESS(data));
+      dispatch(
+        profile
+          ? actions.PROFILE_POST_SUCCESS(data)
+          : actions.POST_SUCCESS(data)
+      );
     } catch (err) {
       setError(err);
     }

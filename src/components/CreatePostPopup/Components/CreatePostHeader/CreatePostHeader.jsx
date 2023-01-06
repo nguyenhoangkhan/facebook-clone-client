@@ -3,7 +3,7 @@ const CreatePostHeader = ({ user, setShowCreatePostPopup }) => {
     <>
       <div className="box_header">
         <div
-          className="small_circle"
+          className="small_circle cursor-pointer"
           onClick={() => setShowCreatePostPopup(false)}
         >
           <i className="exit_icon"></i>

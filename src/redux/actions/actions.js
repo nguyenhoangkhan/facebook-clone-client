@@ -46,6 +46,13 @@ export const PROFILE_ERROR = (payload) => {
     payload,
   };
 };
+export const PROFILE_POST_SUCCESS = (payload) => {
+  return {
+    type: "PROFILE_POST_SUCCESS",
+    payload,
+  };
+};
+
 // PROFILE
 export const UPDATE_PICTURE_PROFILE = (payload) => {
   return {

@@ -13,12 +13,15 @@ import Post from "../../components/Post";
 import Photos from "./Components/Photos";
 import FriendsList from "./Components/FriendsList";
 import { Introduction } from "./Components/Introduction";
+import CreatePostPopup from "../../components/CreatePostPopup/CreatePostPopup";
 
 const Profile = () => {
   const { username } = useParams();
   const dispatch = useDispatch();
 
   const { user, profile } = useSelector((state) => ({ ...state }));
+
+  const [showCreatePostPopup, setShowCreatePostPopup] = useState(false);
 
   let isVisitor = username === user.username ? false : true;
 
@@ -39,8 +42,6 @@ const Profile = () => {
       dispatch(actions.PROFILE_ERROR(err));
     }
   };
-
-  console.log("profile", profile);
 
   const getUploadedImages = async () => {
     const res = await axios.get(
@@ -64,7 +65,6 @@ const Profile = () => {
     getUploadedImages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username, user.token]);
-
   return (
     <div>
       <Header />
@@ -109,7 +109,17 @@ const Profile = () => {
                 </div>
               </div>
               <div className="profile_right">
-                <CreatePost user={profile.profile} profile />
+                <CreatePost
+                  user={user}
+                  setShowCreatePostPopup={setShowCreatePostPopup}
+                />
+                {showCreatePostPopup && (
+                  <CreatePostPopup
+                    setShowCreatePostPopup={setShowCreatePostPopup}
+                    user={user}
+                    profile
+                  />
+                )}
                 <GridPosts friends={profile?.profile?.friends} />
                 <div className="posts">
                   {profile?.profile?.post &&

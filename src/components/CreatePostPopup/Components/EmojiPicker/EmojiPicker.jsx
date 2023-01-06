@@ -11,6 +11,7 @@ const EmojiPicker = ({
   setText,
   background,
   setBackground,
+  showPrev,
 }) => {
   const [picker, setPicker] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
@@ -25,6 +26,12 @@ const EmojiPicker = ({
   useClickOutside(pickerRef, () => {
     setPicker(false);
   });
+
+  useEffect(() => {
+    if (!showPrev) {
+      textRef.current.focus();
+    }
+  }, [showPrev]);
 
   const backgroundHandler = (bg) => {
     setBackground(bg);
