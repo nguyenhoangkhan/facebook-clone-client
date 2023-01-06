@@ -35,9 +35,7 @@ const PostMenu = ({
       );
 
       dispatch(actions.POST_SUCCESS(data));
-    } catch (err) {
-      console.log(err.response.data.message);
-    }
+    } catch (err) {}
   };
 
   return (

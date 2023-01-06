@@ -9,6 +9,7 @@ import CreateComment from "./Components/CreateComment";
 import PostMenu from "./Components/PostMenu";
 import { useEffect } from "react";
 import { getReacts, reactPost } from "../../functions/post";
+import Comment from "./Components/Comment/Comment";
 
 const Post = ({ post, user }) => {
   const [isShowReactsPopup, setShowReactsPopup] = useState(false);
@@ -21,6 +22,15 @@ const Post = ({ post, user }) => {
   const [reacts, setReacts] = useState([]);
   const [currentReact, setCurrentReact] = useState("");
   const [totalReacts, setTotalReacts] = useState(0);
+  const [count, setCount] = useState(1);
+
+  const [comments, setComments] = useState(
+    post?.comments ? post?.comments : []
+  );
+
+  useEffect(() => {
+    setComments(post?.comments);
+  }, [post]);
 
   const handleReactPost = async (react) => {
     if (isReacting) {
@@ -64,8 +74,6 @@ const Post = ({ post, user }) => {
     setIsReacting(false);
   };
 
-  console.log("reacts ", reacts);
-
   const handleGetReacts = async () => {
     setIsLoading(true);
 
@@ -86,7 +94,6 @@ const Post = ({ post, user }) => {
     handleGetReacts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post]);
-  console.log("reacts ", reacts);
   return (
     <div className="post">
       <div className="post_header">
@@ -171,9 +178,13 @@ const Post = ({ post, user }) => {
                   .sort((a, b) => b.count - a.count)
                   .slice(0, 3)
                   .map(
-                    (item) =>
+                    (item, idx) =>
                       item.count > 0 && (
-                        <img src={`/reacts/${item.react}.svg`} alt="" />
+                        <img
+                          key={idx}
+                          src={`/reacts/${item.react}.svg`}
+                          alt=""
+                        />
                       )
                   )
               : ""}
@@ -268,7 +279,27 @@ const Post = ({ post, user }) => {
       </div>
       <div className="comments_wrap">
         <div className="comments_order"></div>
-        <CreateComment postId={post._id} user={user} />
+        <CreateComment
+          postId={post._id}
+          user={user}
+          setComments={setComments}
+          setCount={setCount}
+        />
+        {comments &&
+          comments
+            .sort((a, b) => {
+              return new Date(b.commentAt) - new Date(a.commentAt);
+            })
+            .slice(0, count)
+            .map((comment, i) => <Comment comment={comment} key={i} />)}
+        {count < comments.length && (
+          <div
+            className="view_comments"
+            onClick={() => setCount((prev) => prev + 3)}
+          >
+            Xem thêm bình luận
+          </div>
+        )}
       </div>
       {isShowMenu && (
         <PostMenu

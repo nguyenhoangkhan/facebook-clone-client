@@ -32,7 +32,6 @@ const Friendship = ({ friendshipInfo, profileId }) => {
   useEffect(() => {
     setFriendship(friendshipInfo);
   }, [friendshipInfo]);
-  console.log("friendship ", friendship);
 
   const handleAddFriend = async () => {
     setIsLoading(true);

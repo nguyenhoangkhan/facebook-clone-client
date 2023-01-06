@@ -5,7 +5,7 @@ import uploadImages from "../../../../functions/uploadImages";
 import { dataURItoBlob } from "../../../../helpers";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const CreateComment = ({ user, postId }) => {
+const CreateComment = ({ user, postId, setComments, setCount }) => {
   const [picker, setPicker] = useState(false);
   const [comment, setComment] = useState("");
 
@@ -58,7 +58,6 @@ const CreateComment = ({ user, postId }) => {
 
     if (e.key === "Enter") {
       let imageUrl = "";
-
       if (commentImage) {
         setIsLoading(true);
 
@@ -74,14 +73,16 @@ const CreateComment = ({ user, postId }) => {
 
         imageUrl = await uploadImages(formData, user.token);
       }
-      setIsLoading(true);
+
       const [result, err] = await createComment(
         comment.trim(),
-        imageUrl[0].url,
+        imageUrl.length ? imageUrl[0].url : "",
         postId,
         user.token
       );
 
+      setComments(result);
+      setCount((prev) => ++prev);
       setComment("");
       setCommentImage("");
       setIsLoading(false);

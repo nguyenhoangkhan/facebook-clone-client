@@ -114,7 +114,12 @@ const Profile = () => {
                   {profile?.profile?.post &&
                     profile?.profile?.post.length &&
                     profile?.profile?.post.map((post, idx) => (
-                      <Post key={idx} post={post} user={user} />
+                      <Post
+                        profile={profile?.profile}
+                        key={idx}
+                        post={post}
+                        user={user}
+                      />
                     ))}
                 </div>
               </div>

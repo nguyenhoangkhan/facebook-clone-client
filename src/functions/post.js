@@ -79,7 +79,6 @@ export const getReacts = async (postId, token) => {
 
 export const createComment = async (comment, image, postId, token) => {
   let result, err;
-
   try {
     const res = await axios.patch(
       `${SERVER_URL}/post/comment`,
