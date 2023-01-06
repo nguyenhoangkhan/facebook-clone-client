@@ -22,24 +22,25 @@ const Profile = () => {
 
   let isVisitor = username === user.username ? false : true;
 
-  const userName = username === undefined ? user.username : username;
-
   const [photos, setPhotos] = useState([]);
   const getProfile = async () => {
     try {
       dispatch(actions.PROFILE_REQUEST());
 
       const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/${userName}`,
+        `${process.env.REACT_APP_BACKEND_URL}/${username}`,
         {
           headers: { Authorization: `Bearer ${user.token}` },
         }
       );
+
       dispatch(actions.PROFILE_SUCCESS(data));
     } catch (err) {
       dispatch(actions.PROFILE_ERROR(err));
     }
   };
+
+  console.log("profile", profile);
 
   const getUploadedImages = async () => {
     const res = await axios.get(
@@ -47,7 +48,7 @@ const Profile = () => {
       {
         headers: { Authorization: `Bearer ${user.token}` },
         params: {
-          path: `${userName}/*`,
+          path: `${username}/*`,
           order: "desc",
           max: 30,
         },
@@ -62,7 +63,7 @@ const Profile = () => {
     getProfile();
     getUploadedImages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userName, user.token]);
+  }, [username, user.token]);
 
   return (
     <div>

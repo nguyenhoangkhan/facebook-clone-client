@@ -29,8 +29,6 @@ const Friendship = ({ friendshipInfo, profileId }) => {
   useClickOutside(menuRef, () => setFriendsMenu(false));
   useClickOutside(respondMenuRef, () => setRespondMenu(false));
 
-  console.log("friendship ", friendship);
-
   useEffect(() => {
     setFriendship(friendshipInfo);
   }, [friendshipInfo]);
@@ -126,8 +124,8 @@ const Friendship = ({ friendshipInfo, profileId }) => {
                 <img
                   src="../../../icons/favoritesOutline.png"
                   alt=""
-                  width={15}
-                  height={15}
+                  width={20}
+                  height={20}
                 />
                 Yêu thích
               </button>
@@ -135,8 +133,8 @@ const Friendship = ({ friendshipInfo, profileId }) => {
                 <img
                   src="../../../icons/editFriends.png"
                   alt=""
-                  width={15}
-                  height={15}
+                  width={20}
+                  height={20}
                 />
                 Chỉnh sửa danh sách bạn bè
               </button>
@@ -148,8 +146,8 @@ const Friendship = ({ friendshipInfo, profileId }) => {
                   <img
                     src="../../../icons/unfollowOutlined.png"
                     alt=""
-                    width={15}
-                    height={15}
+                    width={20}
+                    height={20}
                   />
                   Hủy theo dõi
                 </button>
@@ -161,8 +159,8 @@ const Friendship = ({ friendshipInfo, profileId }) => {
                   <img
                     src="../../../icons/unfollowOutlined.png"
                     alt=""
-                    width={15}
-                    height={15}
+                    width={20}
+                    height={20}
                   />
                   Theo dõi
                 </button>
@@ -171,7 +169,11 @@ const Friendship = ({ friendshipInfo, profileId }) => {
                 className="open_cover_menu_item hover1"
                 onClick={handleUnFriend}
               >
-                <i className="unfriend_outlined_icon"></i>
+                <i
+                  className="unfriend_outlined_icon"
+                  width={20}
+                  height={20}
+                ></i>
                 Hủy kết bạn
               </button>
             </div>
