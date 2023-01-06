@@ -9,7 +9,7 @@ const ReactsPopup = ({ setShowReactsPopup, handleReactPost }) => {
       onMouseOver={() =>
         setTimeout(() => {
           setShowReactsPopup(true);
-        }, 500)
+        }, 1000)
       }
       onMouseLeave={() =>
         setTimeout(() => {
