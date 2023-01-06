@@ -5,17 +5,23 @@ import { useDispatch } from "react-redux";
 import PostMenuItem from "./Components/PostMenuItem";
 import useOnClickOutside from "../../../../Hooks/useClickOutside";
 import * as actions from "../../../../redux/actions";
+import { useParams } from "react-router-dom";
 
 const PostMenu = ({
   postUserId,
   userId,
   postId,
-  imagesLength,
   userToken,
   setShowMenu,
+  user,
 }) => {
   const dispatch = useDispatch();
+  const { username } = useParams();
+
   const own = userId === postUserId ? true : false;
+
+  const isOwnProfile = user.username === username;
+
   const menu = useRef(null);
   useOnClickOutside(menu, () => setShowMenu(false));
 
@@ -34,7 +40,12 @@ const PostMenu = ({
         }
       );
 
-      dispatch(actions.POST_SUCCESS(data));
+      dispatch(
+        isOwnProfile
+          ? actions.PROFILE_POST_SUCCESS(data)
+          : actions.POST_SUCCESS(data)
+      );
+      setShowMenu(false);
     } catch (err) {}
   };
 

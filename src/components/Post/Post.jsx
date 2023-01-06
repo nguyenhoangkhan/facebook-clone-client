@@ -303,6 +303,7 @@ const Post = ({ post, user }) => {
       </div>
       {isShowMenu && (
         <PostMenu
+          user={user}
           userId={user.id}
           postUserId={post.user._id}
           userToken={user.token}
