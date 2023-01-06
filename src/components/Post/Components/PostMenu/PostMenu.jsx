@@ -54,14 +54,14 @@ const PostMenu = ({
           title="Bật thông báo cho bài viết này"
         />
       )}
-      {imagesLength && <PostMenuItem icon="download_icon" title="Tải xuống" />}
-      {imagesLength && (
+      {/* {imagesLength && <PostMenuItem icon="download_icon" title="Tải xuống" />} */}
+      {/* {imagesLength && (
         <PostMenuItem icon="fullscreen_icon" title="Enter Fullscreen" />
-      )}
+      )} */}
       {own && (
         <PostMenuItem
           img="../../../icons/lock.png"
-          title="Chỉnh sửa người xem"
+          title="Chỉnh sửa quyền riêng tư"
         />
       )}
       {own && (
@@ -70,9 +70,9 @@ const PostMenu = ({
           title="Tắt thông báo về bài viết này"
         />
       )}
-      {own && <PostMenuItem icon="delete_icon" title="Tắt dịch tự động" />}
-      {own && <PostMenuItem icon="date_icon" title="Chỉnh sửa thời gian" />}
-      {own && <PostMenuItem icon="archive_icon" title="Thêm vào mục lưu trữ" />}
+      {/* {own && <PostMenuItem icon="delete_icon" title="Tắt dịch tự động" />} */}
+      {/* {own && <PostMenuItem icon="date_icon" title="Chỉnh sửa thời gian" />} */}
+      {/* {own && <PostMenuItem icon="archive_icon" title="Thêm vào mục lưu trữ" />} */}
       {own && (
         <PostMenuItem
           icon="trash_icon"
