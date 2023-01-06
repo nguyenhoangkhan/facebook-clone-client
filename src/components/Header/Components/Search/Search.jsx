@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 import { Logo, Search as SearchIcon, Bar } from "../../../../assets/svg";
 import SearchList from "./SearchList";
@@ -8,9 +7,9 @@ import { useMediaQuery } from "react-responsive";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDebounce } from "../../../../Hooks";
+import * as searchActions from "../../../../functions/search";
 
 const Search = ({ handleShowMenuListMobile }) => {
-  const SERVER_URL = process.env.REACT_APP_BACKEND_URL;
   const { user } = useSelector((state) => ({ ...state }));
 
   const [isShowSearchList, setShowSearchList] = useState(false);
@@ -37,26 +36,18 @@ const Search = ({ handleShowMenuListMobile }) => {
       return;
     }
     const searchUser = async () => {
-      try {
-        setIsLoading(true);
-        const res = await axios.get(SERVER_URL + "/search", {
-          params: {
-            q: debouncedSearch.trim(),
-          },
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-
-        if (res.status === 200) {
-          setUsers(res?.data);
-        }
-
+      setIsLoading(true);
+      const [result, error] = await searchActions.searchUser(
+        debouncedSearch,
+        user.token
+      );
+      if (!error) {
+        setUsers(result);
         setIsLoading(false);
-      } catch (err) {
-        setError(err?.response?.data?.message);
-        setIsLoading(false);
+        return;
       }
+      setError(error);
+      setIsLoading(false);
     };
     searchUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,11 +68,13 @@ const Search = ({ handleShowMenuListMobile }) => {
           className="hide_input search-header-input"
           onFocus={() => setShowSearchList(true)}
         />
+
         {isShowSearchList && (
           <SearchList
             debouncedSearch={debouncedSearch}
             users={users}
             search={search}
+            isLoading={isLoading}
             setSearch={setSearch}
             isShowSearchList={isShowSearchList}
             setShowSearchList={setShowSearchList}

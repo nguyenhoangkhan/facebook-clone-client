@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 
 import { Return, Search } from "../../../../../assets/svg";
 import { useClickOutside } from "../../../../../Hooks";
@@ -11,6 +12,7 @@ const SearchList = ({
   setSearch,
   users,
   debouncedSearch,
+  isLoading,
 }) => {
   const [iconVisible, setIconVisible] = useState(true);
 
@@ -61,6 +63,17 @@ const SearchList = ({
               setIconVisible(true);
             }}
           />
+          {isLoading && (
+            <div
+              style={{
+                transform: `${
+                  iconVisible ? "translateX(1px)" : "translateX(20px)"
+                }`,
+              }}
+            >
+              <ClipLoader size={18} color={color} />
+            </div>
+          )}
         </div>
       </div>
       {!debouncedSearch && (
