@@ -29,6 +29,8 @@ const Friendship = ({ friendshipInfo, profileId }) => {
   useClickOutside(menuRef, () => setFriendsMenu(false));
   useClickOutside(respondMenuRef, () => setRespondMenu(false));
 
+  console.log("friendship ", friendship);
+
   useEffect(() => {
     setFriendship(friendshipInfo);
   }, [friendshipInfo]);
@@ -36,42 +38,72 @@ const Friendship = ({ friendshipInfo, profileId }) => {
   const handleAddFriend = async () => {
     setIsLoading(true);
     await addFriend(profileId, user.token);
+    setFriendship({
+      ...friendship,
+      requestSent: true,
+    });
     setIsLoading(false);
   };
 
   const handleUnFriend = async () => {
     setIsLoading(true);
     await unFriend(profileId, user.token);
+    setFriendship({
+      ...friendship,
+      isFriend: false,
+    });
     setIsLoading(false);
   };
 
   const handleDeleteFriendRequest = async () => {
     setIsLoading(true);
     await deleteFriendRequest(profileId, user.token);
+    setFriendship({
+      ...friendship,
+      requestSent: false,
+    });
     setIsLoading(false);
   };
 
   const handleFollow = async () => {
     setIsLoading(true);
     await follow(profileId, user.token);
+    setFriendship({
+      ...friendship,
+      isFollowing: true,
+    });
     setIsLoading(false);
   };
 
   const handleUnFollow = async () => {
     setIsLoading(true);
     await unFollow(profileId, user.token);
+    setFriendship({
+      ...friendship,
+      isFollowing: false,
+    });
     setIsLoading(false);
   };
 
   const handleAcceptFriendRequest = async () => {
     setIsLoading(true);
     await acceptFriendRequest(profileId, user.token);
+    setFriendship({
+      ...friendship,
+      isFriend: true,
+      isFollowing: true,
+      requestReceived: false,
+    });
     setIsLoading(false);
   };
 
   const handleCancelFriendRequest = async () => {
     setIsLoading(true);
     await cancelFriendRequest(profileId, user.token);
+    setFriendship({
+      ...friendship,
+      requestReceived: false,
+    });
     setIsLoading(false);
   };
 
@@ -85,14 +117,14 @@ const Friendship = ({ friendshipInfo, profileId }) => {
           </button>
           {friendsMenu && (
             <div className="open_cover_menu" ref={menuRef}>
-              <div className="open_cover_menu_item hover1">
+              <button className="open_cover_menu_item hover1">
                 <img src="../../../icons/favoritesOutline.png" alt="" />
                 Yêu thích
-              </div>
-              <div className="open_cover_menu_item hover1">
+              </button>
+              <button className="open_cover_menu_item hover1">
                 <img src="../../../icons/editFriends.png" alt="" />
                 Chỉnh sửa danh sách bạn bè
-              </div>
+              </button>
               {friendship?.isFollowing ? (
                 <button
                   className="open_cover_menu_item hover1"
@@ -102,21 +134,21 @@ const Friendship = ({ friendshipInfo, profileId }) => {
                   Hủy theo dõi
                 </button>
               ) : (
-                <div
+                <button
                   className="open_cover_menu_item hover1"
                   onClick={handleFollow}
                 >
                   <img src="../../../icons/unfollowOutlined.png" alt="" />
                   Theo dõi
-                </div>
+                </button>
               )}
-              <div
+              <button
                 className="open_cover_menu_item hover1"
                 onClick={handleUnFriend}
               >
                 <i className="unfriend_outlined_icon"></i>
                 Hủy kết bạn
-              </div>
+              </button>
             </div>
           )}
         </div>
@@ -177,7 +209,7 @@ const Friendship = ({ friendshipInfo, profileId }) => {
         )
       )}
       {friendship?.isFollowing ? (
-        <button className="gray_btn">
+        <button className="gray_btn" onClick={handleUnFollow}>
           <img
             width={15}
             height={15}
