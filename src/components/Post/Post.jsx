@@ -19,7 +19,8 @@ const Post = ({ post, user }) => {
   const [err, setErr] = useState("");
 
   const [reacts, setReacts] = useState([]);
-  const [hasReact, setHasReact] = useState("");
+  const [currentReact, setCurrentReact] = useState("");
+  const [totalReacts, setTotalReacts] = useState(0);
 
   const handleReactPost = async (react) => {
     if (isReacting) {
@@ -28,10 +29,10 @@ const Post = ({ post, user }) => {
 
     setIsReacting(true);
     await reactPost(post._id, react, user.token);
-    if (hasReact === react) {
-      setHasReact("");
+    if (currentReact === react) {
+      setCurrentReact("");
     } else {
-      setHasReact(react);
+      setCurrentReact(react);
     }
     setIsReacting(false);
   };
@@ -46,7 +47,8 @@ const Post = ({ post, user }) => {
 
     setErr("");
     setReacts(result?.reacts);
-    setHasReact(result?.currentUserReact);
+    setCurrentReact(result?.currentUserReact);
+    setTotalReacts(result?.total);
 
     setIsLoading(false);
   };
@@ -55,6 +57,7 @@ const Post = ({ post, user }) => {
     handleGetReacts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post]);
+
   return (
     <div className="post">
       <div className="post_header">
@@ -134,12 +137,25 @@ const Post = ({ post, user }) => {
       <div className="post_infos">
         <div className="reacts_count">
           <div className="reacts_count_imgs">
-            <div className="reacts_count_num"></div>
+            {reacts.length
+              ? reacts
+                  .sort((a, b) => b.count - a.count)
+                  .slice(0, 3)
+                  .map(
+                    (item) =>
+                      item.count > 0 && (
+                        <img src={`/reacts/${item.react}.svg`} alt="" />
+                      )
+                  )
+              : ""}
           </div>
-          <div className="to_right">
-            <div className="comments_count">13 bình luận</div>
-            <div className="share_count">1 chia sẻ</div>
+          <div className="reacts_count_num">
+            {totalReacts > 0 && totalReacts}
           </div>
+        </div>
+        <div className="to_right">
+          <div className="comments_count">13 bình luận</div>
+          <div className="share_count">1 chia sẻ</div>
         </div>
       </div>
       <div className="post_actions">
@@ -161,12 +177,12 @@ const Post = ({ post, user }) => {
               setShowReactsPopup(false);
             }, 500)
           }
-          onClick={() => handleReactPost(hasReact ? hasReact : "like")}
+          onClick={() => handleReactPost(currentReact ? currentReact : "like")}
         >
-          {hasReact ? (
+          {currentReact ? (
             <>
               <img
-                src={`../../../reacts/${hasReact}.svg`}
+                src={`../../../reacts/${currentReact}.svg`}
                 alt=""
                 className="small_react"
                 style={{ width: "18px" }}
@@ -174,33 +190,33 @@ const Post = ({ post, user }) => {
               <span
                 style={{
                   color: `${
-                    hasReact === "like"
+                    currentReact === "like"
                       ? "rgb(32, 120, 244)"
-                      : hasReact === "haha"
+                      : currentReact === "haha"
                       ? "rgb(247, 177, 37)"
-                      : hasReact === "love"
+                      : currentReact === "love"
                       ? "rgb(243, 62, 88)"
-                      : hasReact === "wow"
+                      : currentReact === "wow"
                       ? "rgb(247, 177, 37)"
-                      : hasReact === "angry"
+                      : currentReact === "angry"
                       ? "rgb(233, 113, 15)"
-                      : hasReact === "sad"
+                      : currentReact === "sad"
                       ? "rgb(247, 177, 37)"
                       : ""
                   }`,
                 }}
               >
-                {hasReact === "like"
+                {currentReact === "like"
                   ? "Thích"
-                  : hasReact === "haha"
+                  : currentReact === "haha"
                   ? "Haha"
-                  : hasReact === "love"
+                  : currentReact === "love"
                   ? "Yêu thương"
-                  : hasReact === "wow"
+                  : currentReact === "wow"
                   ? "Wow"
-                  : hasReact === "angry"
+                  : currentReact === "angry"
                   ? "Phẫn nộ"
-                  : hasReact === "sad"
+                  : currentReact === "sad"
                   ? "Buồn"
                   : "Thích"}
               </span>
