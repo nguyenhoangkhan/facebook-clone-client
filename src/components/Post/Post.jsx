@@ -29,13 +29,42 @@ const Post = ({ post, user }) => {
 
     setIsReacting(true);
     await reactPost(post._id, react, user.token);
+
     if (currentReact === react) {
       setCurrentReact("");
+      const index = reacts.findIndex((item) => item.react === currentReact);
+      if (index !== -1) {
+        setReacts([...reacts, (reacts[index].count = --reacts[index].count)]);
+        setTotalReacts((prev) => --prev);
+      }
     } else {
       setCurrentReact(react);
+      const currentReactIndex = reacts.findIndex(
+        (item) => item.react === react
+      );
+      const prevReactIndex = reacts.findIndex(
+        (item) => item.react === currentReact
+      );
+
+      if (currentReactIndex !== -1) {
+        setReacts([
+          ...reacts,
+          (reacts[currentReactIndex].count = ++reacts[currentReactIndex].count),
+        ]);
+        setTotalReacts((prev) => ++prev);
+      }
+      if (prevReactIndex !== -1) {
+        setReacts([
+          ...reacts,
+          (reacts[prevReactIndex].count = --reacts[prevReactIndex].count),
+        ]);
+        setTotalReacts((prev) => --prev);
+      }
     }
     setIsReacting(false);
   };
+
+  console.log("reacts ", reacts);
 
   const handleGetReacts = async () => {
     setIsLoading(true);
@@ -46,7 +75,7 @@ const Post = ({ post, user }) => {
     }
 
     setErr("");
-    setReacts(result?.reacts);
+    setReacts(result?.reacts.sort((a, b) => b.count - a.count));
     setCurrentReact(result?.currentUserReact);
     setTotalReacts(result?.total);
 
@@ -57,7 +86,7 @@ const Post = ({ post, user }) => {
     handleGetReacts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post]);
-
+  console.log("reacts ", reacts);
   return (
     <div className="post">
       <div className="post_header">
