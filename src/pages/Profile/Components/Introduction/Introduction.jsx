@@ -126,7 +126,15 @@ const Introduction = ({ detailsInfo, isVisitor, getProfile }) => {
                 src="https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/eu1ZIPJje34.png"
                 alt=""
               />
-              {details.relationship}
+              {details.relationship === "Single"
+                ? "Độc thân"
+                : details.relationship === "In a Relationship"
+                ? "Hẹn hò"
+                : details.relationship === "Married"
+                ? "Đã kết hôn"
+                : details.relationship === "Divorced"
+                ? "Đã ly hôn"
+                : "Khác"}
             </div>
           )}
           {details?.college && (
