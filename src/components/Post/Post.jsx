@@ -31,7 +31,6 @@ const Post = ({ post, user }) => {
   useEffect(() => {
     setComments(post?.comments);
   }, [post]);
-
   const handleReactPost = async (react) => {
     if (isReacting) {
       return;
