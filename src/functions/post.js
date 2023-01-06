@@ -76,3 +76,30 @@ export const getReacts = async (postId, token) => {
 
   return [result, error];
 };
+
+export const createComment = async (comment, image, postId, token) => {
+  let result, err;
+
+  try {
+    const res = await axios.patch(
+      `${SERVER_URL}/post/comment`,
+      {
+        comment,
+        image,
+        postId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.status === 200) {
+      result = res?.data;
+    }
+  } catch (error) {
+    err = error?.response?.data?.message;
+  }
+
+  return [result, err];
+};

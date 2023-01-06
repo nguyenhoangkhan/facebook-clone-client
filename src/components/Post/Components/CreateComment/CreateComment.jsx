@@ -1,12 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import Picker from "emoji-picker-react";
+import { createComment } from "../../../../functions/post";
+import uploadImages from "../../../../functions/uploadImages";
+import { dataURItoBlob } from "../../../../helpers";
+import ClipLoader from "react-spinners/ClipLoader";
 
-const CreateComment = ({ user }) => {
+const CreateComment = ({ user, postId }) => {
   const [picker, setPicker] = useState(false);
-  const [text, setText] = useState("");
+  const [comment, setComment] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [commentImages, setCommentImages] = useState("");
+
+  const [commentImage, setCommentImage] = useState("");
   const [cursorPosition, setCursorPosition] = useState();
+
   const textRef = useRef(null);
   const imgInput = useRef(null);
 
@@ -17,10 +25,10 @@ const CreateComment = ({ user }) => {
   const handleEmoji = (e, { emoji }) => {
     const ref = textRef.current;
     ref.focus();
-    const start = text.substring(0, ref.selectionStart);
-    const end = text.substring(ref.selectionStart);
+    const start = comment.substring(0, ref.selectionStart);
+    const end = comment.substring(ref.selectionStart);
     const newText = start + emoji + end;
-    setText(newText);
+    setComment(newText);
     setCursorPosition(start.length + emoji.length);
   };
 
@@ -39,8 +47,49 @@ const CreateComment = ({ user }) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (event) => {
-      setCommentImages((prev) => [...prev, event.target.result]);
+      setCommentImage(event.target.result);
     };
+  };
+
+  const handleCreateComment = async (e) => {
+    if (isLoading || (!comment.trim() && !commentImage)) {
+      return;
+    }
+
+    if (e.key === "Enter") {
+      let imageUrl = "";
+
+      if (commentImage) {
+        setIsLoading(true);
+
+        const path = `${user.username}/comments_images/${postId}`;
+
+        // Convert URL type to Blob type
+        const postImages = dataURItoBlob(commentImage);
+
+        // Create form data to upload image files
+        const formData = new FormData();
+        formData.append("path", path);
+        formData.append("file", postImages);
+
+        imageUrl = await uploadImages(formData, user.token);
+      }
+      setIsLoading(true);
+      const [result, err] = await createComment(
+        comment.trim(),
+        imageUrl[0].url,
+        postId,
+        user.token
+      );
+
+      setComment("");
+      setCommentImage("");
+      setIsLoading(false);
+
+      if (err) {
+        setError(err);
+      }
+    }
   };
 
   return (
@@ -75,10 +124,14 @@ const CreateComment = ({ user }) => {
           <input
             type="text"
             ref={textRef}
-            value={text}
+            value={comment}
             placeholder="Write a comment..."
-            onChange={(e) => setText(e.target.value)}
+            onChange={(e) => setComment(e.target.value)}
+            onKeyDown={(e) => handleCreateComment(e)}
           />
+          <div className="comment_circle" style={{ marginTop: "5px" }}>
+            <ClipLoader size={20} color="#1876f2" loading={isLoading} />
+          </div>
           <div
             className="comment_circle_icon hover2"
             onClick={() => {
@@ -101,19 +154,17 @@ const CreateComment = ({ user }) => {
           </div>
         </div>
       </div>
-      {commentImages.length
-        ? commentImages.map((item, idx) => (
-            <div className="comment_img_preview">
-              <img src={item} alt="" />
-              <div
-                className="small_white_circle"
-                onClick={() => setCommentImages([])}
-              >
-                <i className="exit_icon"></i>
-              </div>
-            </div>
-          ))
-        : ""}
+      {commentImage && (
+        <div className="comment_img_preview">
+          <img src={commentImage} alt="" />
+          <div
+            className="small_white_circle"
+            onClick={() => setCommentImage("")}
+          >
+            <i className="exit_icon"></i>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
