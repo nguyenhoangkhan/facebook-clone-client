@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const SearchItem = ({ item, history = false }) => {
   const { user } = useSelector((state) => ({ ...state }));
 
-  const handleaddSearchUserHistory = async (userId) => {
+  const handleAddSearchUserHistory = async (userId) => {
     addSearchUserHistory(userId, user.token);
   };
 
@@ -17,7 +17,7 @@ const SearchItem = ({ item, history = false }) => {
     <Link
       to={`/${item?.username}`}
       className="search-item hover1"
-      onClick={() => handleaddSearchUserHistory(item?._id)}
+      onClick={() => handleAddSearchUserHistory(item?._id)}
     >
       <div className="search-item--avatar">
         <img src={item?.picture} alt="" loading="lazy" />
