@@ -74,6 +74,7 @@ const Search = ({ handleShowMenuListMobile }) => {
             debouncedSearch={debouncedSearch}
             users={users}
             token={user.token}
+            setUsers={setUsers}
             search={search}
             isLoading={isLoading}
             setSearch={setSearch}

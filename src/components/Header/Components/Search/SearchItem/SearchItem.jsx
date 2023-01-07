@@ -1,16 +1,39 @@
 import { Link } from "react-router-dom";
-import { addSearchUserHistory } from "../../../../../functions/search";
+import {
+  addSearchUserHistory,
+  deleteSearchUserHistory,
+} from "../../../../../functions/search";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
-const SearchItem = ({ item, history = false }) => {
+const SearchItem = ({
+  item,
+  history = false,
+  setUsersHistory,
+  usersHistory,
+}) => {
   const { user } = useSelector((state) => ({ ...state }));
+
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleAddSearchUserHistory = async (userId) => {
     addSearchUserHistory(userId, user.token);
   };
-
-  const handleDeleteHistory = (e) => {
+  const handleDeleteHistory = async (e) => {
     e.preventDefault();
+    if (isDeleting) {
+      return;
+    }
+
+    setIsDeleting(true);
+    const [result, error] = await deleteSearchUserHistory(item._id, user.token);
+    setIsDeleting(false);
+
+    if (!error) {
+      setUsersHistory((prev) =>
+        prev.filter((user) => user.user._id !== item._id)
+      );
+    }
   };
 
   return (

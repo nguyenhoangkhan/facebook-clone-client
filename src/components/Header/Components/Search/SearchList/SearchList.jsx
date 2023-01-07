@@ -17,12 +17,12 @@ const SearchList = ({
   debouncedSearch,
   isLoading,
   isShowSearchList,
+  setUsers,
 }) => {
   const [iconVisible, setIconVisible] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
 
   const [usersHistory, setUsersHistory] = useState([]);
-
   const menuRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -49,15 +49,20 @@ const SearchList = ({
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-
   return (
     <div className="search-wrapper search_area scrollbar" ref={menuRef}>
       <div className="search_wrap">
         <div className="header_logo">
           <div
             className="circle hover1"
-            onClick={() => {
-              setShowSearchList(false);
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (debouncedSearch) {
+                setSearch("");
+              } else {
+                setShowSearchList(false);
+              }
             }}
           >
             <Return color={color} />
@@ -113,7 +118,13 @@ const SearchList = ({
         {debouncedSearch
           ? users.map((item, idx) => <SearchItem key={idx} item={item} />)
           : usersHistory.map((item, idx) => (
-              <SearchItem key={idx} item={item.user} history />
+              <SearchItem
+                key={idx}
+                item={item.user}
+                usersHistory={usersHistory}
+                setUsersHistory={setUsersHistory}
+                history
+              />
             ))}
       </div>
     </div>

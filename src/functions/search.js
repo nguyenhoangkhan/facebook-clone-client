@@ -64,5 +64,26 @@ export const getSearchUserHistory = async (token) => {
   }
   return [result, error];
 };
+export const deleteSearchUserHistory = async (historyId, token) => {
+  let result, error;
+
+  try {
+    const res = await axios.delete(
+      SERVER_URL + "/search/user-history/" + historyId,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (res.status === 200) {
+      result = res?.data;
+    }
+  } catch (err) {
+    error = err;
+  }
+  return [result, error];
+};
 
 export { searchUser };
