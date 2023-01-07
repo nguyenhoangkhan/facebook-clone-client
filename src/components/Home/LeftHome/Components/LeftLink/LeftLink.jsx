@@ -1,6 +1,8 @@
-const LeftLink = ({ img, text, notification }) => {
+import { Link } from "react-router-dom";
+
+const LeftLink = ({ link, img, text, notification }) => {
   return (
-    <div className="left_link hover2">
+    <Link to={link} className="left_link hover2">
       <img src={`../../../left/${img}.png`} alt="" />
       {notification !== undefined ? (
         <div className="col">
@@ -10,7 +12,7 @@ const LeftLink = ({ img, text, notification }) => {
       ) : (
         <span>{text}</span>
       )}
-    </div>
+    </Link>
   );
 };
 export default LeftLink;

@@ -2,76 +2,95 @@ export const left = [
   {
     name: "Bạn bè",
     icon: "friends",
+    link: "friends",
   },
   {
     name: "Nhóm",
     icon: "groups",
     notification: "5 new",
+    link: "#",
   },
   {
     name: "Marketplace",
     icon: "marketplace",
+    link: "#",
   },
   {
     name: "Watch",
     icon: "watch",
+    link: "#",
   },
   {
     name: "Kỷ niệm",
     icon: "memories",
     notification: "6 new",
+    link: "#",
   },
   {
     name: "Chiến dịch gây quỹ",
     icon: "fund",
+    link: "#",
   },
   {
     name: "Chơi game",
     icon: "gaming",
+    link: "#",
   },
   {
     name: "Đã lưu",
     icon: "saved",
+    link: "#",
   },
   {
     name: "Gần đây nhất",
     icon: "recent",
+    link: "#",
   },
   {
     name: "Trung tâm Khoa học Khí hậu",
     icon: "climate",
+    link: "#",
   },
   {
     name: "Yêu thích",
     icon: "fav",
+    link: "#",
   },
   {
     name: "Messenger",
     icon: "messenger",
+    link: "#",
   },
+
   {
     name: "Messenger nhí",
     icon: "messkids",
+    link: "#",
   },
   {
     name: "Trang",
     icon: "pages",
+    link: "#",
   },
   {
     name: "Hoạt động quảng cáo gần đây",
     icon: "recentad",
+    link: "#",
   },
   {
     name: "Facebook Pay",
     icon: "pay",
+    link: "#",
   },
   {
     name: "Thời tiết",
     icon: "weather",
+    link: "#",
   },
   {
     name: "Video trực tiếp",
     icon: "live",
+    link: "#",
   },
 ];
 

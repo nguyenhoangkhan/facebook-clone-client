@@ -58,7 +58,7 @@ const UserMenu = ({ user, isShowUserMenu, setIsShowUserMenu }) => {
             </div>
           </div>
           <div className="mmenu_splitter"></div>
-          <div className="mmenu_item hover3" onClick={() => setVisible(1)}>
+          <div className="menu_item hover3" onClick={() => setVisible(1)}>
             <div className="small_circle">
               <i className="settings_filled_icon"></i>
             </div>
@@ -67,7 +67,7 @@ const UserMenu = ({ user, isShowUserMenu, setIsShowUserMenu }) => {
               <i className="right_icon"></i>
             </div>
           </div>
-          <div className="mmenu_item hover3" onClick={() => setVisible(2)}>
+          <div className="menu_item hover3" onClick={() => setVisible(2)}>
             <div className="small_circle">
               <i className="help_filled_icon"></i>
             </div>
@@ -76,7 +76,7 @@ const UserMenu = ({ user, isShowUserMenu, setIsShowUserMenu }) => {
               <i className="right_icon"></i>
             </div>
           </div>
-          <div className="mmenu_item hover3" onClick={() => setVisible(3)}>
+          <div className="menu_item hover3" onClick={() => setVisible(3)}>
             <div className="small_circle">
               <i className="dark_filled_icon"></i>
             </div>
@@ -85,7 +85,7 @@ const UserMenu = ({ user, isShowUserMenu, setIsShowUserMenu }) => {
               <i className="right_icon"></i>
             </div>
           </div>
-          <div className="mmenu_item hover3" onClick={handleLogout}>
+          <div className="menu_item hover3" onClick={handleLogout}>
             <div className="small_circle">
               <i className="logout_filled_icon"></i>
             </div>

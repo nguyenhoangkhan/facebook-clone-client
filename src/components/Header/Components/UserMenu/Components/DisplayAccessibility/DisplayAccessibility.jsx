@@ -51,7 +51,7 @@ const DisplayAccessibility = ({ setVisible }) => {
         <span>Bật</span>
         <input type="radio" name="compact" id="compactOn" />
       </label>
-      <div className="mmenu_item hover3">
+      <div className="menu_item hover3">
         <div className="small_circle">
           <i className="keyboard_icon"></i>
         </div>

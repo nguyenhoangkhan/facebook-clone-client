@@ -15,6 +15,7 @@ import BookMarks from "./pages/BookMarks";
 import ResetPassword from "./pages/ResetPassword";
 import * as actions from "./redux/actions";
 import * as selectors from "./redux/selectors";
+import { Friends } from "./pages/Friends";
 
 function App() {
   const user = useSelector(selectors.user);
@@ -45,6 +46,7 @@ function App() {
           <Route path="/:username" element={<Profile />} />
           <Route path="/bookmarks" element={<BookMarks />} />
           <Route path="/bin" element={<Bin />} />
+          <Route path="/friends" element={<Friends />} />
           <Route path="/" element={<Home />} />
         </Route>
         <Route element={<NotLogginedRoutes />}>

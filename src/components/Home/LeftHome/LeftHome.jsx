@@ -21,6 +21,7 @@ const LeftHome = ({ user }) => {
           key={i}
           img={link.icon}
           text={link.name}
+          link={link.link}
           notification={link.notification}
         />
       ))}
