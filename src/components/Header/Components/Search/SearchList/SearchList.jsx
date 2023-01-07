@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 
 import { Return, Search } from "../../../../../assets/svg";
@@ -100,9 +101,11 @@ const SearchList = ({
         </div>
       </div>
       {!debouncedSearch && (
-        <div className="search_history_header">
+        <div className="search_history_header ">
           <span>Tìm kiếm gần đây</span>
-          <a>Chỉnh sửa</a>
+          <Link to="#" className="hover1 edit-search-history">
+            Chỉnh sửa
+          </Link>
         </div>
       )}
       <div className="search_history"></div>
@@ -110,7 +113,7 @@ const SearchList = ({
         {debouncedSearch
           ? users.map((item, idx) => <SearchItem key={idx} item={item} />)
           : usersHistory.map((item, idx) => (
-              <SearchItem key={idx} item={item.user} />
+              <SearchItem key={idx} item={item.user} history />
             ))}
       </div>
     </div>

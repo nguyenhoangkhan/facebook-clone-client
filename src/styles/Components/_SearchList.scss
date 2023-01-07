@@ -47,8 +47,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding: 5px 0;
   font-size: 14px;
+  .edit-search-history {
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
 }
 .search_history_header span {
   font-weight: 600;

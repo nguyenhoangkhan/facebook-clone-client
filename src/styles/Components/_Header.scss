@@ -53,6 +53,7 @@ header {
   margin-top: -2px;
 }
 .search-item {
+  width: 100%;
   display: flex;
   border-radius: 8px;
   padding: 6px;
@@ -70,6 +71,22 @@ header {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    flex: 1;
+  }
+  .delete-search-history {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 8px;
+    transition: 0.1s ease;
+    i {
+      transform: scale(0.75);
+    }
+    &:hover {
+      background-color: var(--bg-third);
+    }
   }
 }
 .middle-icon-wrapper {

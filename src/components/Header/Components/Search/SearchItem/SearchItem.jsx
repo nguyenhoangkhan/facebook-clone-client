@@ -2,11 +2,15 @@ import { Link } from "react-router-dom";
 import { addSearchUserHistory } from "../../../../../functions/search";
 import { useSelector } from "react-redux";
 
-const SearchItem = ({ item }) => {
+const SearchItem = ({ item, history = false }) => {
   const { user } = useSelector((state) => ({ ...state }));
 
   const handleaddSearchUserHistory = async (userId) => {
     addSearchUserHistory(userId, user.token);
+  };
+
+  const handleDeleteHistory = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -23,6 +27,9 @@ const SearchItem = ({ item }) => {
           {item?.last_name} {item?.first_name}
         </p>
       </div>
+      <button className="delete-search-history" onClick={handleDeleteHistory}>
+        <i className="exit_icon"></i>
+      </button>
     </Link>
   );
 };
