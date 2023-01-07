@@ -39,6 +39,7 @@ const Friendship = ({ friendshipInfo, profileId }) => {
     setFriendship({
       ...friendship,
       requestSent: true,
+      isFollowing: true,
     });
     setIsLoading(false);
   };
@@ -49,6 +50,7 @@ const Friendship = ({ friendshipInfo, profileId }) => {
     setFriendship({
       ...friendship,
       isFriend: false,
+      isFollowing: false,
     });
     setIsLoading(false);
   };

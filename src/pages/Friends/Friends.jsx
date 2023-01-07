@@ -1,6 +1,27 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import Header from "../../components/Header";
+import { getFriendsPageInfos } from "../../functions/friends";
 
 const Friends = () => {
+  const { user } = useSelector((state) => ({ ...state }));
+
+  const [list, setList] = useState({});
+
+  useEffect(() => {
+    const getList = async () => {
+      const [result, error] = await getFriendsPageInfos(user.token);
+
+      if (!error) {
+        console.log("result ", result);
+      }
+
+      console.log("error ", error);
+    };
+    getList();
+  }, []);
+
   return (
     <>
       <Header page="friends" />
