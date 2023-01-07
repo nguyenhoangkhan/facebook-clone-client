@@ -13,6 +13,13 @@
   width: 360px;
   height: 100%;
 }
+.item_left {
+  .small_circle {
+    background-color: var(--bg-third);
+    padding: 10px;
+    border-radius: 50%;
+  }
+}
 .friends_right {
   background: var(--bg-secondary);
   padding: 2rem;

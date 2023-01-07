@@ -13,13 +13,13 @@ const Friends = () => {
             </div>
           </div>
           <div className="friends_left_wrap">
-            <div className="menu_item  active_friends">
+            <div className="menu_item item_left  active_friends">
               <div className="small_circle" style={{ background: "#1876f2" }}>
                 <i className="friends_home_icon invert"></i>
               </div>
               <span>Trang chủ</span>
             </div>
-            <div className="menu_item hover3">
+            <div className="menu_item item_left hover3">
               <div className="small_circle">
                 <i className="friends_requests_icon"></i>
               </div>
@@ -28,7 +28,7 @@ const Friends = () => {
                 <i className="right_icon"></i>
               </div>
             </div>
-            <div className="menu_item hover3">
+            <div className="menu_item item_left hover3">
               <div className="small_circle">
                 <i className="friends_requests_icon"></i>
               </div>
@@ -37,7 +37,7 @@ const Friends = () => {
                 <i className="right_icon"></i>
               </div>
             </div>
-            <div className="menu_item hover3">
+            <div className="menu_item item_left hover3">
               <div className="small_circle">
                 <i className="friends_suggestions_icon"></i>
               </div>
@@ -46,7 +46,7 @@ const Friends = () => {
                 <i className="right_icon"></i>
               </div>
             </div>
-            <div className="menu_item hover3">
+            <div className="menu_item item_left hover3">
               <div className="small_circle">
                 <i className="all_friends_icon"></i>
               </div>
@@ -55,7 +55,7 @@ const Friends = () => {
                 <i className="right_icon"></i>
               </div>
             </div>
-            <div className="menu_item hover3">
+            <div className="menu_item item_left hover3">
               <div className="small_circle">
                 <i className="birthdays_icon"></i>
               </div>
@@ -64,7 +64,7 @@ const Friends = () => {
                 <i className="right_icon"></i>
               </div>
             </div>
-            <div className="menu_item hover3">
+            <div className="menu_item item_left hover3">
               <div className="small_circle">
                 <i className="all_friends_icon"></i>
               </div>
