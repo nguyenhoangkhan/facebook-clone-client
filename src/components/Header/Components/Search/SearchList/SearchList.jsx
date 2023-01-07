@@ -17,7 +17,6 @@ const SearchList = ({
   debouncedSearch,
   isLoading,
   isShowSearchList,
-  setUsers,
 }) => {
   const [iconVisible, setIconVisible] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
@@ -29,7 +28,6 @@ const SearchList = ({
   useClickOutside(menuRef, () => {
     setShowSearchList(false);
   });
-
   const handleGetSearchUserHistory = async () => {
     setIsFetching(true);
     const [result, error] = await getSearchUserHistory(token);
@@ -39,7 +37,6 @@ const SearchList = ({
 
     setIsFetching(false);
   };
-
   useEffect(() => {
     if (isShowSearchList) {
       handleGetSearchUserHistory();
@@ -49,6 +46,7 @@ const SearchList = ({
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
   return (
     <div className="search-wrapper search_area scrollbar" ref={menuRef}>
       <div className="search_wrap">
@@ -116,7 +114,13 @@ const SearchList = ({
       <div className="search_history"></div>
       <div className="search_results scrollbar">
         {debouncedSearch
-          ? users.map((item, idx) => <SearchItem key={idx} item={item} />)
+          ? users.map((item, idx) => (
+              <SearchItem
+                key={idx}
+                item={item}
+                setUsersHistory={setUsersHistory}
+              />
+            ))
           : usersHistory.map((item, idx) => (
               <SearchItem
                 key={idx}

@@ -6,18 +6,16 @@ import {
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
-const SearchItem = ({
-  item,
-  history = false,
-  setUsersHistory,
-  usersHistory,
-}) => {
+const SearchItem = ({ item, history = false, setUsersHistory }) => {
   const { user } = useSelector((state) => ({ ...state }));
 
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleAddSearchUserHistory = async (userId) => {
-    addSearchUserHistory(userId, user.token);
+    const [result, error] = await addSearchUserHistory(userId, user.token);
+    if (!error) {
+      setUsersHistory(result ? result : []);
+    }
   };
   const handleDeleteHistory = async (e) => {
     e.preventDefault();

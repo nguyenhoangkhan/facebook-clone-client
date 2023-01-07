@@ -38,7 +38,7 @@ export const addSearchUserHistory = async (searchUser, token) => {
     );
 
     if (res.status === 200) {
-      result = res?.data;
+      result = res?.data?.search;
     }
   } catch (err) {
     error = err;
