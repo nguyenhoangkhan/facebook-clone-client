@@ -27,9 +27,11 @@ const SearchItem = ({ item, history = false }) => {
           {item?.last_name} {item?.first_name}
         </p>
       </div>
-      <button className="delete-search-history" onClick={handleDeleteHistory}>
-        <i className="exit_icon"></i>
-      </button>
+      {history && (
+        <button className="delete-search-history" onClick={handleDeleteHistory}>
+          <i className="exit_icon"></i>
+        </button>
+      )}
     </Link>
   );
 };
