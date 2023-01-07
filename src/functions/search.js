@@ -23,5 +23,46 @@ const searchUser = async (search, token) => {
   }
   return [result, error];
 };
+export const addSearchUserHistory = async (searchUser, token) => {
+  let result, error;
+
+  try {
+    const res = await axios.patch(
+      SERVER_URL + "/search/user",
+      { searchUser },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (res.status === 200) {
+      result = res?.data;
+    }
+  } catch (err) {
+    error = err;
+  }
+  return [result, error];
+};
+
+export const getSearchUserHistory = async (token) => {
+  let result, error;
+
+  try {
+    const res = await axios.get(SERVER_URL + "/search/user-history", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (res.status === 200) {
+      result = res?.data;
+    }
+  } catch (err) {
+    error = err;
+  }
+  return [result, error];
+};
 
 export { searchUser };

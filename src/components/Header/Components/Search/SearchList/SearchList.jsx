@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
 import { Return, Search } from "../../../../../assets/svg";
+import { getSearchUserHistory } from "../../../../../functions/search";
 import { useClickOutside } from "../../../../../Hooks";
 import { SearchItem } from "../SearchItem";
 
@@ -11,10 +12,15 @@ const SearchList = ({
   search,
   setSearch,
   users,
+  token,
   debouncedSearch,
   isLoading,
+  isShowSearchList,
 }) => {
   const [iconVisible, setIconVisible] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
+
+  const [usersHistory, setUsersHistory] = useState([]);
 
   const menuRef = useRef(null);
   const inputRef = useRef(null);
@@ -23,9 +29,26 @@ const SearchList = ({
     setShowSearchList(false);
   });
 
+  const handleGetSearchUserHistory = async () => {
+    setIsFetching(true);
+    const [result, error] = await getSearchUserHistory(token);
+    if (!error) {
+      setUsersHistory(result);
+    }
+
+    setIsFetching(false);
+  };
+
+  useEffect(() => {
+    if (isShowSearchList) {
+      handleGetSearchUserHistory();
+    }
+  }, [isShowSearchList]);
+
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
   return (
     <div className="search-wrapper search_area scrollbar" ref={menuRef}>
       <div className="search_wrap">
@@ -84,9 +107,11 @@ const SearchList = ({
       )}
       <div className="search_history"></div>
       <div className="search_results scrollbar">
-        {users.map((user, idx) => (
-          <SearchItem key={idx} user={user} />
-        ))}
+        {debouncedSearch
+          ? users.map((item, idx) => <SearchItem key={idx} item={item} />)
+          : usersHistory.map((item, idx) => (
+              <SearchItem key={idx} item={item.user} />
+            ))}
       </div>
     </div>
   );

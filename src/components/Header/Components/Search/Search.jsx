@@ -31,7 +31,7 @@ const Search = ({ handleShowMenuListMobile }) => {
   const debouncedSearch = useDebounce(search, 600);
 
   useEffect(() => {
-    if (!debouncedSearch.trim()) {
+    if (!debouncedSearch || !debouncedSearch.trim()) {
       setUsers([]);
       return;
     }
@@ -73,6 +73,7 @@ const Search = ({ handleShowMenuListMobile }) => {
           <SearchList
             debouncedSearch={debouncedSearch}
             users={users}
+            token={user.token}
             search={search}
             isLoading={isLoading}
             setSearch={setSearch}
