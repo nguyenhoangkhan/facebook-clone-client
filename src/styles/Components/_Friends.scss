@@ -44,6 +44,15 @@
 }
 .active_friends {
   background: var(--bg-secondary);
+  .small_circle {
+    background-color: #1876f2;
+  }
+  i {
+    filter: invert(100%);
+  }
+  .right_icon {
+    display: none;
+  }
 }
 .see_link {
   color: var(--blue-color);

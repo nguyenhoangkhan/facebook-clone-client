@@ -46,7 +46,11 @@ function App() {
           <Route path="/:username" element={<Profile />} />
           <Route path="/bookmarks" element={<BookMarks />} />
           <Route path="/bin" element={<Bin />} />
-          <Route path="/friends" element={<Friends />} />
+          <Route path="/friends" element={<Friends />}>
+            <Route path="list" element={<Friends />} />
+            <Route path="request" element={<Friends />} />
+            <Route path="sent" element={<Friends />} />
+          </Route>
           <Route path="/" element={<Home />} />
         </Route>
         <Route element={<NotLogginedRoutes />}>
