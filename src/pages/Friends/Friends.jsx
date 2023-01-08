@@ -117,8 +117,14 @@ const Friends = () => {
             </div>
             <div className="flex_wrap">
               {list.data.request &&
-                list.data.request.map((user) => (
-                  <Card user={user} key={user._id} type="request" />
+                list.data.request.map((item) => (
+                  <Card
+                    key={item._id}
+                    token={user.token}
+                    item={item}
+                    getList={getList}
+                    type="request"
+                  />
                 ))}
             </div>
           </div>
@@ -131,8 +137,14 @@ const Friends = () => {
             </div>
             <div className="flex_wrap">
               {list.data.sent &&
-                list.data.sent.map((user) => (
-                  <Card user={user} key={user._id} type="sent" />
+                list.data.sent.map((item) => (
+                  <Card
+                    key={item._id}
+                    token={user.token}
+                    item={item}
+                    getList={getList}
+                    type="sent"
+                  />
                 ))}
             </div>
           </div>
@@ -145,8 +157,14 @@ const Friends = () => {
             </div>
             <div className="flex_wrap">
               {list.data.friends &&
-                list.data.friends.map((user) => (
-                  <Card user={user} key={user._id} type="friends" />
+                list.data.friends.map((item) => (
+                  <Card
+                    key={item._id}
+                    token={user.token}
+                    item={item}
+                    getList={getList}
+                    type="friends"
+                  />
                 ))}
             </div>
           </div>
