@@ -11,7 +11,7 @@ const uploadImages = async (formData, token) => {
     });
     return data;
   } catch (err) {
-    return err.response.data.message;
+    return err?.response?.data?.message;
   }
 };
 export default uploadImages;

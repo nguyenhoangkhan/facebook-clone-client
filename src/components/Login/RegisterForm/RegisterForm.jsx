@@ -112,7 +112,7 @@ const RegisterForm = ({ setShowRegister }) => {
       }, 2000);
     } catch (err) {
       setSuccessRegister("");
-      setErrorRegister(err.response.data.message);
+      setErrorRegister(err?.response?.data?.message);
       setLoading(false);
     }
   };

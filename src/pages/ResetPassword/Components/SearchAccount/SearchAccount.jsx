@@ -28,7 +28,7 @@ const SearchAccount = ({
       setVisible(1);
     } catch (err) {
       setLoading(false);
-      setError(err.response.data.message);
+      setError(err?.response?.data?.message);
     }
   };
   return (
