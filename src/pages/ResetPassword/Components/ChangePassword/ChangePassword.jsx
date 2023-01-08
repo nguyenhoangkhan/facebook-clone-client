@@ -42,7 +42,7 @@ const ChangePassword = ({
       setShow(true);
     } catch (err) {
       setLoading(false);
-      setError(err.response.data.message);
+      setError(err?.response?.data?.message);
     }
   };
 

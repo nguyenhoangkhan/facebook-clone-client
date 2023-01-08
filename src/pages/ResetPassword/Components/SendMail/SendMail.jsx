@@ -22,7 +22,7 @@ export default function SendEmail({
       setVisible(2);
     } catch (err) {
       setLoading(false);
-      setError(err.response.data.message);
+      setError(err?.response?.data?.message);
     }
   };
   return (

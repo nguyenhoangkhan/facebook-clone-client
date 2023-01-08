@@ -29,7 +29,7 @@ const TrashItemMenu = ({ setShowTrashItemMenu, postId }) => {
         }
       );
     } catch (err) {
-      return err.response.data.message;
+      return err?.response?.data?.message;
     }
   };
 

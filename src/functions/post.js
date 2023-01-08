@@ -28,7 +28,7 @@ export const submitPost = async (
     );
     return "Successfully";
   } catch (err) {
-    return err.response.data.message;
+    return err?.response?.data?.message;
   }
 };
 

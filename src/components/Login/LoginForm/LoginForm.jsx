@@ -61,7 +61,7 @@ const LoginForm = ({ setShowRegister }) => {
     } catch (err) {
       setLoading(false);
       setSuccessLogin("");
-      setErrorLogin(err.response.data.message);
+      setErrorLogin(err?.response?.data?.message);
     }
   };
 

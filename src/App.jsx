@@ -33,7 +33,7 @@ function App() {
         });
         dispatch(actions.POST_SUCCESS(data));
       } catch (err) {
-        dispatch(actions.POST_ERROR(err.response.data.message));
+        dispatch(actions.POST_ERROR(err?.response?.data?.message));
       }
     };
     getAllPosts();

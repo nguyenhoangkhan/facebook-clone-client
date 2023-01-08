@@ -31,7 +31,7 @@ export default function CodeVerification({
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      setError(err.response.data.message);
+      setError(err?.response?.data?.message);
     }
   };
 
