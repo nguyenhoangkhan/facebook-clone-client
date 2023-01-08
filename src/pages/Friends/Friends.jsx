@@ -1,26 +1,37 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import Header from "../../components/Header";
 import { getFriendsPageInfos } from "../../functions/friends";
+import { Card } from "./Components/Card";
 
 const Friends = () => {
   const { user } = useSelector((state) => ({ ...state }));
 
-  const [list, setList] = useState({});
+  const [list, setList] = useState({
+    data: {},
+    isLoading: false,
+    error: "",
+  });
+
+  const getList = async () => {
+    setList((prev) => ({ ...prev, isLoading: true }));
+
+    const [result, error] = await getFriendsPageInfos(user.token);
+
+    if (error) {
+      setList((prev) => ({ ...prev, isLoading: false, error: error }));
+
+      return;
+    }
+
+    setList((prev) => ({ ...prev, isLoading: false, data: result }));
+  };
 
   useEffect(() => {
-    const getList = async () => {
-      const [result, error] = await getFriendsPageInfos(user.token);
-
-      if (!error) {
-        console.log("result ", result);
-      }
-
-      console.log("error ", error);
-    };
     getList();
-  }, []);
+  }, [user.token]);
 
   return (
     <>
@@ -96,7 +107,50 @@ const Friends = () => {
             </div>
           </div>
         </div>
-        <div className="friends_right"></div>
+        <div className="friends_right">
+          <div className="friends_right_wrap">
+            <div className="friends_left_header">
+              <h3>Yêu cầu kết bạn</h3>
+              <Link to="#" className="see_link hover3">
+                Xem tất cả
+              </Link>
+            </div>
+            <div className="flex_wrap">
+              {list.data.request &&
+                list.data.request.map((user) => (
+                  <Card user={user} key={user._id} type="request" />
+                ))}
+            </div>
+          </div>
+          <div className="friends_right_wrap">
+            <div className="friends_left_header">
+              <h3>Lời mời đã gửi</h3>
+              <Link to="#" className="see_link hover3">
+                Xem tất cả
+              </Link>
+            </div>
+            <div className="flex_wrap">
+              {list.data.sent &&
+                list.data.sent.map((user) => (
+                  <Card user={user} key={user._id} type="sent" />
+                ))}
+            </div>
+          </div>
+          <div className="friends_right_wrap">
+            <div className="friends_left_header">
+              <h3>Bạn bè</h3>
+              <Link to="#" className="see_link hover3">
+                Xem tất cả
+              </Link>
+            </div>
+            <div className="flex_wrap">
+              {list.data.friends &&
+                list.data.friends.map((user) => (
+                  <Card user={user} key={user._id} type="friends" />
+                ))}
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
