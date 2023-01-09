@@ -45,8 +45,6 @@ const Profile = () => {
     }
   };
 
-  console.log("profile ", profile);
-
   const getUploadedImages = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/uploadImages`,

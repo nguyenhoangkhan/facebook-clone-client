@@ -7,6 +7,8 @@
   --bg-sixth: #ffffff1a;
   --color-primary: #e4e6eb;
   --color-secondary: #b0b3b8;
+  --blue-color: #2e89ff;
+
   .blur {
     background: rgba(1, 1, 1, 0.53);
   }
@@ -77,6 +79,13 @@
   .active_link:hover {
     background: var(--light-blue-color);
   }
+  .profile_name {
+    color: var(--color-primary);
+  }
+  .left_header_grid {
+    color: var(--color-primary);
+  }
+
   .open_cover_menu i,
   .open_cover_menu img {
     filter: invert(100%);
