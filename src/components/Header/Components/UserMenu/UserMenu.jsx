@@ -36,7 +36,7 @@ const UserMenu = ({ isShowUserMenu, setIsShowUserMenu }) => {
     <div className="mmenu" ref={userMenuRef}>
       {visible === 0 && isShowUserMenu && (
         <div>
-          <Link to="/profile" className="menu_header hover3">
+          <Link to={`/${user.username}`} className="menu_header hover3">
             <img src={user?.picture} alt="" />
             <div className="menu_col">
               <span>
