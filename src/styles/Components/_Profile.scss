@@ -527,3 +527,10 @@
     transform: translateX(-2rem);
   }
 }
+.empty_post {
+  color: var(--color-secondary);
+  font-size: 2rem;
+  text-align: center;
+  padding: 16px;
+  font-weight: 600;
+}

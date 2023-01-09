@@ -124,8 +124,7 @@ const Profile = () => {
                 )}
                 <GridPosts friends={profile?.profile?.friends} />
                 <div className="posts">
-                  {profile?.profile?.post &&
-                    profile?.profile?.post.length &&
+                  {profile?.profile?.post && profile?.profile?.post.length ? (
                     profile?.profile?.post.map((post, idx) => (
                       <Post
                         profile={profile?.profile}
@@ -133,7 +132,12 @@ const Profile = () => {
                         post={post}
                         user={user}
                       />
-                    ))}
+                    ))
+                  ) : (
+                    <p className="empty_post">
+                      Không có bài viết nào để hiển thị
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
