@@ -12,13 +12,13 @@ const DisplayAccessibility = ({ setVisible }) => {
         </div>
         Màn hình & Trợ năng
       </div>
-      <div className="mmenu_main">
+      <div className="menu_main">
         <div className="small_circle" style={{ width: "50px" }}>
           <i className="dark_filled_icon"></i>
         </div>
-        <div className="mmenu_col">
-          <span className="mmenu_span1">Chế độ tối</span>
-          <span className="mmenu_span2">
+        <div className="menu_col">
+          <span className="menu_span1">Chế độ tối</span>
+          <span className="menu_span2">
             Điều chỉnh giao diện của Facebook để giảm độ chói và cho đôi mắt
             được nghỉ ngơi.
           </span>
@@ -32,13 +32,13 @@ const DisplayAccessibility = ({ setVisible }) => {
         <span>Bật</span>
         <input type="radio" name="dark" id="darkOn" />
       </label>
-      <div className="mmenu_main">
+      <div className="menu_main">
         <div className="small_circle" style={{ width: "50px" }}>
           <i className="compact_icon"></i>
         </div>
-        <div className="mmenu_col">
-          <span className="mmenu_span1">Chế độ Thu gọn</span>
-          <span className="mmenu_span2">
+        <div className="menu_col">
+          <span className="menu_span1">Chế độ Thu gọn</span>
+          <span className="menu_span2">
             Làm giảm kích thước phông chữ để có thêm nội dung vừa với màn hình.
           </span>
         </div>

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 
 import {
@@ -11,8 +11,10 @@ import {
 import { useClickOutside } from "../../../../Hooks";
 import * as actions from "../../../../redux/actions";
 
-const UserMenu = ({ user, isShowUserMenu, setIsShowUserMenu }) => {
+const UserMenu = ({ isShowUserMenu, setIsShowUserMenu }) => {
+  const { user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
+
   const [visible, setVisible] = useState(0);
   const userMenuRef = useRef(null);
 
@@ -30,14 +32,13 @@ const UserMenu = ({ user, isShowUserMenu, setIsShowUserMenu }) => {
     dispatch(actions.LOGOUT());
     Cookies.remove("user");
   };
-
   return (
     <div className="mmenu" ref={userMenuRef}>
       {visible === 0 && isShowUserMenu && (
         <div>
-          <Link to="/profile" className="mmenu_header hover3">
+          <Link to="/profile" className="menu_header hover3">
             <img src={user?.picture} alt="" />
-            <div className="mmenu_col">
+            <div className="menu_col">
               <span>
                 {user?.first_name}
                 {user?.last_name}
@@ -45,19 +46,19 @@ const UserMenu = ({ user, isShowUserMenu, setIsShowUserMenu }) => {
               <span>Xem tất cả trang cá nhân</span>
             </div>
           </Link>
-          <div className="mmenu_splitter"></div>
-          <div className="mmenu_main hover3">
+          <div className="menu_splitter"></div>
+          <div className="menu_main hover3">
             <div className="small_circle">
               <i className="report_filled_icon"></i>
             </div>
-            <div className="mmenu_col">
-              <div className="mmenu_span1">Gửi phản hồi</div>
-              <div className="mmenu_span2">
+            <div className="menu_col">
+              <div className="menu_span1">Gửi phản hồi</div>
+              <div className="menu_span2">
                 Giúp chúng tôi cải thiện Facebook
               </div>
             </div>
           </div>
-          <div className="mmenu_splitter"></div>
+          <div className="menu_splitter"></div>
           <div className="menu_item hover3" onClick={() => setVisible(1)}>
             <div className="small_circle">
               <i className="settings_filled_icon"></i>

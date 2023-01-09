@@ -59,7 +59,6 @@ const HeaderProfile = () => {
       )}
       {isShowUserMenu && (
         <UserMenu
-          user={profile?.profile}
           setIsShowUserMenu={setIsShowUserMenu}
           isShowUserMenu={isShowUserMenu}
         />
