@@ -81,6 +81,7 @@ header {
     border-radius: 50%;
     padding: 8px;
     transition: 0.1s ease;
+
     i {
       transform: scale(0.75);
     }
@@ -89,6 +90,15 @@ header {
     }
   }
 }
+.dark .delete-search-history {
+  i {
+    filter: invert(100);
+  }
+  &:hover {
+    background-color: var(--bg-sixth);
+  }
+}
+
 .middle-icon-wrapper {
   display: flex;
   align-items: center;
@@ -201,6 +211,11 @@ header {
     margin-right: 10px;
     font-weight: 300;
     padding: 5px;
+  }
+}
+.dark .more-btn {
+  svg {
+    background-color: #ceced2;
   }
 }
 .header-profile__active {
