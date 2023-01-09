@@ -7,104 +7,121 @@
   --bg-sixth: #ffffff1a;
   --color-primary: #e4e6eb;
   --color-secondary: #b0b3b8;
-}
-.dark .blur {
-  background: rgba(1, 1, 1, 0.53);
-}
-.dark .hover1:hover,
-.dark .hover2:hover {
-  background: var(--bg-third);
-}
-/* ----Header -----*/
-.dark .header_right svg {
-  fill: #fff !important;
-}
-.dark .all_right_circle i {
-  filter: invert(100%);
-}
-.dark .header-profile-wrapper .circle_icon:not(.header-profile__active) svg {
-  filter: invert(100%);
-}
-.dark .active_header {
-  background: var(--light-blue-color) !important;
-}
-.dark .active_header svg {
-  fill: var(--blue-color) !important;
-}
-.dark .header_right .circle_icon:hover {
-  background: var(--bg-fifth);
-}
-.dark input[type="text"] {
-  color: var(--color-primary);
-}
-.dark .small_circle i,
-.dark .small_circle svg,
-.dark .white_circle svg,
-.dark .circle i {
-  filter: invert(100%) !important;
-}
-/* ----Header -----*/
+  .blur {
+    background: rgba(1, 1, 1, 0.53);
+  }
+  .hover1:hover,
+  .hover2:hover {
+    background: var(--bg-third);
+  }
+  /* ----Header -----*/
+  .header_right svg {
+    fill: #fff !important;
+  }
+  .profile_card_header {
+    color: var(--color-primary);
+  }
+  .all_right_circle i {
+    filter: invert(100%);
+  }
+  .header-profile-wrapper .circle_icon:not(.header-profile__active) svg {
+    filter: invert(100%);
+  }
+  .active_header {
+    background: var(--light-blue-color) !important;
+  }
+  .active_header svg {
+    fill: var(--blue-color) !important;
+  }
+  .header_right .circle_icon:hover {
+    background: var(--bg-fifth);
+  }
+  input[type="text"] {
+    color: var(--color-primary);
+  }
+  .small_circle i,
+  .small_circle svg,
+  .white_circle svg,
+  .circle i {
+    filter: invert(100%) !important;
+  }
+  /* ----Header -----*/
 
-.dark .open_post:hover {
-  background: #333;
+  .open_post:hover {
+    background: #333;
+  }
+  .post_action i {
+    filter: invert(90%);
+  }
+  .post_menu i,
+  .post_menu img {
+    filter: invert(100%);
+  }
+  .comment_circle_icon i {
+    filter: invert(95%);
+  }
+  .comment_circle_icon:hover {
+    background: #555;
+  }
+  .box_privacy i,
+  .box_privacy img {
+    filter: invert(95%);
+  }
+  .emoji_icon_large:hover {
+    filter: invert(0);
+  }
+  .add_pics_wrap i {
+    filter: invert(100%);
+  }
+  /*----profile---*/
+  .active_link:hover {
+    background: var(--light-blue-color);
+  }
+  .open_cover_menu i,
+  .open_cover_menu img {
+    filter: invert(100%);
+  }
+  .profile_circle i {
+    filter: invert(100%);
+  }
+  .gray_btn {
+    background: var(--bg-third);
+  }
+  .gray_btn:hover {
+    background: #777;
+  }
+  .gray_btn i,
+  .gray_btn img {
+    filter: invert(100%);
+  }
+  .profile_container svg {
+    filter: invert(88%);
+  }
+  .grid_icon {
+    filter: invert(80%);
+  }
+  .pictureBox i {
+    filter: invert(100%) !important;
+  }
+  .slider i {
+    filter: invert(100%);
+  }
+  .flex_p_t i {
+    filter: invert(100%);
+  }
+  .info_text {
+    color: var(--color-primary);
+  }
+  .gray_btn {
+    color: var(--color-primary);
+  }
+  /*----profile---*/
+  .relative_fb_copyright {
+    color: var(--color-secondary);
+  }
+  .profile_header_link {
+    &:hover {
+      background-color: var(--bg-sixth);
+    }
+  }
 }
-.dark .post_action i {
-  filter: invert(90%);
-}
-.dark .post_menu i,
-.dark .post_menu img {
-  filter: invert(100%);
-}
-.dark .comment_circle_icon i {
-  filter: invert(95%);
-}
-.dark .comment_circle_icon:hover {
-  background: #555;
-}
-.dark .box_privacy i,
-.dark .box_privacy img {
-  filter: invert(95%);
-}
-.dark .emoji_icon_large:hover {
-  filter: invert(0);
-}
-.dark .add_pics_wrap i {
-  filter: invert(100%);
-}
-/*----profile---*/
-.dark .active_link:hover {
-  background: var(--light-blue-color);
-}
-.dark .open_cover_menu i,
-.dark .open_cover_menu img {
-  filter: invert(100%);
-}
-.dark .profile_circle i {
-  filter: invert(100%);
-}
-.dark .gray_btn {
-  background: var(--bg-third);
-}
-.dark .gray_btn:hover {
-  background: #777;
-}
-.dark .gray_btn i,
-.dark .gray_btn img {
-  filter: invert(100%);
-}
-.dark .profile_container svg {
-  filter: invert(88%);
-}
-.dark .grid_icon {
-  filter: invert(80%);
-}
-.dark .pictureBox i {
-  filter: invert(100%) !important;
-}
-.dark .slider i {
-  filter: invert(100%);
-}
-.dark .flex_p_t i {
-  filter: invert(100%);
-}
-/*----profile---*/

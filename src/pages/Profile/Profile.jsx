@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
 import * as actions from "../../redux/actions";
 import Header from "../../components/Header";
 import Cover from "./Components/Cover";
@@ -42,6 +44,8 @@ const Profile = () => {
       dispatch(actions.PROFILE_ERROR(err));
     }
   };
+
+  console.log("profile ", profile);
 
   const getUploadedImages = async () => {
     const res = await axios.get(
