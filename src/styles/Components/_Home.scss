@@ -4,6 +4,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   position: relative;
+  background-color: var(--bg-secondary);
+  height: fit-content;
 }
 .home_middle {
   position: absolute;

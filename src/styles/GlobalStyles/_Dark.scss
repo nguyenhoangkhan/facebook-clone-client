@@ -3,7 +3,7 @@
   --bg-secondary: #18191a;
   --bg-third: #3a3b3c;
   --bg-forth: #3a3b3c;
-  --bg-fifth: #888888;
+  --bg-fifth: #323436;
   --color-primary: #e4e6eb;
   --color-secondary: #b0b3b8;
 }
@@ -16,9 +16,12 @@
 }
 /* ----Header -----*/
 .dark .header_right svg {
-  fill: #fff;
+  fill: #fff !important;
 }
 .dark .all_right_circle i {
+  filter: invert(100%);
+}
+.dark .header-profile-wrapper .circle_icon:not(.header-profile__active) svg {
   filter: invert(100%);
 }
 .dark .active_header {
@@ -40,9 +43,7 @@
   filter: invert(100%) !important;
 }
 /* ----Header -----*/
-.dark .left_home .small_circle {
-  background: var(--bg-fifth);
-}
+
 .dark .open_post:hover {
   background: #333;
 }

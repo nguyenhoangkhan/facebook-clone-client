@@ -72,3 +72,14 @@ export const UPDATE_DETAILS_PROFILE = (payload) => {
     payload,
   };
 };
+// THEME
+export const CHANGE_TO_DARK_THEME = () => {
+  return {
+    type: "CHANGE_TO_DARK_THEME",
+  };
+};
+export const CHANGE_TO_DEFAULT_THEME = () => {
+  return {
+    type: "CHANGE_TO_DEFAULT_THEME",
+  };
+};

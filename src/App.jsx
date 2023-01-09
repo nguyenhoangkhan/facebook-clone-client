@@ -14,12 +14,15 @@ import {
 import BookMarks from "./pages/BookMarks";
 import ResetPassword from "./pages/ResetPassword";
 import * as actions from "./redux/actions";
-import * as selectors from "./redux/selectors";
 import { Friends } from "./pages/Friends";
 
 function App() {
-  const user = useSelector(selectors.user);
+  const { user, theme } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    document.body.classList.add(theme.theme);
+  }, []);
 
   useEffect(() => {
     const getAllPosts = async () => {
@@ -40,7 +43,7 @@ function App() {
   }, [user]);
 
   return (
-    <div className="App">
+    <div className={`App ${theme.theme}`}>
       <Routes>
         <Route element={<LogginedRoutes />}>
           <Route path="/:username" element={<Profile />} />

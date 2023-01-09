@@ -11,6 +11,7 @@ import Post from "../../components/Post";
 const Home = () => {
   const user = useSelector(selectors.user);
   const posts = useSelector(selectors.posts);
+
   const [isShowCreatePostPopup, setShowCreatePostPopup] = useState(false);
   return (
     <div className="home">

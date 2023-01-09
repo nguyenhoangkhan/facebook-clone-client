@@ -2,11 +2,11 @@
   position: absolute;
   right: 0rem;
   top: 48px;
-  background: #f7f8fa;
+  background: var(--bg-fifth);
   border-radius: 10px;
   height: 90vh;
   width: 609px;
-  padding: 10px 1rem;
+  padding: 16px;
   box-shadow: -2px 1px 5px 2px var(--shadow-1);
   user-select: none;
   padding-right: 3px;
