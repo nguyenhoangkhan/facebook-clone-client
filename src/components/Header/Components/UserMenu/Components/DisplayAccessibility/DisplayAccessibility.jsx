@@ -1,4 +1,24 @@
+import { useDispatch, useSelector } from "react-redux";
+import * as selectors from "../../../../../../redux/selectors";
+import * as actions from "../../../../../../redux/actions";
+
 const DisplayAccessibility = ({ setVisible }) => {
+  const dispatch = useDispatch();
+
+  const theme = useSelector(selectors.theme);
+
+  const handleChangeTheme = (themeType) => {
+    if (themeType === "default") {
+      dispatch(actions.CHANGE_TO_DEFAULT_THEME());
+      return;
+    }
+    if (themeType === "dark") {
+      dispatch(actions.CHANGE_TO_DARK_THEME());
+      return;
+    }
+  };
+  console.log("theme ", theme);
+
   return (
     <div className="absolute_wrap">
       <div className="absolute_wrap_header">
@@ -26,11 +46,23 @@ const DisplayAccessibility = ({ setVisible }) => {
       </div>
       <label htmlFor="darkOff" className="hover1">
         <span>Tắt</span>
-        <input type="radio" name="dark" id="darkOff" />
+        <input
+          type="radio"
+          name="dark"
+          id="darkOff"
+          checked={theme === "default"}
+          onChange={() => handleChangeTheme("default")}
+        />
       </label>
       <label htmlFor="darkOn" className="hover1">
         <span>Bật</span>
-        <input type="radio" name="dark" id="darkOn" />
+        <input
+          type="radio"
+          name="dark"
+          id="darkOn"
+          checked={theme === "dark"}
+          onChange={() => handleChangeTheme("dark")}
+        />
       </label>
       <div className="menu_main">
         <div className="small_circle" style={{ width: "50px" }}>

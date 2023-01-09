@@ -21,8 +21,14 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    document.body.classList.add(theme.theme);
-  }, []);
+    if (theme.theme === "dark") {
+      document.body.classList.remove("default");
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+      document.body.classList.add("default");
+    }
+  }, [theme.theme]);
 
   useEffect(() => {
     const getAllPosts = async () => {
