@@ -19,7 +19,7 @@ const MiddleIcon = () => {
   return (
     <div className="middle-icon-wrapper">
       <NavLink to="/" className="middle_icon">
-        <Home />
+        <Home color={color} />
       </NavLink>
       <NavLink to="/groups" className="middle_icon hover1">
         <Friends color={color} />
