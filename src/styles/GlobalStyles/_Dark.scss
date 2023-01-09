@@ -133,4 +133,13 @@
       background-color: var(--bg-sixth);
     }
   }
+  // Bin
+  .BinLeftSideMenuItem svg,
+  path {
+    fill: white;
+  }
+  .trash_icon {
+    filter: invert(100);
+  }
+  // Bin
 }

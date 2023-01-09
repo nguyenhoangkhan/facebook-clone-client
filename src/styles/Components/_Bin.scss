@@ -5,6 +5,7 @@
   grid-template-columns: 1.2fr 4fr;
   height: calc(100vh - 56px);
 }
+
 .BinLeftSide {
   &-wrapper {
     height: 100%;
@@ -17,6 +18,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: var(--color-primary);
     h1 {
       font-size: 2.4rem;
     }
@@ -43,6 +45,7 @@
         gap: 15px;
         font-size: 1.8rem;
         font-weight: 600;
+        color: var(--color-primary);
         svg:first-child {
           width: 38px;
           height: 38px;
@@ -70,6 +73,7 @@
     margin: 0 60px;
     overflow: auto;
   }
+
   &-prompt {
     background-color: var(--divider);
     padding: 8px;
@@ -91,6 +95,9 @@
       column-gap: 6px;
       font-size: 1.6rem;
       font-weight: 600;
+      label {
+        color: var(--color-primary);
+      }
       input {
         width: 24px;
         height: 24px;
@@ -120,6 +127,7 @@
       padding: 6px 14px;
       border-radius: 8px;
       opacity: 0.5;
+      color: var(--color-primary);
       &.active {
         cursor: pointer;
         user-select: auto;
@@ -144,7 +152,9 @@
         gap: 17px;
         margin: 20px 0;
         position: relative;
+        color: var(--color-primary);
       }
+
       &-checkbox {
         margin-right: 16px;
         padding: 10px;
