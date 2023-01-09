@@ -54,9 +54,9 @@ const Search = ({ handleShowMenuListMobile }) => {
   }, [debouncedSearch]);
 
   return (
-    <div className="search-wrapper ">
+    <div className="search-wrapper">
       <Link to="/" className="header_logo">
-        <div className="circle">
+        <div className="circle ">
           <Logo />
         </div>
       </Link>
