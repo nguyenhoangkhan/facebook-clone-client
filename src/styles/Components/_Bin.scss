@@ -19,6 +19,10 @@
     align-items: center;
     justify-content: space-between;
     color: var(--color-primary);
+    .back-home {
+      padding: 8px;
+      border-radius: 4px;
+    }
     h1 {
       font-size: 2.4rem;
     }

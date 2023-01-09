@@ -8,7 +8,9 @@ const BinLeftSide = () => {
     <div className="BinLeftSide-wrapper">
       <div className="BinLeftSide-header">
         <h1>Bỏ đi</h1>
-        <Link to="/">Trang chủ</Link>
+        <Link className="hover1 back-home" to="/">
+          Trang chủ
+        </Link>
       </div>
       <div className="BinLeftSide splitter"></div>
       <div className="BinLeftSide-menu">
