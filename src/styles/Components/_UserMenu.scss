@@ -32,7 +32,6 @@
   color: var(--color-primary);
   font-weight: 600;
   font-size: 15px;
-  letter-spacing: 1px;
 }
 .menu_col span:last-of-type {
   font-size: 14px;
@@ -41,8 +40,11 @@
   padding: 10px;
   margin-top: 5px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
+  .small_circle {
+    margin-top: 6px;
+  }
 }
 .menu_splitter {
   width: 100%;

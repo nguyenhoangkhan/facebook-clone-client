@@ -1,5 +1,7 @@
 const initialState = {
-  theme: "dark",
+  theme: localStorage.getItem("theme")
+    ? localStorage.getItem("theme")
+    : "default",
 };
 
 const themeReducer = (state = initialState, action) => {
