@@ -6,7 +6,7 @@ import PostMenuItem from "../../../../../../components/Post/Components/PostMenu/
 import { useClickOutside } from "../../../../../../Hooks";
 import * as selectors from "../../../../../../redux/selectors";
 
-const TrashItemMenu = ({ setShowTrashItemMenu, postId }) => {
+const TrashItemMenu = ({ setShowTrashItemMenu, postId, getPostsDeleted }) => {
   const user = useSelector(selectors.user);
   const menuRef = useRef(null);
 
@@ -28,6 +28,20 @@ const TrashItemMenu = ({ setShowTrashItemMenu, postId }) => {
           },
         }
       );
+      await getPostsDeleted();
+    } catch (err) {
+      return err?.response?.data?.message;
+    }
+  };
+  const handleForceDeletePost = async (postId) => {
+    try {
+      const serverURL = process.env.REACT_APP_BACKEND_URL;
+      await axios.delete(serverURL + "/post/" + postId, {
+        headers: {
+          Authorization: "Bearer " + user.token,
+        },
+      });
+      await getPostsDeleted();
     } catch (err) {
       return err?.response?.data?.message;
     }
@@ -46,7 +60,12 @@ const TrashItemMenu = ({ setShowTrashItemMenu, postId }) => {
         subtitle="Khôi phục về trang cá nhân"
         onClick={() => handleRestorePost(postId)}
       />
-      <PostMenuItem icon="trash_icon" title="Xóa" subtitle="Xóa" />
+      <PostMenuItem
+        icon="trash_icon"
+        title="Xóa"
+        subtitle="Xóa"
+        onClick={() => handleForceDeletePost(postId)}
+      />
     </ul>
   );
 };

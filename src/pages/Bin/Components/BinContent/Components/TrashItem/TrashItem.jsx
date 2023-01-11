@@ -5,7 +5,14 @@ import "moment/locale/vi";
 
 import TrashItemMenu from "../TrashItemMenu/TrashItemMenu";
 
-const TrashItem = ({ text, user, deleteAt, images, postId }) => {
+const TrashItem = ({
+  text,
+  user,
+  deleteAt,
+  images,
+  postId,
+  getPostsDeleted,
+}) => {
   const [isShowTrashItemMenu, setShowTrashItemMenu] = useState(false);
 
   return (
@@ -39,13 +46,14 @@ const TrashItem = ({ text, user, deleteAt, images, postId }) => {
         </div>
       </div>
       <div
-        className="trash-item-menu hover1 "
+        className="trash-item-menu hover1 bin-icon"
         onClick={() => setShowTrashItemMenu((prev) => !prev)}
       >
         <Dots />
       </div>
       {isShowTrashItemMenu && (
         <TrashItemMenu
+          getPostsDeleted={getPostsDeleted}
           setShowTrashItemMenu={setShowTrashItemMenu}
           postId={postId}
         />

@@ -15,26 +15,22 @@ const BinContent = () => {
     e.stopPropagation();
     setCheckAll((prev) => !prev);
   };
+
+  const getPostsDeleted = async () => {
+    try {
+      const serverURL = process.env.REACT_APP_BACKEND_URL;
+      const { data } = await axios.get(serverURL + "/post/getDeletedPosts", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setDeletedPost(data);
+    } catch (err) {
+      return err?.response?.data?.message;
+    }
+  };
+
   useEffect(() => {
-    const getPostsDeleted = async () => {
-      try {
-        const serverURL = process.env.REACT_APP_BACKEND_URL;
-        const { data } = await axios.post(
-          serverURL + "/post/getDeletedPosts",
-          {
-            userId: user.id,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
-        setDeletedPost(data);
-      } catch (err) {
-        return err?.response?.data?.message;
-      }
-    };
     getPostsDeleted();
   }, []);
 
@@ -91,6 +87,7 @@ const BinContent = () => {
             text={data.text}
             deleteAt={data.deletedAt}
             images={data.images}
+            getPostsDeleted={getPostsDeleted}
           />
         ))}
       </div>
