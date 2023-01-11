@@ -7,9 +7,11 @@ import { stories } from "../../../assets/data/home";
 import { Plus } from "../../../assets/svg";
 import Story from "./Components/Story";
 import { useMediaQuery } from "react-responsive";
+import { useSelector } from "react-redux";
 
 const Stories = () => {
   const [isHide, setIsHide] = useState(0);
+  const { user } = useSelector((state) => ({ ...state }));
 
   const isOnMobile = useMediaQuery({
     query: "max-width: 640px",
@@ -70,7 +72,7 @@ const Stories = () => {
         <ul className="splide__list">
           <div className="create_story_card splide__slide">
             <img
-              src="../../../images/default_pic.png"
+              src={user.picture ?? "../../../images/default_pic.png"}
               alt=""
               className="create_story_img"
             />
