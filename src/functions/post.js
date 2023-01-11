@@ -102,3 +102,89 @@ export const createComment = async (comment, image, postId, token) => {
 
   return [result, err];
 };
+
+export const softDeletePost = async (postId, token) => {
+  let result, err;
+
+  try {
+    const { data } = await axios.patch(
+      SERVER_URL + "/post",
+      {
+        postId,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    result = data;
+  } catch (error) {
+    err = error?.response?.data?.message;
+  }
+  return [result, err];
+};
+
+export const getSavedPosts = async (token) => {
+  let result, err;
+  try {
+    const res = await axios.get(`${SERVER_URL}/post/save`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (res.status === 200) {
+      result = res?.data;
+    }
+  } catch (error) {
+    err = error?.response?.data?.message;
+  }
+
+  return [result, err];
+};
+export const unSavePost = async (postId, token) => {
+  let result, err;
+  try {
+    const res = await axios.patch(
+      `${SERVER_URL}/post/un-save`,
+      {
+        postId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.status === 200) {
+      result = res?.data;
+    }
+  } catch (error) {
+    err = error?.response?.data?.message;
+  }
+
+  return [result, err];
+};
+export const savePost = async (postId, token) => {
+  let result, err;
+  try {
+    const res = await axios.patch(
+      `${SERVER_URL}/post/save`,
+      {
+        postId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.status === 200) {
+      result = res?.data;
+    }
+  } catch (error) {
+    err = error?.response?.data?.message;
+  }
+
+  return [result, err];
+};

@@ -6,6 +6,11 @@ import PostMenuItem from "./Components/PostMenuItem";
 import useOnClickOutside from "../../../../Hooks/useClickOutside";
 import * as actions from "../../../../redux/actions";
 import { useParams } from "react-router-dom";
+import {
+  savePost,
+  softDeletePost,
+  unSavePost,
+} from "../../../../functions/post";
 
 const PostMenu = ({
   postUserId,
@@ -14,6 +19,7 @@ const PostMenu = ({
   userToken,
   setShowMenu,
   user,
+  savedPosts,
 }) => {
   const dispatch = useDispatch();
   const { username } = useParams();
@@ -26,37 +32,43 @@ const PostMenu = ({
   useOnClickOutside(menu, () => setShowMenu(false));
 
   const handleDeletePost = async (postId) => {
-    try {
-      const serverURL = process.env.REACT_APP_BACKEND_URL;
-      const { data } = await axios.patch(
-        serverURL + "/post",
-        {
-          postId,
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + userToken,
-          },
-        }
-      );
-
+    const [result, err] = await softDeletePost(postId, userToken);
+    if (!err) {
       dispatch(
         isOwnProfile
-          ? actions.PROFILE_POST_SUCCESS(data)
-          : actions.POST_SUCCESS(data)
+          ? actions.PROFILE_POST_SUCCESS(result)
+          : actions.POST_SUCCESS(result)
       );
-      setShowMenu(false);
-    } catch (err) {}
+    }
+    setShowMenu(false);
+  };
+
+  const handleSavePost = async () => {
+    await savePost(postId, userToken);
+  };
+  const handleUnSavePost = async () => {
+    await unSavePost(postId, userToken);
   };
 
   return (
     <ul className="post_menu" ref={menu}>
       {own && <PostMenuItem icon="pin_icon" title="Ghim bài viết" />}
-      <PostMenuItem
-        icon="save_icon"
-        title="Save Post"
-        subtitle="Thêm vào mục lưu trữ."
-      />
+      {savedPosts && savedPosts.map((item) => item.post).includes(postId) ? (
+        <PostMenuItem
+          icon="save_icon"
+          title="Bỏ lưu bài viết"
+          subtitle="Gỡ bài viết khỏi danh sách mục lưu trữ."
+          onClick={handleUnSavePost}
+        />
+      ) : (
+        <PostMenuItem
+          icon="save_icon"
+          title="Lưu bài viết"
+          subtitle="Thêm vào danh sách mục lưu trữ."
+          onClick={handleSavePost}
+        />
+      )}
+
       <div className="line"></div>
       {own && <PostMenuItem icon="edit_icon" title="Chỉnh sửa bài viết" />}
       {!own && (

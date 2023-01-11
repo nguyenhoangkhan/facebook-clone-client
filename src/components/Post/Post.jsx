@@ -8,7 +8,7 @@ import ReactsPopup from "../ReactsPopup";
 import CreateComment from "./Components/CreateComment";
 import PostMenu from "./Components/PostMenu";
 import { useEffect } from "react";
-import { getReacts, reactPost } from "../../functions/post";
+import { getReacts, getSavedPosts, reactPost } from "../../functions/post";
 import Comment from "./Components/Comment/Comment";
 
 const Post = ({ post, user }) => {
@@ -23,6 +23,7 @@ const Post = ({ post, user }) => {
   const [currentReact, setCurrentReact] = useState("");
   const [totalReacts, setTotalReacts] = useState(0);
   const [count, setCount] = useState(1);
+  const [savedPosts, setSavedPosts] = useState([]);
 
   const [comments, setComments] = useState(
     post?.comments ? post?.comments : []
@@ -89,10 +90,19 @@ const Post = ({ post, user }) => {
     setIsLoading(false);
   };
 
+  const handleGetSavedPosts = async () => {
+    const [result, err] = await getSavedPosts(user.token);
+    if (!err) {
+      setSavedPosts(result);
+    }
+  };
+
   useEffect(() => {
     handleGetReacts();
+    handleGetSavedPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post]);
+
   return (
     <div className="post">
       <div className="post_header">
@@ -309,6 +319,7 @@ const Post = ({ post, user }) => {
           postId={post._id}
           imagesLength={post?.images?.length}
           setShowMenu={setShowMenu}
+          savedPosts={savedPosts}
         />
       )}
     </div>
