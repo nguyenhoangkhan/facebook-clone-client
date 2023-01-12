@@ -1,3 +1,10 @@
+.update_img_wrapper {
+  .postBox {
+    height: 94vh;
+    overflow-y: auto;
+  }
+}
+
 .pictureBox {
   width: 700px !important;
   height: 85vh;
@@ -107,7 +114,7 @@
   align-items: center;
   justify-content: center;
   gap: 15px;
-  margin-top: 2rem;
+  margin-top: 4rem;
 }
 .flex_p_t {
   display: flex;
@@ -115,16 +122,17 @@
   gap: 10px;
   padding: 15px;
   color: var(--color-secondary);
-  font-size: 17px;
+  font-size: 1.6rem;
   border-bottom: 1px solid var(--bg-third);
 }
 .update_submit_wrap {
-  position: absolute;
   bottom: 1rem;
   right: 1rem;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 1rem;
+  padding: 1.6rem;
 }
 .blue_link {
   color: var(--blue-color);

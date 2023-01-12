@@ -123,16 +123,19 @@ const UpdateProfilePicture = ({
 
   return (
     <div className="update_img_wrapper">
-      <div className="postBox update_img" ref={mainRef}>
+      <div className="postBox update_img scrollbar" ref={mainRef}>
         <div className="box_header">
-          <div className="small_circle" onClick={() => setImage("")}>
+          <div
+            className="small_circle cursor-pointer"
+            onClick={() => setImage("")}
+          >
             <i className="exit_icon"></i>
           </div>
           <span>Đăng ảnh đại diện</span>
         </div>
         <div className="update_image_desc">
           <textarea
-            placeholder="Description"
+            placeholder="Mô tả"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="textarea_blue details_input"
