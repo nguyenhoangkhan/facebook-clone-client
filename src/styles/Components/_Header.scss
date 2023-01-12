@@ -9,7 +9,7 @@ header {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   color: var(--color-primary);
-  z-index: 99999;
+  z-index: 9999;
 }
 .search-wrapper {
   display: flex;
