@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import axios from "axios";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import PostMenuItem from "./Components/PostMenuItem";
@@ -20,6 +19,7 @@ const PostMenu = ({
   setShowMenu,
   user,
   savedPosts,
+  handleGetSavedPosts,
 }) => {
   const dispatch = useDispatch();
   const { username } = useParams();
@@ -30,6 +30,8 @@ const PostMenu = ({
 
   const menu = useRef(null);
   useOnClickOutside(menu, () => setShowMenu(false));
+
+  const [loadingSave, setLoadingSave] = useState(false);
 
   const handleDeletePost = async (postId) => {
     const [result, err] = await softDeletePost(postId, userToken);
@@ -44,10 +46,16 @@ const PostMenu = ({
   };
 
   const handleSavePost = async () => {
+    setLoadingSave(true);
     await savePost(postId, userToken);
+    handleGetSavedPosts();
+    setLoadingSave(false);
   };
   const handleUnSavePost = async () => {
+    setLoadingSave(true);
     await unSavePost(postId, userToken);
+    handleGetSavedPosts();
+    setLoadingSave(false);
   };
 
   return (
@@ -59,6 +67,7 @@ const PostMenu = ({
           title="Bỏ lưu bài viết"
           subtitle="Gỡ bài viết khỏi danh sách mục lưu trữ."
           onClick={handleUnSavePost}
+          loading={loadingSave}
         />
       ) : (
         <PostMenuItem
@@ -66,6 +75,7 @@ const PostMenu = ({
           title="Lưu bài viết"
           subtitle="Thêm vào danh sách mục lưu trữ."
           onClick={handleSavePost}
+          loading={loadingSave}
         />
       )}
 

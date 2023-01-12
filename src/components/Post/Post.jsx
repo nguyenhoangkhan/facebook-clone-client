@@ -320,6 +320,7 @@ const Post = ({ post, user }) => {
           imagesLength={post?.images?.length}
           setShowMenu={setShowMenu}
           savedPosts={savedPosts}
+          handleGetSavedPosts={handleGetSavedPosts}
         />
       )}
     </div>
